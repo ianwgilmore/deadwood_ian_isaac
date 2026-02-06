@@ -15,6 +15,11 @@ Last Change mm/dd/yy, first
 */
 
 public class ActingSet{
+    Scene scene;
+    Role[] extraroles;
+    Player[] extras;
+    int shotTokens;
+
     public int getBudget() {
         return 0;
     }

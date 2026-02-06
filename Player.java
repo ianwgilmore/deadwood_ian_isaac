@@ -105,19 +105,19 @@ public class Player{
         int[] payout;
         
         if (this.checker.checkAct(this.location)) {
-            if (this.die.roll() + this.practice_tok >= this.location.scene.getBudget()) {
+            if (this.die.roll() + this.practice_tok >= this.location.actingSet.scene.getBudget()) {
                 if (this.role.isStar()) { // Debating whether .isStar() or .getStar() is better
-                    payout = this.location.getStarWin();
+                    payout = this.location.actingSet.getStarWin();
                 } else {
-                    payout = this.location.getExtraWin();
+                    payout = this.location.actingSet.getExtraWin();
                 }
 
-                this.location.removeShotToken();
+                this.location.actingSet.removeShotToken();
             } else {
                 if (this.role.isStar()) {
-                    payout = this.location.getStarLose();
+                    payout = this.location.actingSet.getStarLose();
                 } else {
-                    payout = this.location.getExtraLose();
+                    payout = this.location.actingSet.getExtraLose();
                 }
             }
 

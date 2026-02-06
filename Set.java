@@ -5,6 +5,7 @@ Attributes
 -neighbors[]
 for checking rank up generally false
 -bool castingOffice
+-actingset associated, null for casting office and trailer
 
 Methods
 -getters and setters
@@ -19,10 +20,12 @@ public class Set{
     String name;
     Set[] neighbors;
     Boolean castingOffice;
+    ActingSet actingSet;
 
-    public Set(String name, Set[] neighbors){
+    public Set(String name, Set[] neighbors, ActingSet actingSet){
         this.name = name;
         this.neighbors = neighbors;
+        this.actingSet = actingSet;
         if (name == "Casting Office"){
             this.castingOffice = true;
         }
