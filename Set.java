@@ -20,23 +20,34 @@ public class Set{
     Set[] neighbors;
     Boolean castingOffice;
 
+    public Set(String name, Set[] neighbors){
+        this.name = name;
+        this.neighbors = neighbors
+        if (name == "Casting Office"){
+            this.castingOffice = true;
+        }
+        else{
+            this.castingOffice = false;
+        }
+    }
+
     Public String getName(){
-        return self.name;
+        return this.name;
     }
     Public void setName(newname){
-        self.name = newname;
+        this.name = newname;
     }
     Public String getNeighbors(){
-        return self.neighbors;
+        return this.neighbors;
     }
     Public void addNeighbors(neighbors){
-        self.neighbors = neighbors;
+        this.neighbors = neighbors;
     }
     Public String getcastingOffice(){
-        return self.castingOffice;
+        return this.castingOffice;
     }
     Public void getcastingOffice(castingOffice){
-        self.castingOffice = castingOffice;
+        this.castingOffice = castingOffice;
     }
 
 
