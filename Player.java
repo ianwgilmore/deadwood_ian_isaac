@@ -104,7 +104,7 @@ public class Player{
     public void act() {
         int[] payout;
         
-        if (this.checker.checkAct(this.scene)) {
+        if (this.checker.checkAct(this.location)) {
             if (this.die.roll() + this.practice_tok >= this.location.scene.getBudget()) {
                 if (this.role.isStar()) { // Debating whether .isStar() or .getStar() is better
                     payout = this.location.getStarWin();

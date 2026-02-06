@@ -16,6 +16,7 @@ Last Change mm/dd/yy, first
 */
 
 public class Role{
-
-
+    public boolean isStar() {
+        return true;
+    }
 }
