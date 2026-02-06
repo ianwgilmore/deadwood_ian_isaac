@@ -16,8 +16,8 @@ Methods
 -takeRole()
 -rankUp()
 
-Implemented by - 
-Last Change mm/dd/yy, first
+Implemented by - Isaac Raven
+Last Change 02/05/26, Isaac
 */
 
 public class Player{
