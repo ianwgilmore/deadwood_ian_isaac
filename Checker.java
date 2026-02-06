@@ -12,7 +12,7 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-Public Class Checker{
+public class Checker{
 
 
 }

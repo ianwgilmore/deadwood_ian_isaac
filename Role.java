@@ -15,7 +15,7 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-Public Class Scene{
+public class Role{
 
 
 }

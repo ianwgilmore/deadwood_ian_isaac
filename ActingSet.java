@@ -14,7 +14,7 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-Public Class ActingSet{
+public class ActingSet{
 
 
 }

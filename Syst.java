@@ -23,7 +23,7 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-Public Class Syst{
+public class Syst{
     
 
 }

@@ -20,7 +20,7 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-Public Class Player{
+public class Player{
 
 
 }
