@@ -22,7 +22,7 @@ public class Set{
 
     public Set(String name, Set[] neighbors){
         this.name = name;
-        this.neighbors = neighbors
+        this.neighbors = neighbors;
         if (name == "Casting Office"){
             this.castingOffice = true;
         }
@@ -31,22 +31,22 @@ public class Set{
         }
     }
 
-    Public String getName(){
+    public String getName(){
         return this.name;
     }
-    Public void setName(newname){
-        this.name = newname;
+    public void setName(String name){
+        this.name = name;
     }
-    Public String getNeighbors(){
+    public Set[] getNeighbors(){
         return this.neighbors;
     }
-    Public void addNeighbors(neighbors){
+    public void addNeighbors(Set[] neighbors){
         this.neighbors = neighbors;
     }
-    Public String getcastingOffice(){
+    public boolean getcastingOffice(){
         return this.castingOffice;
     }
-    Public void getcastingOffice(castingOffice){
+    public void getcastingOffice(boolean castingOffice){
         this.castingOffice = castingOffice;
     }
 
