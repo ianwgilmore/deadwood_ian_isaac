@@ -12,6 +12,7 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
+//interface?
 public class Checker{
     public boolean checkRole() {
         return true;

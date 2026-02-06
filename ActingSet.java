@@ -25,6 +25,7 @@ public class ActingSet{
     }
 
     public void removeShotToken() {}
+    public void getShotToken(){}
 
     public int[] getStarWin() {
         int[] i = {0, 0};
@@ -45,4 +46,8 @@ public class ActingSet{
         int[] i = {0, 0};
         return i;
     }
+
+    public void getExtraRoles(){}
+    public void getExtras(){}
+    public void wrap(){}
 }

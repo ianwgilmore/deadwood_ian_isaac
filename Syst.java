@@ -24,6 +24,25 @@ Last Change mm/dd/yy, first
 */
 
 public class Syst{
-    
+    boolean wrapped;
+    int turnIndex;
+    Player[] turnOrder;
+    Scene[] scenes;
+    int days;
+    Set[] sets;
+    Set trailer;
+
+    public void getWrapped(){}
+    public void setWrapped(){}
+    public void getTurnIndex(){}
+    public void getDays(){}
+    public void buildScenes(){}
+
+    public void buildSets(){}
+    public void buildPlayers(){}
+    public void assignScenes(){}
+    public void setDay(){}
+    public void endDay(){}
+    public void calcScore(){}
 
 }
