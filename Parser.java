@@ -12,7 +12,27 @@ import java.io.File;
 
 public class Parser {
     // Guessing what functions will be needed
-    public static void main() {}
-    public static void importDoc() {}
-    public static void printDoc() {} // For checking the doc object is imported properly
+    public static void main(String[] args) {
+        Document doc = getDocFromFile("cards.xml");
+        printDoc(doc);
+    }
+    
+    // Again from slides link above
+    public static Document getDocFromFile(String filename) {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db;
+        Document doc = null;
+
+        try{
+            db = dbf.newDocumentBuilder();
+            doc = db.parse(filename);
+        } catch (Exception ex){
+            System.out.println("XML parse failure");
+            ex.printStackTrace();
+        }
+        
+        return doc;
+    } // exception handling
+    
+    public static void printDoc(Document doc) {}
 }
