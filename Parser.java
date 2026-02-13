@@ -34,5 +34,16 @@ public class Parser {
         return doc;
     } // exception handling
     
-    public static void printDoc(Document doc) {}
+    public static void printCardsDoc(Document doc) {
+        Element root = doc.getDocumentElement();
+        NodeList cards = root.getElementsByTagName("card");
+
+        System.out.println("-LIST OF CARD NAMES-");
+
+        for (int i = 0; i < cards.getLength(); i++) {
+            Node card = cards.item(i);
+            String name = card.getAttributes().getNamedItem("name").getNodeValue();
+            System.out.println(name);
+        }
+    }
 }
