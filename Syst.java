@@ -32,7 +32,7 @@ public class Syst{
     Scene[] scenes;
     int days;
     Set[] sets;
-    Hashmap <Set, ActingSet> actingsets;
+    //Hashmap <Set, ActingSet> actingsets;
     Set trailer;
     int scenecount;
 

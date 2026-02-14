@@ -68,7 +68,7 @@ public class ActingSet extends Set{
     public ArrayList<Role> getExtraRoles(){
         return this.extraroles;
     }
-     public Player[] getExtras(Player newExtra){
+     public void addExtras(Player newExtra){
         this.extras.add(newExtra);
     }
     public ArrayList<Player> getExtras(){
@@ -77,7 +77,7 @@ public class ActingSet extends Set{
 
     public void wrap(){
         Die die = new Die();
-        ArrayList<Integer> payments;
+        ArrayList<Integer> payments = new ArrayList<Integer>();
         for (int i=0; i<this.budget; i++){
             int num = die.roll();
             payments.add(num);
@@ -87,7 +87,7 @@ public class ActingSet extends Set{
         starWrap(payments);
 
         //remove scene, increment scene count
-        removeSceneCount();
+        //removeSceneCount();
         this.scene = null;
     }
 
