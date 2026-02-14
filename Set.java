@@ -15,13 +15,14 @@ Implemented by - Ian Gilmore
 Last Change 02/05/26, Ian
 -adding getters setters
 */
+import java.util.ArrayList;
 
 public class Set{
     String name;
-    Set[] neighbors;
+    ArrayList<Set> neighbors;
     Boolean castingOffice;
 
-    public Set(String name, Set[] neighbors){
+    public Set(String name, ArrayList<Set> neighbors){
         this.name = name;
         this.neighbors = neighbors;
         if (name == "Casting Office"){
@@ -38,11 +39,11 @@ public class Set{
     public void setName(String name){
         this.name = name;
     }
-    public Set[] getNeighbors(){
+    public ArrayList<Set> getNeighbors(){
         return this.neighbors;
     }
-    public void addNeighbors(Set[] neighbors){
-        this.neighbors = neighbors;
+    public void addNeighbors(Set neighbor){
+        this.neighbors.add(neighbor);
     }
     public boolean getcastingOffice(){
         return this.castingOffice;

@@ -50,7 +50,7 @@ public class Syst{
     public void endDay(){}
     public void calcScore(){}
     public ActingSet getActingSet(Set set){
-        ActingSet placeholder = new ActingSet("placeholder",1,1);
+        ActingSet placeholder = new ActingSet("placeholder", null, 1, 1);
         return placeholder;
     }
 

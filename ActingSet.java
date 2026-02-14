@@ -15,7 +15,6 @@ Last Change mm/dd/yy, first
 */
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ActingSet extends Set{
     Scene scene;
@@ -24,8 +23,8 @@ public class ActingSet extends Set{
     int shotTokens;
     int budget;
 
-    public ActingSet(String name, int budget, int shotTokens) {
-        super(name, null);
+    public ActingSet(String name, ArrayList<Set> neighbors, int budget, int shotTokens) {
+        super(name, neighbors);
         this.budget = budget;
         this.shotTokens = shotTokens;
     }
