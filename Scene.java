@@ -8,20 +8,37 @@ Methods
 -getters and setters
 -
 
-Implemented by - 
-Last Change mm/dd/yy, first
+Implemented by - Isaac Raven
+Last Change 02/13/26, Isaac
 */
+
+import java.util.List;
 
 public class Scene{
     int budget;
-    Role[] starRoles;
-    Player[] stars;
+    List<Role> starRoles;
+    List<Player> stars;
 
-    public void getStars(){}
-    public void addStars(){}
-    public void addRoles(){}
-    public void getRoles(){}
-    public void setBudget(){}
+    public List<Player> getStars(){
+        return this.stars;
+    }
+
+    public void addStar(Player star){
+        this.stars.add(star);
+    }
+
+    public void addRole(Role role){
+        this.starRoles.add(role);
+    }
+
+    public List<Role> getRoles(){
+        return this.starRoles;
+    }
+
+    public void setBudget(int budget){
+        this.budget = budget;
+    }
+
     public int getBudget(){
         return this.budget;
     }
