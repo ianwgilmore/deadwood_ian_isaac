@@ -20,12 +20,10 @@ public class Set{
     String name;
     Set[] neighbors;
     Boolean castingOffice;
-    ActingSet actingSet;
 
     public Set(String name, Set[] neighbors, ActingSet actingSet){
         this.name = name;
         this.neighbors = neighbors;
-        this.actingSet = actingSet;
         if (name == "Casting Office"){
             this.castingOffice = true;
         }

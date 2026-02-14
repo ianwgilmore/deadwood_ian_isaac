@@ -73,8 +73,8 @@ public class Player{
         this.rank = rank;
     }
 
-    public void setDollars(int dollars) {
-        this.dollars = dollars;
+    public void addDollars(int dollars) {
+        this.dollars = this.dollars+dollars;
     }
 
     public void setCredits(int credits) {
@@ -103,21 +103,22 @@ public class Player{
 
     public void act() {
         int[] payout;
+        ActingSet actset = System.getActingSet(this.location);
         
         if (this.checker.checkAct(this.location)) {
-            if (this.die.roll() + this.practice_tok >= this.location.actingSet.scene.getBudget()) {
+            if (this.die.roll() + this.practice_tok >= actset.scene.getBudget()) {
                 if (this.role.isStar()) { // Debating whether .isStar() or .getStar() is better
-                    payout = this.location.actingSet.getStarWin();
+                    payout = actset.getStarWin();
                 } else {
-                    payout = this.location.actingSet.getExtraWin();
+                    payout = actset.getExtraWin();
                 }
 
-                this.location.actingSet.removeShotToken();
+                actset.removeShotToken();
             } else {
                 if (this.role.isStar()) {
-                    payout = this.location.actingSet.getStarLose();
+                    payout = actset.getStarLose();
                 } else {
-                    payout = this.location.actingSet.getExtraLose();
+                    payout = actset.getExtraLose();
                 }
             }
 

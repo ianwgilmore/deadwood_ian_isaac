@@ -14,26 +14,41 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-public class ActingSet{
-    Scene scene;
-    Role[] extraroles;
-    Player[] extras;
-    int shotTokens;
+import java.util.ArrayList;
+import java.util.List;
 
-    public int getBudget() {
-        return 0;
+public class ActingSet extends Set{
+    Scene scene;
+    ArrayList<Role> extraroles;
+    ArrayList<Player> extras;
+    int shotTokens;
+    int budget;
+
+    public ActingSet(int budget, int shotTokens) {
+        this.budget = budget;
+        this.shotTokens = shotTokens;
     }
 
-    public void removeShotToken() {}
-    public void getShotToken(){}
+    public int getBudget() {
+        return this.budget;
+    }
 
+    public void removeShotToken() {
+        this.shotTokens--;
+    }
+    public int getShotToken(){
+        return this.shotTokens;
+    }
+
+
+    //payout =[dol, credit]
     public int[] getStarWin() {
-        int[] i = {0, 0};
+        int[] i = {0, 2};
         return i;
     }
 
     public int[] getExtraWin() {
-        int[] i = {0, 0};
+        int[] i = {1, 1};
         return i;
     }
 
@@ -43,11 +58,58 @@ public class ActingSet{
     }
 
     public int[] getExtraLose() {
-        int[] i = {0, 0};
+        int[] i = {1, 0};
         return i;
     }
 
-    public void getExtraRoles(){}
-    public void getExtras(){}
-    public void wrap(){}
+    public void addExtraRoles(Role newExtraRole){
+        this.extraroles.add(newExtraRole);
+    }
+    public ArrayList<Role> getExtraRoles(){
+        return this.extraroles;
+    }
+     public Player[] getExtras(Player newExtra){
+        this.extras.add(newExtra);
+    }
+    public ArrayList<Player> getExtras(){
+        return this.extras;
+    }
+
+    public void wrap(){
+        Die die = new Die();
+        ArrayList<int> payments;
+        for (int i=0; i<this.budget; i++){
+            int num = die.roll();
+            payments.add(num);
+        }
+        extraWrap();
+
+        starWrap(payments);
+
+        //remove scene, increment scene count
+        removeSceneCount();
+        this.scene = null;
+    }
+
+    //helper for wrap
+    private void extraWrap(){
+        for (int i=0; i<this.extras.size();i++){
+            Player player = this.extras.get(i);
+            player.addDollars(player.role.rank);
+        }
+    }
+
+    //loops through the payments
+    //if overshoots the stars, then will loop back over them
+    private void starWrap(ArrayList<int> payments){
+        int index = 0;
+        for (int i=0; i<payments.size(); i++){
+            if (index < this.extras.size()){
+                extras.get(index).addDollars(payments.get(i));
+            }
+            else{
+                index = 0;
+            }
+        }
+    }
 }

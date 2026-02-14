@@ -23,6 +23,8 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
+import java.util.HashMap;
+
 public class Syst{
     boolean wrapped;
     int turnIndex;
@@ -30,19 +32,26 @@ public class Syst{
     Scene[] scenes;
     int days;
     Set[] sets;
+    Hashmap <Set, ActingSet> actingsets;
     Set trailer;
+    int scenecount;
 
     public void getWrapped(){}
     public void setWrapped(){}
     public void getTurnIndex(){}
     public void getDays(){}
     public void buildScenes(){}
-
+    public void setSceneCount(){}
+    public void removeSceneCount(){}
     public void buildSets(){}
     public void buildPlayers(){}
     public void assignScenes(){}
     public void setDay(){}
     public void endDay(){}
     public void calcScore(){}
+    public ActingSet getActingSet(Set set){
+        ActingSet placeholder = new ActingSet(0,1);
+        return placeholder;
+    }
 
 }
