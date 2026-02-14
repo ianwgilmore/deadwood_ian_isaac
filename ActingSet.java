@@ -24,7 +24,8 @@ public class ActingSet extends Set{
     int shotTokens;
     int budget;
 
-    public ActingSet(int budget, int shotTokens) {
+    public ActingSet(String name, int budget, int shotTokens) {
+        super(name, null);
         this.budget = budget;
         this.shotTokens = shotTokens;
     }
@@ -77,7 +78,7 @@ public class ActingSet extends Set{
 
     public void wrap(){
         Die die = new Die();
-        ArrayList<int> payments;
+        ArrayList<Integer> payments;
         for (int i=0; i<this.budget; i++){
             int num = die.roll();
             payments.add(num);
@@ -101,7 +102,7 @@ public class ActingSet extends Set{
 
     //loops through the payments
     //if overshoots the stars, then will loop back over them
-    private void starWrap(ArrayList<int> payments){
+    private void starWrap(ArrayList<Integer> payments){
         int index = 0;
         for (int i=0; i<payments.size(); i++){
             if (index < this.extras.size()){

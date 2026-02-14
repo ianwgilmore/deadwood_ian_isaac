@@ -21,7 +21,7 @@ public class Set{
     Set[] neighbors;
     Boolean castingOffice;
 
-    public Set(String name, Set[] neighbors, ActingSet actingSet){
+    public Set(String name, Set[] neighbors){
         this.name = name;
         this.neighbors = neighbors;
         if (name == "Casting Office"){
