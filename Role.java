@@ -11,25 +11,37 @@ Methods
 -getters and setters
 -payout()
 
-Implemented by - 
-Last Change mm/dd/yy, first
+Implemented by - Isaac Raven
+Last Change 02/14/26, Isaac
 */
 
 public class Role{
     String title;
     int rank;
     boolean star;
-    int success;//might need to think about how this is represented
-    int failure;
+    int[] success; // Idea: int[dollars, credits]
+    int[] failure;
 
     public Role(boolean star){
         this.star = star;
     }
-    //everything void to compile for now implementing later
-    public void getTitle(){}
-    public void getRank(){}
-    public void getSuccess(){}
-    public void getFailure(){}
+
+    public String getTitle(){
+        return this.title;
+    }
+
+    public int getRank(){
+        return this.rank;
+    }
+
+    public int[] getSuccess(){
+        return this.success;
+    }
+
+    public int[] getFailure(){
+        return this.failure;
+    }
+
     public boolean isStar() {
         return this.star;
     }

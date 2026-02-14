@@ -14,7 +14,7 @@ public class Parser {
     // Guessing what functions will be needed
     public static void main(String[] args) {
         Document doc = getDocFromFile("cards.xml");
-        printDoc(doc);
+        printCardsDoc(doc);
     }
     
     // Again from slides link above
