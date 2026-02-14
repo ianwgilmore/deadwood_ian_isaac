@@ -107,7 +107,7 @@ public class ActingSet extends Set{
         List<Player> stars = this.scene.getStars();
         for (int i=0; i<payments.size(); i++){
             if (index < stars.size()){
-                extras.get(index).addDollars(payments.get(i));
+                stars.get(index).addDollars(payments.get(i));
             }
             else{
                 index = 0;
