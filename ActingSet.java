@@ -15,6 +15,7 @@ Last Change mm/dd/yy, first
 */
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActingSet extends Set{
     Scene scene;
@@ -103,8 +104,9 @@ public class ActingSet extends Set{
     //if overshoots the stars, then will loop back over them
     private void starWrap(ArrayList<Integer> payments){
         int index = 0;
+        List<Player> stars = this.scene.getStars();
         for (int i=0; i<payments.size(); i++){
-            if (index < this.extras.size()){
+            if (index < stars.size()){
                 extras.get(index).addDollars(payments.get(i));
             }
             else{
