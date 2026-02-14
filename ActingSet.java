@@ -76,7 +76,7 @@ public class ActingSet extends Set{
         return this.extras;
     }
 
-    public void wrap(){
+    public void wrap(Syst system){
         Die die = new Die();
         ArrayList<Integer> payments = new ArrayList<Integer>();
         for (int i=0; i<this.budget; i++){
@@ -88,7 +88,7 @@ public class ActingSet extends Set{
         starWrap(payments);
 
         //remove scene, increment scene count
-        //removeSceneCount();
+        system.removeSceneCount();
         this.scene = null;
     }
 

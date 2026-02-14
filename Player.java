@@ -29,7 +29,6 @@ public class Player{
     Role role;
     Checker checker;
     Die die;
-    Syst system;
     
     public Player(Set location, Checker checker) {
         this.rank = 0;
@@ -40,7 +39,6 @@ public class Player{
         this.role = null;
         this.checker = checker;
         this.die = new Die(); // Unsure if we're creating a die class or not
-        this.system = new Syst();
     }
 
     // getters
@@ -103,7 +101,7 @@ public class Player{
         }
     }
 
-    public void act() {
+    public void act(Syst system) {
         int[] payout;
         ActingSet actset = system.getActingSet(this.location);
         
