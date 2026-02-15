@@ -107,19 +107,11 @@ public class Player{
         
         if (this.checker.checkAct(this.location)) {
             if (this.die.roll() + this.practice_tok >= actset.scene.getBudget()) {
-                if (this.role.isStar()) { // Debating whether .isStar() or .getStar() is better
-                    payout = actset.getStarWin();
-                } else {
-                    payout = actset.getExtraWin();
-                }
+                payout = this.role.getSuccess();
 
                 actset.removeShotToken();
             } else {
-                if (this.role.isStar()) {
-                    payout = actset.getStarLose();
-                } else {
-                    payout = actset.getExtraLose();
-                }
+                payout = this.role.getFailure();
             }
 
             int dollars = payout[0];

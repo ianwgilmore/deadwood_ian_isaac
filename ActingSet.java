@@ -41,28 +41,6 @@ public class ActingSet extends Set{
         return this.shotTokens;
     }
 
-
-    //payout =[dol, credit]
-    public int[] getStarWin() {
-        int[] i = {0, 2};
-        return i;
-    }
-
-    public int[] getExtraWin() {
-        int[] i = {1, 1};
-        return i;
-    }
-
-    public int[] getStarLose() {
-        int[] i = {0, 0};
-        return i;
-    }
-
-    public int[] getExtraLose() {
-        int[] i = {1, 0};
-        return i;
-    }
-
     public void addExtraRoles(Role newExtraRole){
         this.extraroles.add(newExtraRole);
     }

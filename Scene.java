@@ -19,6 +19,11 @@ public class Scene{
     List<Role> starRoles;
     List<Player> stars;
 
+    public Scene(int budget, List<Role> starRoles) {
+        this.budget = budget;
+        this.starRoles = starRoles;
+    }
+
     public List<Player> getStars(){
         return this.stars;
     }
