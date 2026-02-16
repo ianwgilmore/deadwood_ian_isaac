@@ -10,10 +10,11 @@ Implemented by -
 Last Change mm/dd/yy, first
 */
 
-//interface?
-//deciding if we need a dice class
+
+import java.util.Random;
 public class Die {
     public int roll() {
-        return 3;
+        Random roll = new Random();
+        return roll.nextInt(7);
     }
 }
