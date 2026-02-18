@@ -139,4 +139,8 @@ public class Player{
             this.rank += 1;
         }
     }
+
+    public void takeTurn(){
+        
+    }
 }
