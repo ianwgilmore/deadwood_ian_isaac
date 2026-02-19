@@ -22,9 +22,9 @@ public class Set{
     ArrayList<Set> neighbors;
     Boolean castingOffice;
 
-    public Set(String name, ArrayList<Set> neighbors){
+    public Set(String name){
         this.name = name;
-        this.neighbors = neighbors;
+        this.neighbors = new ArrayList<Set>();
         if (name == "Casting Office"){
             this.castingOffice = true;
         }

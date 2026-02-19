@@ -24,8 +24,8 @@ public class ActingSet extends Set{
     int shotTokens;
     int budget;
 
-    public ActingSet(String name, ArrayList<Set> neighbors, int budget, int shotTokens) {
-        super(name, neighbors);
+    public ActingSet(String name, int budget, int shotTokens) {
+        super(name);
         this.budget = budget;
         this.shotTokens = shotTokens;
     }

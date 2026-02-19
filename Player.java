@@ -141,6 +141,6 @@ public class Player{
     }
 
     public void takeTurn(){
-        
+        //call controller to prompt the view
     }
 }
