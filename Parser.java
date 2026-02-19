@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.util.*;
 
 public class Parser {
     // Guessing what functions will be needed
@@ -42,8 +43,49 @@ public class Parser {
 
         for (int i = 0; i < cards.getLength(); i++) {
             Node card = cards.item(i);
-            String name = card.getAttributes().getNamedItem("name").getNodeValue();
-            System.out.println(name);
+            String card_name = card.getAttributes().getNamedItem("name").getNodeValue();
+            System.out.println("    " + card_name);
+            NodeList children = card.getChildNodes();
+
+            for (int j = 0; j < children.getLength(); j++) {
+                Node sub = children.item(j);
+                if (sub.getNodeName() == "part") {
+                    String part_name = sub.getAttributes().getNamedItem("name").getNodeValue();
+                    System.out.println("        Part: " + part_name);
+                }
+            }
         }
+    }
+
+    public static List<Scene> getCardsFromDoc(Document doc) {
+        Element root = doc.getDocumentElement();
+        NodeList cards = root.getElementsByTagName("card");
+        
+        List<Scene> cards_list = new ArrayList<Scene>();
+
+        for (int i = 0; i < cards.getLength(); i++) { // for card
+            Node card = cards.item(i);
+            String card_name = card.getAttributes().getNamedItem("name").getNodeValue();
+            System.out.println("    " + card_name);
+            NodeList children = card.getChildNodes();
+
+            int budget = Integer.valueOf(card.getAttributes().getNamedItem("budget").getNodeValue());
+            ArrayList<Role> star_roles = new ArrayList<Role>();
+
+            for (int j = 0; j < children.getLength(); j++) { // for role
+                Node sub = children.item(j);
+
+                if (sub.getNodeName() == "part") {
+                    int rank = Integer.valueOf(sub.getAttributes().getNamedItem("level").getNodeValue());
+                    star_roles.add(new Role(rank, true));
+                }
+
+                NodeList sub_children = sub.getChildNodes();
+            }
+
+            cards_list.add(new Scene(budget, star_roles));
+        }
+
+        return cards_list;
     }
 }
