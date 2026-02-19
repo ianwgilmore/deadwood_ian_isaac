@@ -13,9 +13,32 @@ public class Board{
         this.parser = new Parser();
     }
 
-    public int getMaxDay(int player_num){
-        ///IMPLEMENT !!!!!!!!!!!!!!
-        return 3;
+    public int playerDependentSetup(int player_num, Player[] players){
+        int cred = 0;
+        int dol = 0;
+        int rank = 1;
+        int max_days = 4;
+        //all player number related game states
+        if(player_num>1 && player_num<=3){
+            max_days = 3;
+        }
+        else if (player_num==5){
+            credits = 2;
+        }
+        else if (player_num==6){
+            credits = 4;
+        }
+        else if (player_num>=7 && player_num<=8){
+            rank = 2;
+        }
+        //set all player stats to proper vals
+        for (int i=0; i<players.length; i++){
+            players[i].addDollars(dol);
+            players[i].setRank(rank);
+            players[i].addCredits(credits);
+        }
+        return max_days;
+
     }
 
     public Player[] setup(int player_num, Checker checker){

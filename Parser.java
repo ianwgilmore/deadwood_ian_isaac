@@ -1,5 +1,3 @@
-//going to need to parse xml in a way, unsure of what that is going to look like as of now
-
 // Gotten from slides at https://wwu.instructure.com/courses/1854078/files/folder/Reading%20Material/Other%20Topics?preview=145300650
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;

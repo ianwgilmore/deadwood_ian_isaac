@@ -14,7 +14,7 @@ public class Game{
         Checker checker = new Checker();
         //setup game in board class
         players = board.setup(player_num, checker);
-        max_day = board.getMaxDay(player_num);
+        max_day = board.playerDependentSetup(player_num);
 
         int index = 0;
         current_day = 0;
