@@ -21,6 +21,7 @@ Last Change 02/05/26, Isaac
 */
 
 public class Player{
+    String name;
     int rank;
     int dollars;
     int credits;
@@ -30,7 +31,8 @@ public class Player{
     Checker checker;
     Die die;
     
-    public Player(Set location, Checker checker) {
+    public Player(String name, Set location, Checker checker) {
+        this.name = name;
         this.rank = 0;
         this.dollars = 0;
         this.credits = 0;

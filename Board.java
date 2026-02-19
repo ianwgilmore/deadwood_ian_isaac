@@ -5,17 +5,30 @@ import java.util.ArrayList;
 public class Board{
     ArrayList<Scene> scenes;
     ArrayList<Set>  sets;
-    Hashmap <Set, ActingSet> actingsets;
+    HashMap <Set, ActingSet> actingsets;
     Set trailer;
+    Parser parser;
 
-    public void buildScenes(ArrayList <Parser> scenedata){
+    public Board() {
+        this.parser = new Parser();
+    }
+
+    public int getMaxDay(int player_num){
+        ///IMPLEMENT !!!!!!!!!!!!!!
+        return 3;
+    }
+
+    public Player[] setup(int player_num, Checker checker){
+        //need to set max day, initialize players with correct stats!!!!!!!!!
+        buildScenes();
+        buildSets();
+        buildActingSets();
+        Player[] players = buildPlayers(player_num, checker);
+        return players;
+    }
+
+    private void buildScenes(){
         //import data from xml
-        //logic needs to be updated once xml is finished!!!!!!!!!!!!!
-        for(int i=0; i<30; i++){
-            Parser data = scenedata.get(i);
-            //Scene nextScene = new Scene(data)
-            //Scenes.add()
-        }
     }
     //get random scene
     public Scene getScene(){
@@ -26,20 +39,22 @@ public class Board{
         return getscene;
     }
 
-    public void buildSets(){
+    private void buildSets(){
         //needs to take parsed data as well
-        return;
     }
 
-    public void buildActingSets(){
+    private void buildActingSets(){
         //needs also takes parsed data, need to differentiate the ones that are actingsets
-        return;
     }
 
 
-    public void assignScenes(){
-        //iterate through hashmap of actingsets to assigne scenes randomly
-        return;
+    private void assignScenes(){
+        //iterate through hashmap of actingsets to assign scenes randomly
+        actingsets.forEach( (s,a) ->
+            {
+                a.setScene(getScene());
+            });
+            
     }
 
 
@@ -49,9 +64,20 @@ public class Board{
         return placeholder;
     }
 
-    public void resetBoard(){
+    public void setBoard(){
         //needs to clear scenes, add new scenes, change player location to trailer, reset shot tokens, etc.
-        return;
+        assignScenes();
+    }
+
+    public Player[] buildPlayers(int n, Checker checker){
+        Player[] players = new Player[n];
+        String name;
+        for (int i=0; i<=n; i++){
+            name = "player"+i;
+            Player player = new Player(name, null,checker);
+            players[i] = player;
+        }
+        return players;
     }
 
 }

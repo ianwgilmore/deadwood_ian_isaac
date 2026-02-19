@@ -6,7 +6,7 @@ public class test{
 
         Set testset1 = new Set("testset1");
         Set testset2 = new Set("testset2");
-        Player testplayer = new Player(testset1, checker);
+        Player testplayer = new Player("testplayer", testset1, checker);
         testplayer.addDollars(2);
         testset1.addNeighbors(testset2);
 

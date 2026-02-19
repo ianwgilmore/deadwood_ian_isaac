@@ -30,6 +30,10 @@ public class ActingSet extends Set{
         this.shotTokens = shotTokens;
     }
 
+    public void setScene(Scene scene){
+        this.scene = scene;
+    }
+
     public int getBudget() {
         return this.budget;
     }
