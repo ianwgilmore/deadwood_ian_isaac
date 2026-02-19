@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Board{
     ArrayList<Scene> scenes;
     ArrayList<Set>  sets;
-    ArrayList<Player> players;
     Hashmap <Set, ActingSet> actingsets;
     Set trailer;
 
@@ -37,12 +36,6 @@ public class Board{
         return;
     }
 
-    public void buildPlayers(int n){
-        for (int i=0; i<=n; i++){
-            Player player = new Player("player" + i)
-            players.add(player)
-        }
-    }
 
     public void assignScenes(){
         //iterate through hashmap of actingsets to assigne scenes randomly
@@ -54,6 +47,11 @@ public class Board{
         //index into hashmap
         ActingSet placeholder = new ActingSet("placeholder", 1, 1);
         return placeholder;
+    }
+
+    public void resetBoard(){
+        //needs to clear scenes, add new scenes, change player location to trailer, reset shot tokens, etc.
+        return;
     }
 
 }
