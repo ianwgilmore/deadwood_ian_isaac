@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Board{
     ArrayList<Scene> scenes;
     ArrayList<Set>  sets;
-    //Hashmap <Set, ActingSet> actingsets;
+    ArrayList<Player> players;
+    Hashmap <Set, ActingSet> actingsets;
     Set trailer;
 
     public void buildScenes(ArrayList <Parser> scenedata){
@@ -25,14 +26,32 @@ public class Board{
         scenes.remove(index);
         return getscene;
     }
-    public void removeSceneCount(){}
-    public void buildSets(){}
-    public void buildPlayers(){}
-    public void assignScenes(){}
-    public void setDay(){}
-    public void endDay(){}
-    public void calcScore(){}
+
+    public void buildSets(){
+        //needs to take parsed data as well
+        return;
+    }
+
+    public void buildActingSets(){
+        //needs also takes parsed data, need to differentiate the ones that are actingsets
+        return;
+    }
+
+    public void buildPlayers(int n){
+        for (int i=0; i<=n; i++){
+            Player player = new Player("player" + i)
+            players.add(player)
+        }
+    }
+
+    public void assignScenes(){
+        //iterate through hashmap of actingsets to assigne scenes randomly
+        return;
+    }
+
+
     public ActingSet getActingSet(Set set){
+        //index into hashmap
         ActingSet placeholder = new ActingSet("placeholder", 1, 1);
         return placeholder;
     }
