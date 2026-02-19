@@ -22,21 +22,20 @@ public class ActingSet extends Set{
     ArrayList<Role> extraroles;
     ArrayList<Player> extras;
     int shotTokens;
-    int budget;
 
-    public ActingSet(String name, int budget, int shotTokens) {
+    public ActingSet(String name, int shotTokens) {
         super(name);
-        this.budget = budget;
         this.shotTokens = shotTokens;
+    }
+
+    public Scene getScene(){
+        return this.scene;
     }
 
     public void setScene(Scene scene){
         this.scene = scene;
     }
 
-    public int getBudget() {
-        return this.budget;
-    }
 
     public void removeShotToken() {
         this.shotTokens--;
@@ -61,7 +60,7 @@ public class ActingSet extends Set{
     public void wrap(Syst system){
         Die die = new Die();
         ArrayList<Integer> payments = new ArrayList<Integer>();
-        for (int i=0; i<this.budget; i++){
+        for (int i=0; i<this.scene.getBudget(); i++){
             int num = die.roll();
             payments.add(num);
         }

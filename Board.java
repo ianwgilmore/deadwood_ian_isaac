@@ -23,10 +23,10 @@ public class Board{
             max_days = 3;
         }
         else if (player_num==5){
-            credits = 2;
+            cred = 2;
         }
         else if (player_num==6){
-            credits = 4;
+            cred = 4;
         }
         else if (player_num>=7 && player_num<=8){
             rank = 2;
@@ -35,7 +35,7 @@ public class Board{
         for (int i=0; i<players.length; i++){
             players[i].addDollars(dol);
             players[i].setRank(rank);
-            players[i].addCredits(credits);
+            players[i].addCredits(cred);
         }
         return max_days;
 
@@ -83,7 +83,7 @@ public class Board{
 
     public ActingSet getActingSet(Set set){
         //index into hashmap
-        ActingSet placeholder = new ActingSet("placeholder", 1, 1);
+        ActingSet placeholder = new ActingSet("placeholder", 1);
         return placeholder;
     }
 

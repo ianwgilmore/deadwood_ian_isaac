@@ -98,7 +98,7 @@ public class Player{
     // actions
 
     public void move(Set new_location) {
-        if (this.checker.checkMove(this.location)) {
+        if (this.checker.checkMove(this.location.getNeighbors(), new_location)) {
             this.location = new_location;
         }
     }
@@ -107,7 +107,7 @@ public class Player{
         int[] payout;
         ActingSet actset = system.getActingSet(this.location);
         
-        if (this.checker.checkAct(this.location)) {
+        if (this.checker.checkRole(this.role)) {
             if (this.die.roll() + this.practice_tok >= actset.scene.getBudget()) {
                 payout = this.role.getSuccess();
 
@@ -124,8 +124,10 @@ public class Player{
         }
     }
 
-    public void rehearse() {
-        if (this.checker.checkRehearsal(this.location, this.practice_tok)) {
+    public void rehearse(Board board) {
+        ActingSet actingset = board.getActingSet(this.location);
+        int budget = actingset.getScene().getBudget();
+        if (this.checker.checkRehearsal(this.role, this.practice_tok, budget)) {
             this.practice_tok += 1;
         }
     }
@@ -136,8 +138,16 @@ public class Player{
         }
     }
 
-    public void rankUp() {
-        if (this.checker.checkRankUp(this.location)) {
+    public void rankUp(String type, int target) {
+        int amount = 0;
+        if (type == "dollars"){
+            amount = this.dollars;
+        }
+        else if (type == "credits"){
+            amount = this.credits;
+        }
+        //else shut it down
+        if (this.checker.checkRankUp(type, amount, target,this.location)) {
             this.rank += 1;
         }
     }
