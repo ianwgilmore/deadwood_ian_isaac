@@ -27,13 +27,13 @@ public class Player{
     int rank;
     int dollars;
     int credits;
-    Set location;
+    String location;
     int practice_tok;
     Role role;
     Checker checker;
     Die die;
     
-    public Player(String name, Set location, Checker checker) {
+    public Player(String name, String location, Checker checker) {
         this.name = name;
         this.rank = 0;
         this.dollars = 0;
@@ -59,7 +59,7 @@ public class Player{
         return this.credits;
     }
 
-    public Set getLocation() {
+    public String getLocation() {
         return this.location;
     }
 
@@ -85,7 +85,7 @@ public class Player{
         this.credits = this.credits + credits;
     }
 
-    public void setLocation(Set location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -99,7 +99,8 @@ public class Player{
 
     // actions
 
-    public void move(Set new_location) {
+    public void move(String new_location) {
+        //need to change this.location to something like getSet(location).getneighbors();
         if (this.checker.checkMove(this.location.getNeighbors(), new_location, this.role)) {
             this.location = new_location;
         }
@@ -107,6 +108,7 @@ public class Player{
 
     public void act(Board board) {
         int[] payout;
+        //need to change to something like getSet(location)
         ActingSet actset = board.getActingSet(this.location);
         
         if (this.checker.checkRole(this.role)) {
@@ -127,6 +129,7 @@ public class Player{
     }
 
     public void rehearse(Board board) {
+        //same as above method
         ActingSet actingset = board.getActingSet(this.location);
         int budget = actingset.getScene().getBudget();
         if (this.checker.checkRehearsal(this.role, this.practice_tok, budget)) {
@@ -135,6 +138,7 @@ public class Player{
     }
 
     public void takeRole(Role role, Board board) {
+        //
         if (this.checker.checkTakeRole(board, this.location, role)) {
             this.role = role;
         }
@@ -149,7 +153,7 @@ public class Player{
             amount = this.credits;
         }
         //else shut it down
-        if (this.checker.checkRankUp(type, amount, target,this.location)) {
+        if (this.checker.checkRankUp(type, amount, target, this.location)) {
             this.rank += 1;
         }
     }

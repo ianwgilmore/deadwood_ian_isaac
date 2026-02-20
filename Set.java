@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class Set{
     String name;
-    ArrayList<Set> neighbors;
+    ArrayList<String> neighbors;
     Boolean castingOffice;
 
     public Set(String name){
