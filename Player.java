@@ -98,7 +98,7 @@ public class Player{
     // actions
 
     public void move(Set new_location) {
-        if (this.checker.checkMove(this.location.getNeighbors(), new_location)) {
+        if (this.checker.checkMove(this.location.getNeighbors(), new_location, this.role)) {
             this.location = new_location;
         }
     }

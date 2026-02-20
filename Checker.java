@@ -13,10 +13,10 @@ Last Change mm/dd/yy, first
 */
 
 import java.util.ArrayList;
-
 public class Checker{
-    //maybe add static hashmaps for payment costs
-    int cost = 3;
+    //extra zeros allow desired rank to serve as an index
+    int[] dolCost = {0, 0,  4, 10, 18, 28, 40};
+    int[] credCost = {0, 0, 5, 10, 15, 20, 25};
 
     //used for takeRole and Act
     public boolean checkRole(Role role) {
@@ -29,9 +29,13 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkMove(ArrayList<Set> neighbors, Set target_loc) {
+    public boolean checkMove(ArrayList<Set> neighbors, Set target_loc, Role role) {
         //if target location is one of the current player location's neighbors --> True
-        Boolean bool = neighbors.contains(target_loc);
+        //also must be false if the player is currently working on a role
+        Boolean bool = false;
+        if (role == null){
+            bool = neighbors.contains(target_loc);
+        }
         return bool;
     }
 
@@ -43,11 +47,34 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkRankUp(String payment, int amount, int target, Set location) {
-        return true;
+    public boolean checkRankUp(String payment, int amount, int targetRank, Set location) {
+        //since list of cost is in array 0 indexed and rank 1 not included
+        //check if sufficient funds
+        //check if player is in casting office
+        Boolean bool;
+        if (location.getName() == "casting office"){
+            if(payment == "dollars"){
+                bool = amount >= this.dolCost[targetRank]
+            }
+            else if (payment == "credits"){
+                bool = amount >= this.credCost[targetRank]
+            }
+        }
+        else{
+            bool = false
+        }
     }
 
     public boolean checkTakeRole(Set location, Role role) {
-        return true;
+        Boolean bool;
+        if (checkRole(role) == false){
+            //need a way to check if the desired role is already taken
+            //checks if current player location has desired role
+            bool = location.getScene().getRoles().contains(role);
+        }
+        else{
+            bool = false;
+        }
+        return bool;
     }
 }
