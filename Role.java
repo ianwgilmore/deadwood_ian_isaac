@@ -13,6 +13,8 @@ Methods
 
 Implemented by - Isaac Raven
 Last Change 02/14/26, Isaac
+
+COMPLETED
 */
 
 public class Role{

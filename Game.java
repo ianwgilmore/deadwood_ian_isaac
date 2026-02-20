@@ -1,4 +1,6 @@
 //gameplay loop
+
+//COMPLETED until test
 public class Game{
     public static void main(String[] args){
         int max_day;
@@ -21,8 +23,7 @@ public class Game{
         while(current_day <= max_day){
             //set up board for new day
             board.setBoard();
-            scenes_left = 10;
-            while(scenes_left>1){
+            while(board.getScenesLeft()>1){
                 if (index < players.length){
                     players[0].takeTurn();
                     index++;
@@ -34,8 +35,7 @@ public class Game{
             }
             current_day++;
         }
-
-
+        //calc scores, display scores
     }
 
     

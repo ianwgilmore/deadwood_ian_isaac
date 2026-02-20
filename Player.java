@@ -18,6 +18,8 @@ Methods
 
 Implemented by - Isaac Raven
 Last Change 02/05/26, Isaac
+
+NEED TAKETURN ONCE VIEW AND CONTROLLER SET UP
 */
 
 public class Player{
@@ -103,15 +105,15 @@ public class Player{
         }
     }
 
-    public void act(Syst system) {
+    public void act(Board board) {
         int[] payout;
-        ActingSet actset = system.getActingSet(this.location);
+        ActingSet actset = board.getActingSet(this.location);
         
         if (this.checker.checkRole(this.role)) {
             if (this.die.roll() + this.practice_tok >= actset.scene.getBudget()) {
                 payout = this.role.getSuccess();
 
-                actset.removeShotToken();
+                actset.removeShotToken(board);
             } else {
                 payout = this.role.getFailure();
             }
@@ -132,8 +134,8 @@ public class Player{
         }
     }
 
-    public void takeRole(Role role) {
-        if (this.checker.checkTakeRole(this.location, role)) {
+    public void takeRole(Role role, Board board) {
+        if (this.checker.checkTakeRole(board, this.location, role)) {
             this.role = role;
         }
     }

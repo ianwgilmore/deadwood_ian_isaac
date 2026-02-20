@@ -2,12 +2,17 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ArrayList;
 
+
+//needs XML data to do constructors for various objects
+//needs to implement get actingset logic
+
 public class Board{
     ArrayList<Scene> scenes;
     ArrayList<Set>  sets;
     HashMap <Set, ActingSet> actingsets;
     Set trailer;
     Parser parser;
+    int scenesLeft;
 
     public Board() {
         this.parser = new Parser();
@@ -62,6 +67,14 @@ public class Board{
         return getscene;
     }
 
+    public void removeScene(){
+        this.scenesLeft--;
+    }
+
+    public int getScenesLeft(){
+        return this.scenesLeft;
+    }
+
     private void buildSets(){
         //needs to take parsed data as well
     }
@@ -89,6 +102,7 @@ public class Board{
 
     public void setBoard(){
         //needs to clear scenes, add new scenes, change player location to trailer, reset shot tokens, etc.
+        //also set scenesLeft to 10
         assignScenes();
     }
 

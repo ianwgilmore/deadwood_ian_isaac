@@ -12,6 +12,7 @@ Methods
 
 Implemented by - 
 Last Change mm/dd/yy, first
+
 */
 
 import java.util.ArrayList;
@@ -37,8 +38,11 @@ public class ActingSet extends Set{
     }
 
 
-    public void removeShotToken() {
+    public void removeShotToken(Board board) {
         this.shotTokens--;
+        if (this.shotTokens == 0){
+            wrap(board);
+        }
     }
     public int getShotToken(){
         return this.shotTokens;
@@ -57,7 +61,7 @@ public class ActingSet extends Set{
         return this.extras;
     }
 
-    public void wrap(Syst system){
+    public void wrap(Board board){
         Die die = new Die();
         ArrayList<Integer> payments = new ArrayList<Integer>();
         for (int i=0; i<this.scene.getBudget(); i++){
@@ -65,11 +69,11 @@ public class ActingSet extends Set{
             payments.add(num);
         }
         extraWrap();
-
+        //remove from scene count
+        board.removeScene();
         starWrap(payments);
 
-        //remove scene, increment scene count
-        system.removeSceneCount();
+
         this.scene = null;
     }
 

@@ -10,6 +10,8 @@ Methods
 
 Implemented by - 
 Last Change mm/dd/yy, first
+
+NEED TO FINISH TAKEROLE
 */
 
 import java.util.ArrayList;
@@ -51,26 +53,27 @@ public class Checker{
         //since list of cost is in array 0 indexed and rank 1 not included
         //check if sufficient funds
         //check if player is in casting office
-        Boolean bool;
+        Boolean bool = false;
         if (location.getName() == "casting office"){
             if(payment == "dollars"){
-                bool = amount >= this.dolCost[targetRank]
+                bool = amount >= this.dolCost[targetRank];
             }
             else if (payment == "credits"){
-                bool = amount >= this.credCost[targetRank]
+                bool = amount >= this.credCost[targetRank];
             }
         }
         else{
-            bool = false
+            bool = false;
         }
+        return bool;
     }
 
-    public boolean checkTakeRole(Set location, Role role) {
+    public boolean checkTakeRole(Board board, Set location, Role role) {
         Boolean bool;
         if (checkRole(role) == false){
             //need a way to check if the desired role is already taken
             //checks if current player location has desired role
-            bool = location.getScene().getRoles().contains(role);
+            bool = board.getActingSet(location).getScene().getRoles().contains(role);
         }
         else{
             bool = false;
