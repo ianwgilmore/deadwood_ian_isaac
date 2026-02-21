@@ -14,17 +14,43 @@ import java.util.*;
 // since in the .xml file their names (plus role dialogue)
 // go unused as of now.
 public class Parser {
-    // Guessing what functions will be needed
-    public static void main(String[] args) {
-        Document doc = getDocFromFile("cards.xml");
-        System.out.println(buildScenes(doc).size());
-
-        doc = getDocFromFile("board.xml");
-        System.out.println(buildActingSets(doc).size());
-        buildTrailer(doc);
-        buildCastingOffice(doc);
+    // These are all simpler versions of the below methods.
+    // Not that efficient, but easy to use.
+    public static List<Scene> buildScenes() {
+        return Parser.buildScenes(getDocFromFile("cards.xml"));
     }
     
+    public static List<ActingSet> buildActingSets() {
+        return Parser.buildActingSets(getDocFromFile("board.xml"));
+    }
+    
+    public static Set buildTrailer() {
+        return Parser.buildTrailer(getDocFromFile("board.xml"));
+    }
+    
+    public static CastingOffice buildCastingOffice() {
+        return Parser.buildCastingOffice(getDocFromFile("board.xml"));
+    }
+
+    // Guessing what functions will be needed
+    public static void main(String[] args) {
+        // just testing around
+        Parser parser = new Parser();
+        
+        Document doc = getDocFromFile("cards.xml");
+        System.out.println(parser.buildScenes().size());
+
+        doc = getDocFromFile("board.xml");
+        System.out.println(parser.buildActingSets().size());
+        parser.buildTrailer();
+        parser.buildCastingOffice();
+        
+        parser.buildScenes();
+        parser.buildActingSets();
+        parser.buildTrailer();
+        parser.buildCastingOffice();
+    }
+
     // Given a .xml path, will return a doc object with .xml data inside.
     // Again from slides link above
     public static Document getDocFromFile(String filename) {
@@ -81,7 +107,8 @@ public class Parser {
         return star_roles;
     }
 
-    // get attribute value of given node
+    // get attribute value of given node as string 
+    // (nums can be converted via Integer.valueOf(getAttributes(...)))
     private static String getAttribute(Node node, String attribute) {
         return node.getAttributes().getNamedItem(attribute).getNodeValue();
     }
