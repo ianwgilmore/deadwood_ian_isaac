@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.util.*;
 
+// functional cohesion
 // Note: add card and part names to scene and role
 // since in the .xml file their names (plus role dialogue)
 // go unused as of now.
@@ -16,13 +17,9 @@ public class Parser {
     // Guessing what functions will be needed
     public static void main(String[] args) {
         Document doc = getDocFromFile("cards.xml");
-        
-        // Test: prints out all card budgets,
-        // of which there are 40.
-        List<Scene> scenes = getCardsFromDoc(doc);
-        for (int i = 0; i < scenes.size(); i++) {
-            System.out.println(scenes.get(i).budget);
-        }
+        buildScenes(doc).size();
+
+        doc = getDocFromFile(".xml");
     }
     
     // Given a .xml path, will return a doc object with .xml data inside.
@@ -42,104 +39,46 @@ public class Parser {
         
         return doc;
     } // exception handling
-    
-    // Prints scenes and their roles from card.xml imported doc
-    public static void printCardsDoc(Document doc) {
-        Element root = doc.getDocumentElement();
-        NodeList cards = root.getElementsByTagName("card");
 
-        System.out.println("-LIST OF CARD NAMES-");
+    // Builds a list of scenes based on document given (Must be cards.xml)
+    // and returns them.
+    public static List<Scene> buildScenes(Document doc) {
+        NodeList card_nodes = doc.getDocumentElement().getElementsByTagName("card");
+        List<Scene> scenes_list = new ArrayList<Scene>();
 
-        for (int i = 0; i < cards.getLength(); i++) {
-            Node card = cards.item(i);
-            String card_name = card.getAttributes().getNamedItem("name").getNodeValue();
-            System.out.println("    " + card_name);
-            NodeList children = card.getChildNodes();
-
-            for (int j = 0; j < children.getLength(); j++) {
-                Node sub = children.item(j);
-                if (sub.getNodeName() == "part") {
-                    String part_name = sub.getAttributes().getNamedItem("name").getNodeValue();
-                    System.out.println("        Part: " + part_name);
-                }
-            }
-        }
-    }
-
-    // Given a doc object (must be created from card.xml),
-    // this method returns all scenes from doc.
-    public static List<Scene> getCardsFromDoc(Document doc) {
-        Element root = doc.getDocumentElement();
-        NodeList cards = root.getElementsByTagName("card");
-        
-        List<Scene> cards_list = new ArrayList<Scene>();
-
-        for (int i = 0; i < cards.getLength(); i++) { // for card
-            Node card = cards.item(i);
-            String card_name = card.getAttributes().getNamedItem("name").getNodeValue();
-            NodeList children = card.getChildNodes();
-
-            int budget = Integer.valueOf(card.getAttributes().getNamedItem("budget").getNodeValue());
-            ArrayList<Role> star_roles = new ArrayList<Role>();
-
-            for (int j = 0; j < children.getLength(); j++) { // for role
-                Node sub = children.item(j);
-
-                if (sub.getNodeName() == "part") {
-                    int rank = Integer.valueOf(sub.getAttributes().getNamedItem("level").getNodeValue());
-                    star_roles.add(new Role(rank, true));
-                }
-
-                NodeList sub_children = sub.getChildNodes();
-            }
-
-            cards_list.add(new Scene(budget, star_roles));
+        for (int i = 0; i < card_nodes.getLength(); i++) {
+            Node card = card_nodes.item(i);
+            scenes_list.add(new Scene(getBudget(card), buildStarRoles(card)));
         }
 
-        return cards_list;
+        return scenes_list;
     }
 
-    // Board.xml parsing is separated because each subtree is
-    // formatted differently in the board.xml file
-    public static List<ActingSet> getActingSetsFromDoc(Document doc) {
-        Element root = doc.getDocumentElement();
-        NodeList board = root.getElementsByTagName("board");
-        
-        List<ActingSet> acting_sets_list = new ArrayList<ActingSet>();
+    // get budget of a card node
+    private static int getBudget(Node card) {
+        return Integer.valueOf(card.getAttributes().getNamedItem("budget").getNodeValue());
+    }
 
-        for (int i = 0; i < board.getLength(); i++) { // for card
-            Node acting_set = board.item(i);
-            String acting_set_name = acting_set.getAttributes().getNamedItem("name").getNodeValue();
-            NodeList children = acting_set.getChildNodes();
+    // build star roles of a card node
+    private static List<Role> buildStarRoles(Node card) {
+        NodeList part_nodes = card.getChildNodes();
+        List<Role> star_roles = new ArrayList<Role>();
 
-            int num_takes = 0;
-            ArrayList<Role> extras_roles = new ArrayList<Role>();
+        for (int i = 0; i < part_nodes.getLength(); i++) {
+            Node part = part_nodes.item(i);
 
-
-            for (int j = 0; j < children.getLength(); j++) { // for role
-                Node sub = children.item(j);
-
-                if (sub.getNodeName() == "part") {
-                    int rank = Integer.valueOf(sub.getAttributes().getNamedItem("level").getNodeValue());
-                    extras_roles.add(new Role(rank, false));
-                } else if (sub.getNodeName() == "takes") {
-                    NodeList sub_children = sub.getChildNodes();
-                    num_takes = sub_children.getLength();
-                }
+            // verify that part is actually a part
+            if (part.getNodeName() == "part") {
+                int rank = Integer.valueOf(getAttribute(part, "level"));
+                star_roles.add(new Role(rank, true));
             }
-
-            ActingSet acting_set_instance = new ActingSet(acting_set_name, num_takes);
-
-            for (int j = 0; j < extras_roles.size(); j++) {
-                acting_set_instance.addExtraRoles(extras_roles.get(j));
-            }
-
-            acting_sets_list.add(acting_set_instance);
         }
 
-        return acting_sets_list;
+        return star_roles;
     }
 
-    //public static Set getTrailerFromDoc(Document doc) {}
-    //public static Set getOfficeFromDoc(Document doc) {}
+    // get attribute value of given node
+    private static String getAttribute(Node node, String attribute) {
+        return node.getAttributes().getNamedItem(attribute).getNodeValue();
+    }
 }
