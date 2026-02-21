@@ -31,11 +31,12 @@ public class Checker{
 
     public boolean checkActingSet(String name, Board board){
         Boolean bool = board.getActingSet(name) != null;
-        return bool
+        return bool;
     }
 
-    public boolean checkCastingOffice(){
-        Boolean bool = board.
+    public boolean checkCastingOffice(String name, Board board){
+        Boolean bool = board.getCastingOffice(name) != null;
+        return bool;
     }
 
     public boolean checkMove(ArrayList<String> neighbors, String target_loc, Role role) {
@@ -56,21 +57,19 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkRankUp(String payment, int amount, int targetRank, String location) {
+    public boolean checkRankUp(String payment, int amount, int targetRank, String location, Board board) {
         //since list of cost is in array 0 indexed and rank 1 not included
         //check if sufficient funds
         //check if player is in casting office
         Boolean bool = false;
-        if (location == "casting office"){
+        if (checkCastingOffice(location, board) == true){
+            CastingOffice castingoffice = board.getCastingOffice(location);
             if(payment == "dollars"){
-                bool = amount >= this.dolCost[targetRank];
+                bool = amount >= castingoffice.getDolCost()[targetRank];
             }
             else if (payment == "credits"){
-                bool = amount >= this.credCost[targetRank];
+                bool = amount >= castingoffice.getCredCost()[targetRank];
             }
-        }
-        else{
-            bool = false;
         }
         return bool;
     }

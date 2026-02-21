@@ -14,7 +14,7 @@ public class CastingOffice extends NonActingSet{
     }
 
     public void setCredCost(int[] cost){
-        this.CredCost = cost;
+        this.credCost = cost;
     }
 
     public int[] getDolCost(){
@@ -22,7 +22,7 @@ public class CastingOffice extends NonActingSet{
     }
 
     public int[] getCredCost(){
-        return this.CredCost;
+        return this.credCost;
     }
 
 }

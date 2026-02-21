@@ -99,9 +99,9 @@ public class Player{
 
     // actions
 
-    public void move(String new_location) {
+    public void move(String new_location, Board board) {
         //need to change this.location to something like getSet(location).getneighbors();
-        if (this.checker.checkMove(this.location.getNeighbors(), new_location, this.role)) {
+        if (this.checker.checkMove(board.getNeighbors(this.location), new_location, this.role)) {
             this.location = new_location;
         }
         //else back to controller
@@ -133,7 +133,7 @@ public class Player{
     public void rehearse(Board board) {
         //same as above method
         
-        if(board.checkActingSet(this.location, board) == true){
+        if(checker.checkActingSet(this.location, board) == true){
             ActingSet actingset = board.getActingSet(this.location);
             int budget = actingset.getScene().getBudget();
             if (this.checker.checkRehearsal(this.role, this.practice_tok, budget)) {
@@ -151,7 +151,7 @@ public class Player{
         //else run back to controller
     }
 
-    public void rankUp(String type, int target) {
+    public void rankUp(String type, int target, Board board) {
         int amount = 0;
         if (type == "dollars"){
             amount = this.dollars;
@@ -160,13 +160,13 @@ public class Player{
             amount = this.credits;
         }
         //else back to controller
-        if (this.checker.checkRankUp(type, amount, target, this.location)) {
+        if (this.checker.checkRankUp(type, amount, target, this.location, board)) {
             this.rank += 1;
         }
         //else back to controller
     }
 
-    public void takeTurn(){
+    public void takeTurn(Board board){
         //call controller to prompt the view
     }
 }

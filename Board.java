@@ -97,7 +97,7 @@ public class Board{
     public ActingSet getActingSet(String name){
         //index into hashmap
         //will placeholder will be null if name is not in actingset
-        ActingSet placeholder = this.actingsets.get(name)
+        ActingSet placeholder = this.actingsets.get(name);
         return placeholder;
     }
 
@@ -122,10 +122,24 @@ public class Board{
         String name;
         for (int i=0; i<=n; i++){
             name = "player"+i;
-            Player player = new Player(name, null,checker);
+            Player player = new Player(name, null, checker);
             players[i] = player;
         }
         return players;
+    }
+
+    public ArrayList<String> getNeighbors(String name){
+        ArrayList<String> neighbors = null;
+        if (actingsets.containsKey(name)){
+            neighbors = actingsets.get(name).getNeighbors();
+        }
+        else if (name == this.castingoffice.getName()){
+            neighbors = this.castingoffice.getNeighbors();
+        }
+        else if (name == this.trailer.getName()){
+            neighbors = this.trailer.getNeighbors();
+        }
+        return neighbors;
     }
 
 }

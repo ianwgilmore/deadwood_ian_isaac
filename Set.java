@@ -25,13 +25,7 @@ public class Set{
 
     public Set(String name){
         this.name = name;
-        this.neighbors = new ArrayList<Set>();
-        if (name == "Casting Office"){
-            this.castingOffice = true;
-        }
-        else{
-            this.castingOffice = false;
-        }
+        this.neighbors = new ArrayList<String>();
     }
 
     public String getName(){
@@ -40,10 +34,10 @@ public class Set{
     public void setName(String name){
         this.name = name;
     }
-    public ArrayList<Set> getNeighbors(){
+    public ArrayList<String> getNeighbors(){
         return this.neighbors;
     }
-    public void addNeighbors(Set neighbor){
+    public void addNeighbors(String neighbor){
         this.neighbors.add(neighbor);
     }
 

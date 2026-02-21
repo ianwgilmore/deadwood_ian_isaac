@@ -1,8 +1,10 @@
 
 public class Controller{
+    ViewTerminal view = new ViewTerminal();
 
     public int setup(){
-        int playerNum = view.getPlayerNum();
+
+        int playerNum = this.view.getPlayerNum();
         return playerNum;
     }
 

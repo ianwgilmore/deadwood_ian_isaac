@@ -25,7 +25,7 @@ public class Game{
             board.setBoard();
             while(board.getScenesLeft()>1){
                 if (index < players.length){
-                    players[0].takeTurn();
+                    players[0].takeTurn(board);
                     index++;
                 }
                 else{
