@@ -23,6 +23,8 @@ public class ActingSet extends Set{
     ArrayList<Role> extraroles;
     ArrayList<Player> extras;
     int shotTokens;
+    //might need to track max shot tokens
+    int maxShotTokens;
 
     public ActingSet(String name, int shotTokens) {
         super(name);

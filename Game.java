@@ -24,7 +24,7 @@ public class Game{
         current_day = 0;
         while(current_day <= max_day){
             //set up board for new day
-            board.setBoard();
+            board.setBoard(players);
             while(board.getScenesLeft()>1){
                 if (index < players.length){
                     players[0].takeTurn(board, controller, false);

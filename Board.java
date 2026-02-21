@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//needs XML data to do constructors for various objects
-//needs to implement get actingset logic
 
 public class Board{
     List<Scene> scenes;
@@ -51,7 +49,6 @@ public class Board{
     public Player[] setup(int player_num, Checker checker){
         //need to set max day, initialize players with correct stats!!!!!!!!!
         buildScenes();
-        buildSets();
         buildActingSets();
         Player[] players = buildPlayers(player_num, checker);
         return players;
@@ -78,9 +75,6 @@ public class Board{
         return this.scenesLeft;
     }
 
-    private void buildSets(){
-        //needs to take parsed data as well
-    }
 
     private void buildActingSets(){
         //needs also takes parsed data, need to differentiate the ones that are actingsets
@@ -94,14 +88,14 @@ public class Board{
         }
     }
 
-
+    //needs to reset shot tokens, might need a max shot token attr somewhere
     private void assignScenes(){
         //iterate through hashmap of actingsets to assign scenes randomly
-        actingsets.forEach( (s,a) ->
+        actingsets.forEach((s,a) ->
             {
+
                 a.setScene(getScene());
             });
-            
     }
 
 
@@ -122,10 +116,17 @@ public class Board{
         return placeholder;
     }
 
-    public void setBoard(){
+    public void setBoard(Player[] players){
         //needs to clear scenes, add new scenes, change player location to trailer, reset shot tokens, etc.
         //also set scenesLeft to 10
+        //replaces current scenes with new scenes
         assignScenes();
+        //move players to trailer
+        for(int i = 0; i<players.length;i++){
+            players[i].setLocation("trailer");
+        }
+        this.scenesLeft = 10;
+
     }
 
     public Player[] buildPlayers(int n, Checker checker){
