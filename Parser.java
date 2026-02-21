@@ -24,7 +24,7 @@ public class Parser {
         return Parser.buildActingSets(getDocFromFile("board.xml"));
     }
     
-    public static Set buildTrailer() {
+    public static NonActingSet buildTrailer() {
         return Parser.buildTrailer(getDocFromFile("board.xml"));
     }
     
@@ -184,8 +184,8 @@ public class Parser {
     }
 
     // build trailer from given document (board.xml) and return it
-    public static Set buildTrailer(Document doc) {
-        Set trailer = new Set("trailer");
+    public static NonActingSet buildTrailer(Document doc) {
+        NonActingSet trailer = new NonActingSet("trailer");
         Node trailer_node = doc.getDocumentElement().getElementsByTagName("trailer").item(0);
 
         List<String> neighbors = getNeighbors(trailer_node);

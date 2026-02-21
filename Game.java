@@ -11,6 +11,7 @@ public class Game{
         //get player input
         //int n = Controller.getPlayers()
         int player_num = 2;
+        players = new Player[player_num];
         Parser parser = new Parser();
         Board board = new Board();
         Checker checker = new Checker();

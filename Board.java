@@ -1,13 +1,14 @@
 import java.util.HashMap;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.List;
 
 
 //needs XML data to do constructors for various objects
 //needs to implement get actingset logic
 
 public class Board{
-    ArrayList<Scene> scenes;
+    List<Scene> scenes;
     NonActingSet trailer;
     HashMap <String, ActingSet> actingsets;
     CastingOffice castingoffice;
@@ -38,6 +39,7 @@ public class Board{
         }
         //set all player stats to proper vals
         for (int i=0; i<players.length; i++){
+            players[i] = new Player(String.valueOf(player_num), "trailer", new Checker());
             players[i].addDollars(dol);
             players[i].setRank(rank);
             players[i].addCredits(cred);
@@ -57,6 +59,7 @@ public class Board{
 
     private void buildScenes(){
         //import data from xml
+        this.scenes = this.parser.buildScenes();
     }
     //get random scene
     public Scene getScene(){
@@ -81,6 +84,14 @@ public class Board{
 
     private void buildActingSets(){
         //needs also takes parsed data, need to differentiate the ones that are actingsets
+        List<ActingSet> acting_sets_list = this.parser.buildActingSets();
+        this.actingsets = new HashMap <String, ActingSet>();
+
+        for (int i = 0; i < acting_sets_list.size(); i++) {
+            ActingSet acting_set = acting_sets_list.get(i);
+            String name = acting_set.getName();
+            this.actingsets.put(name, acting_set);
+        }
     }
 
 
@@ -118,9 +129,9 @@ public class Board{
     }
 
     public Player[] buildPlayers(int n, Checker checker){
-        Player[] players = new Player[n];
+        Player[] players = new Player[n+1];
         String name;
-        for (int i=0; i<=n; i++){
+        for (int i=0; i<n; i++){
             name = "player"+i;
             Player player = new Player(name, null, checker);
             players[i] = player;
