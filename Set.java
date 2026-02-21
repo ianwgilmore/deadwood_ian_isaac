@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class Set{
     String name;
     ArrayList<String> neighbors;
-    Boolean castingOffice;
 
     public Set(String name){
         this.name = name;
@@ -46,12 +45,6 @@ public class Set{
     }
     public void addNeighbors(Set neighbor){
         this.neighbors.add(neighbor);
-    }
-    public boolean getcastingOffice(){
-        return this.castingOffice;
-    }
-    public void getcastingOffice(boolean castingOffice){
-        this.castingOffice = castingOffice;
     }
 
 

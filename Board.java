@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class Board{
     ArrayList<Scene> scenes;
-    ArrayList<Set>  sets;
-    HashMap <Set, ActingSet> actingsets;
-    Set trailer;
+    NonActingSet trailer;
+    HashMap <String, ActingSet> actingsets;
+    CastingOffice castingoffice;
     Parser parser;
     int scenesLeft;
 
@@ -94,9 +94,20 @@ public class Board{
     }
 
 
-    public ActingSet getActingSet(Set set){
+    public ActingSet getActingSet(String name){
         //index into hashmap
-        ActingSet placeholder = new ActingSet("placeholder", 1);
+        //will placeholder will be null if name is not in actingset
+        ActingSet placeholder = this.actingsets.get(name)
+        return placeholder;
+    }
+
+    public CastingOffice getCastingOffice(String name){
+        //index into hashmap
+        //will placeholder will be null if name is not in actingset
+        CastingOffice placeholder = null;
+        if (name == "casting office"){
+        placeholder = this.castingoffice;
+        }
         return placeholder;
     }
 
