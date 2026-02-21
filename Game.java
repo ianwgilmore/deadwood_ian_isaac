@@ -14,6 +14,7 @@ public class Game{
         Parser parser = new Parser();
         Board board = new Board();
         Checker checker = new Checker();
+        Controller controller = new Controller();
         //setup game in board class
         players = board.setup(player_num, checker);
         max_day = board.playerDependentSetup(player_num, players);
@@ -25,7 +26,7 @@ public class Game{
             board.setBoard();
             while(board.getScenesLeft()>1){
                 if (index < players.length){
-                    players[0].takeTurn(board);
+                    players[0].takeTurn(board, controller, false);
                     index++;
                 }
                 else{

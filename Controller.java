@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+
 public class Controller{
     ViewTerminal view = new ViewTerminal();
 
@@ -8,19 +10,28 @@ public class Controller{
         return playerNum;
     }
 
-    public void act(){
+
+    public String move(ArrayList<String> neighbors){
+        String targetLoc = this.view.getTargetLoc(neighbors);
+        return targetLoc;
     }
 
-    public void move(){
+    public int[] rankUp(int[] balance){
+        //array [type, target]
+        //where type is 0 or 1 (dollars or credits)
+        //and target is int for desired rank
+        int[] rankInfo = this.view.getRankInfo(balance);
+        return rankInfo;
     }
 
-    public void rankUp(){}
+    public String takeTurn(){
+        String action = this.view.getPlayerAction();
+        return action;
+    }
 
-    public void takeTurn(){}
+    //public void endTurn(){}
 
-    public void nextDay(){}
-
-    public void endTurn(){}
-
-    public void error(){}
+    public void error(){
+        this.view.sendErrorMessage();
+    }
 }
