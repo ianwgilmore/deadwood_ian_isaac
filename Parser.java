@@ -17,9 +17,12 @@ public class Parser {
     // Guessing what functions will be needed
     public static void main(String[] args) {
         Document doc = getDocFromFile("cards.xml");
-        buildScenes(doc).size();
+        System.out.println(buildScenes(doc).size());
 
-        doc = getDocFromFile(".xml");
+        doc = getDocFromFile("board.xml");
+        System.out.println(buildActingSets(doc).size());
+        buildTrailer(doc);
+        buildCastingOffice(doc);
     }
     
     // Given a .xml path, will return a doc object with .xml data inside.
@@ -70,7 +73,8 @@ public class Parser {
             // verify that part is actually a part
             if (part.getNodeName() == "part") {
                 int rank = Integer.valueOf(getAttribute(part, "level"));
-                star_roles.add(new Role(rank, true));
+                boolean is_star = true;
+                star_roles.add(new Role(rank, is_star));
             }
         }
 
@@ -80,5 +84,140 @@ public class Parser {
     // get attribute value of given node
     private static String getAttribute(Node node, String attribute) {
         return node.getAttributes().getNamedItem(attribute).getNodeValue();
+    }
+
+    // build acting sets from doc (must be board.xml)
+    public static List<ActingSet> buildActingSets(Document doc) {
+        NodeList set_nodes = doc.getDocumentElement().getElementsByTagName("set");
+        List<ActingSet> acting_sets_list = new ArrayList<ActingSet>();
+
+        for (int i = 0; i < set_nodes.getLength(); i++) {
+            Node set = set_nodes.item(i);
+            ActingSet acting_set_instance = new ActingSet(getAttribute(set, "name"), getShotTokens(set));
+            
+            List<String> neighbors = getNeighbors(set);
+
+            for (int j = 0; j < neighbors.size(); j++) {
+                acting_set_instance.addNeighbors(neighbors.get(j));
+            }
+
+            acting_sets_list.add(acting_set_instance);
+        }
+
+        return acting_sets_list;
+    }
+
+    // get num shot tokens from set node
+    private static int getShotTokens(Node set) {
+        int shot_tokens_num = 0;
+        NodeList children = set.getChildNodes();
+
+        for (int i = 0; i < children.getLength(); i++) {
+            Node takes_node = children.item(i);
+
+            // verify that takes_node is actually the takes node
+            if (takes_node.getNodeName() == "takes") {
+                NodeList takes_children = takes_node.getChildNodes();
+
+                for (int j = 0; j < takes_children.getLength(); j++) {
+                    Node take_node = takes_children.item(j);
+                    if (take_node.getNodeName() == "take") {
+                        shot_tokens_num += 1;
+                    }
+                }
+            }
+        }
+
+        return shot_tokens_num;
+    }
+
+    private static List<String> getNeighbors(Node set) {
+        List<String> neighbors = new ArrayList<String>();
+        NodeList children = set.getChildNodes();
+
+        for (int i = 0; i < children.getLength(); i++) {
+            Node neighbors_node = children.item(i);
+
+            // verify neighbors_node is actually the neighbors node
+            if (neighbors_node.getNodeName() == "neighbors") {
+                NodeList neighbor_nodes = neighbors_node.getChildNodes();
+
+                for (int j = 0; j < neighbor_nodes.getLength(); j++) {
+                    Node neighbor_node = neighbor_nodes.item(j);
+
+                    // verify neighbor_node is actually a neighbor node
+                    if (neighbor_node.getNodeName() == "neighbor") {
+                        neighbors.add(getAttribute(neighbor_node, "name"));
+                    }
+                }
+            }
+        }
+
+        return neighbors;
+    }
+
+    // build trailer from given document (board.xml) and return it
+    public static Set buildTrailer(Document doc) {
+        Set trailer = new Set("trailer");
+        Node trailer_node = doc.getDocumentElement().getElementsByTagName("trailer").item(0);
+
+        List<String> neighbors = getNeighbors(trailer_node);
+
+        for (int j = 0; j < neighbors.size(); j++) {
+            trailer.addNeighbors(neighbors.get(j));
+        }
+
+        return trailer;
+    }
+
+    // build casting office from given document (board.xml) and return it
+    public static CastingOffice buildCastingOffice(Document doc) {
+        CastingOffice casting_office = new CastingOffice("office");
+        Node office_node = doc.getDocumentElement().getElementsByTagName("office").item(0);
+
+        int[] dollar_costs = new int[7];
+        int[] credit_costs = new int[7];
+
+        List<Node> costs = getSubNodes(getSubNodes(office_node, "upgrades").get(0), "upgrade");
+        for (int i = 0; i < costs.size(); i++) {
+            Node cost = costs.get(i);
+
+            if (getAttribute(cost, "currency").equals("dollar")) {
+                int level = Integer.valueOf(getAttribute(cost, "level"));
+                dollar_costs[level] = Integer.valueOf(getAttribute(cost, "amt"));
+            }
+
+            if (getAttribute(cost, "currency").equals("credit")) {
+                int level = Integer.valueOf(getAttribute(cost, "level"));
+                credit_costs[level] = Integer.valueOf(getAttribute(cost, "amt"));
+            }
+        }
+
+        casting_office.setDolCost(dollar_costs);
+        casting_office.setCredCost(credit_costs);
+
+        List<String> neighbors = getNeighbors(office_node);
+
+        for (int j = 0; j < neighbors.size(); j++) {
+            casting_office.addNeighbors(neighbors.get(j));
+        }
+
+        return casting_office;
+    }
+
+    // given a node, return list of all subnodes with given tag name
+    private static List<Node> getSubNodes(Node node, String name) {
+        List<Node> sub_nodes = new ArrayList<Node>();
+        NodeList children = node.getChildNodes();
+
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+
+            if (child.getNodeName() == name) {
+                sub_nodes.add(child);
+            }
+        }
+
+        return sub_nodes;
     }
 }
