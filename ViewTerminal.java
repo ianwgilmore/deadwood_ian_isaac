@@ -82,11 +82,4 @@ public class ViewTerminal{
         String type = this.scanner.nextLine();
         return type;
     }
-
-    public void displayResults(String[] results){
-        System.out.println("The placements are as follows: ");
-        for (int i=0; i<results.length; i++){
-            System.out.println(i+ ": " + results[i]);
-        }
-    }
 }

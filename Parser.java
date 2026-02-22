@@ -48,7 +48,8 @@ public class Parser {
         parser.buildScenes();
         parser.buildActingSets();
         parser.buildTrailer();
-        parser.buildCastingOffice();
+        CastingOffice office = parser.buildCastingOffice();
+        System.out.println(office.getNeighbors());
     }
 
     // Given a .xml path, will return a doc object with .xml data inside.
@@ -110,6 +111,26 @@ public class Parser {
         return star_roles;
     }
 
+    private static List<Role> buildExtrasRoles(Node card) {
+        NodeList part_nodes = card.getChildNodes();
+        ArrayList<Role> star_roles = new ArrayList<Role>();
+
+        for (int i = 0; i < part_nodes.getLength(); i++) {
+            Node part = part_nodes.item(i);
+
+            // verify that part is actually a part
+            if (part.getNodeName() == "part") {
+                String title = getAttribute(part, "name");
+                int rank = Integer.valueOf(getAttribute(part, "level"));
+                boolean is_star = false;
+                Role addRole = new Role(title, rank, is_star);
+                star_roles.add(addRole);
+            }
+        }
+
+        return star_roles;
+    }
+
     // get attribute value of given node as string 
     // (nums can be converted via Integer.valueOf(getAttributes(...)))
     private static String getAttribute(Node node, String attribute) {
@@ -129,6 +150,12 @@ public class Parser {
 
             for (int j = 0; j < neighbors.size(); j++) {
                 acting_set_instance.addNeighbors(neighbors.get(j));
+            }
+
+            List<Role> extras_roles = buildExtrasRoles(set);
+
+            for (int j = 0; j < extras_roles.size(); j++) {
+                acting_set_instance.addExtraRoles(extras_roles.get(j));
             }
 
             acting_sets_list.add(acting_set_instance);

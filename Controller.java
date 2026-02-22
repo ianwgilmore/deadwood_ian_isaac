@@ -51,8 +51,4 @@ public class Controller{
     public void error(){
         this.view.sendErrorMessage();
     }
-
-    public void displayResults(String[] results){
-        this.view.displayResults(results);
-    }
 }
