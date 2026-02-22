@@ -19,6 +19,7 @@ Methods
 Implemented by - Isaac Raven
 Last Change 02/05/26, Isaac
 
+//add a way to not manage turns ending
 */
 
 import java.util.ArrayList;

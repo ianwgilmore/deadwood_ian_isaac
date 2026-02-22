@@ -154,4 +154,14 @@ public class Board{
         return neighbors;
     }
 
+    // public void results(Player[] players){
+
+    //     String[] results;
+    //     for (int i =0; i<player.size;i++){
+    //         calcScore(players[i]);
+    //     }
+    //     results.sort();
+    //     //send results to view
+    // }
+
 }

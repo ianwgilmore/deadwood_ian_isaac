@@ -11,12 +11,13 @@ public class Game{
 
         //get player input
         //int n = Controller.getPlayers()
-        int player_num = 2;
-        players = new Player[player_num];
+
         Parser parser = new Parser();
         Board board = new Board();
         Checker checker = new Checker();
         Controller controller = new Controller();
+        int player_num = controller.setup();
+        players = new Player[player_num];
         //setup game in board class
         players = board.setup(player_num, checker);
         max_day = board.playerDependentSetup(player_num, players);
@@ -39,6 +40,7 @@ public class Game{
             current_day++;
         }
         //calc scores, display scores
+        //board.results(players);
     }
 
     
