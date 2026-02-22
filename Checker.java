@@ -15,6 +15,7 @@ NEED TO FINISH TAKEROLE
 */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 public class Checker{
     //extra zeros allow desired rank to serve as an index
 
@@ -74,11 +75,12 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkTakeRole(Board board, String location, Role role) {
+    public boolean checkTakeRole(Board board, String location, Role role, HashMap<String, Role> roleList, ArrayList<Player> players) {
         Boolean bool;
+        ActingSet actingset = board.getActingSet(location);
+        //if does not have role
         if (checkRole(role) == false){
-            bool = board.getActingSet(location).getScene().getRoles().contains(role);
-            //make sure that role is not already taken 
+            bool = actingset.getScene().getRoles().containsValue(role);
         }
         else{
             bool = false;

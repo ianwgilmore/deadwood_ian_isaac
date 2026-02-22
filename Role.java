@@ -24,7 +24,7 @@ public class Role{
     int[] success; // Idea: int[dollars, credits]
     int[] failure;
 
-    public Role(int rank, boolean star){
+    public Role(String title, int rank, boolean star){
         this.rank = rank;
         this.star = star;
 

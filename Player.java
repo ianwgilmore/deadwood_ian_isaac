@@ -19,10 +19,10 @@ Methods
 Implemented by - Isaac Raven
 Last Change 02/05/26, Isaac
 
-NEED TAKETURN ONCE VIEW AND CONTROLLER SET UP
 */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 public class Player{
     String name;
     int rank;
@@ -153,10 +153,27 @@ public class Player{
         }
     }
 
-    private void takeRole(Role role, Board board, Controller controller) {
+    private void takeStarRole(String role, Board board, Controller controller, ActingSet actingset) {
         //
-        if (this.checker.checkTakeRole(board, this.location, role)) {
-            this.role = role;
+        HashMap<String, Role> starRoles = actingset.getScene().getRoles();
+        ArrayList<Player> stars = actingset.getScene().getStars();
+        Role target = starRoles.get(role);
+        if (this.checker.checkTakeRole(board, this.location, target, starRoles, stars)) {
+            this.role = target;
+        }
+        else{
+            //if taking a role is not valid, restart turn with an error indicator given to user
+            takeTurn(board, controller, true);
+        }
+    }
+
+    private void takeExtraRole(String role, Board board, Controller controller, ActingSet actingset) {
+        //
+        HashMap<String, Role> extraRoles = actingset.getExtraRoles();
+        ArrayList<Player> extras = actingset.getExtras();
+        Role target = extraRoles.get(role);
+        if (this.checker.checkTakeRole(board, this.location, target, extraRoles, extras)) {
+            this.role = target;
         }
         else{
             //if taking a role is not valid, restart turn with an error indicator given to user
@@ -214,7 +231,19 @@ public class Player{
 
         else if (action == "take role"){
             ActingSet set = board.getActingSet(this.location);
+            String type;
+            String target;
             if (set != null){
+                //
+                type = controller.typeRole();
+                if (type == "star"){
+                    target = controller.starRole(set.getScene().getRoles());
+                    takeStarRole(target, board, controller, set);
+                }
+                else{
+                    target = controller.extraRole(set.getExtraRoles());
+                    takeExtraRole(target, board, controller, set);
+                }
 
             }
             else{

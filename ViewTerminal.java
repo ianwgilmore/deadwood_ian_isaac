@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+//need to implement the view
 public class ViewTerminal{
     public int getPlayerNum(){
         //Scanner scanner = new Scanner();
@@ -32,4 +35,14 @@ public class ViewTerminal{
         return location;
     }
 
+
+    public String getRole(HashMap<String, Role> roles){
+        String location = "baker";
+        return location;
+    }
+
+    public String getTypeRole(){
+        String location = "credit";
+        return location;
+    }
 }

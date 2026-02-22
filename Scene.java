@@ -14,19 +14,20 @@ Last Change 02/13/26, Isaac
 COMPLETED
 */
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Scene{
     int budget;
-    List<Role> starRoles;
-    List<Player> stars;
+    HashMap<String, Role> starRoles;
+    ArrayList<Player> stars;
 
-    public Scene(int budget, List<Role> starRoles) {
+    public Scene(int budget, HashMap<String, Role> starRoles) {
         this.budget = budget;
         this.starRoles = starRoles;
     }
 
-    public List<Player> getStars(){
+    public ArrayList<Player> getStars(){
         return this.stars;
     }
 
@@ -35,10 +36,10 @@ public class Scene{
     }
 
     public void addRole(Role role){
-        this.starRoles.add(role);
+        this.starRoles.put(role.getTitle(),role);
     }
 
-    public List<Role> getRoles(){
+    public HashMap<String, Role> getRoles(){
         return this.starRoles;
     }
 

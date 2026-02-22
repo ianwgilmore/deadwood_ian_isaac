@@ -1,6 +1,7 @@
 //gameplay loop
 
 //COMPLETED until test
+//need to implement a way to ensure turns end
 public class Game{
     public static void main(String[] args){
         int max_day;

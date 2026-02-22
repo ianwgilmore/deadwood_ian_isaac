@@ -89,9 +89,11 @@ public class Parser {
     }
 
     // build star roles of a card node
-    private static List<Role> buildStarRoles(Node card) {
+    ///NEED A HAND PARSING TO GET THE TITLE
+    private static HashMap<String, Role> buildStarRoles(Node card) {
         NodeList part_nodes = card.getChildNodes();
-        List<Role> star_roles = new ArrayList<Role>();
+        HashMap<String, Role> star_roles = new HashMap<String, Role>();
+        String title;
 
         for (int i = 0; i < part_nodes.getLength(); i++) {
             Node part = part_nodes.item(i);
@@ -100,7 +102,8 @@ public class Parser {
             if (part.getNodeName() == "part") {
                 int rank = Integer.valueOf(getAttribute(part, "level"));
                 boolean is_star = true;
-                star_roles.add(new Role(rank, is_star));
+                Role addRole = new Role(title, rank, is_star);
+                star_roles.put(title, addRole);
             }
         }
 

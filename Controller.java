@@ -1,5 +1,6 @@
-
+//potentially completed
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller{
     ViewTerminal view = new ViewTerminal();
@@ -26,6 +27,22 @@ public class Controller{
 
     public String takeTurn(){
         String action = this.view.getPlayerAction();
+        return action;
+    }
+
+    //prompt user for whether star or 
+    public String typeRole(){
+        String action = this.view.getTypeRole();
+        return action;
+    }
+
+    public String starRole(HashMap<String, Role> roles){
+        String action = this.view.getRole(roles);
+        return action;
+    }
+
+    public String extraRole(HashMap<String, Role> roles){
+        String action = this.view.getRole(roles);
         return action;
     }
 

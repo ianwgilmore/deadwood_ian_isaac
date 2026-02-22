@@ -17,10 +17,11 @@ Last Change mm/dd/yy, first
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 public class ActingSet extends Set{
     Scene scene;
-    ArrayList<Role> extraroles;
+    HashMap<String, Role> extraroles;
     ArrayList<Player> extras;
     int shotTokens;
     //might need to track max shot tokens
@@ -51,12 +52,14 @@ public class ActingSet extends Set{
     }
 
     public void addExtraRoles(Role newExtraRole){
-        this.extraroles.add(newExtraRole);
+        this.extraroles.put(newExtraRole.getTitle(), newExtraRole);
     }
-    public ArrayList<Role> getExtraRoles(){
+    public HashMap<String,Role> getExtraRoles(){
         return this.extraroles;
     }
-     public void addExtras(Player newExtra){
+
+
+    public void addExtras(Player newExtra){
         this.extras.add(newExtra);
     }
     public ArrayList<Player> getExtras(){
