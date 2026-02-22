@@ -59,4 +59,8 @@ public class Controller{
     public void displayResult(String[] results){
         this.view.displayResults(results);
     }
+
+    public void showRoll(int roll){
+        this.view.showRoll(roll);
+    }
 }

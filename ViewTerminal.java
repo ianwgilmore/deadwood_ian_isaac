@@ -93,4 +93,8 @@ public class ViewTerminal{
             System.out.println(i + " " +  results[i]);
         }
     }
+
+    public void showRoll(int roll){
+        System.out.println("Rolled a " + roll);
+    }
 }

@@ -79,7 +79,6 @@ public class Checker{
         Boolean bool;
         ActingSet actingset = board.getActingSet(location);
         //if does not have role
-        System.out.println("if role is taken: "  + target.isTaken());
         if (!checkRole(role) && !target.isTaken()){
             bool = actingset.getScene().getRoles().containsValue(target);
         }

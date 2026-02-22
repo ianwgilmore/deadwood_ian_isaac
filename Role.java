@@ -20,7 +20,7 @@ COMPLETED
 public class Role{
     String title;
     int rank;
-    boolean star;
+    Boolean star;
     int[] success; // Idea: int[dollars, credits]
     int[] failure;
     Boolean taken = false; 
@@ -30,14 +30,16 @@ public class Role{
         this.rank = rank;
         this.star = star;
 
+        int[] success;
+        int[] failure;
         // set success and failure payments
         // in format: int[dollars, credits]
         if (this.isStar()) {
-            int[] success = {0, 2};
-            int[] failure = {0, 0};
+            success = {0, 2};
+            failure = {0, 0};
         } else {
-            int[] success = {1, 1};
-            int[] failure = {1, 0};
+            success = {1, 1};
+            failure = {1, 0};
         }
 
         this.success = success;
@@ -52,6 +54,10 @@ public class Role{
         return this.taken;
     }
 
+    public void take(){
+        this.taken = true;
+    }
+
     public int getRank(){
         return this.rank;
     }
@@ -64,7 +70,7 @@ public class Role{
         return this.failure;
     }
 
-    public boolean isStar() {
+    public Boolean isStar() {
         return this.star;
     }
 }
