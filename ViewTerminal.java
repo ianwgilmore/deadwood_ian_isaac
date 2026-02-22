@@ -41,7 +41,7 @@ public class ViewTerminal{
         String badsolution = this.scanner.nextLine();
         System.out.println("Select your used currency");
         //print 
-        System.out.println("Current Balance: Dollars " + balance[0] + " Credits " + balance[1]);
+        System.out.println("Current Balance: dollars " + balance[0] + " credits " + balance[1]);
         String type = this.scanner.nextLine();
         int intType;
         int[] rankInfo;
@@ -81,5 +81,9 @@ public class ViewTerminal{
         System.out.println("Choose a type of role(star or extra)");
         String type = this.scanner.nextLine();
         return type;
+    }
+
+    public void sendNewDay(int day){
+        System.out.println("Start of day " + day);
     }
 }

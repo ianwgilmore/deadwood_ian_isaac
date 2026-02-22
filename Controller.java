@@ -51,4 +51,8 @@ public class Controller{
     public void error(){
         this.view.sendErrorMessage();
     }
+
+    public void newDay(int day){
+        this.view.sendNewDay(day);
+    }
 }

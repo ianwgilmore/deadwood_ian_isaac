@@ -25,8 +25,9 @@ public class Game{
                 
 
         int index = 0;
-        current_day = 0;
+        current_day = 1;
         while(current_day <= max_day){
+            controller.newDay(current_day);
             //set up board for new day
             board.setBoard(players);
             while(board.getScenesLeft()>1){
