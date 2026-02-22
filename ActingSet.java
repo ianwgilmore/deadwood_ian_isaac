@@ -30,6 +30,7 @@ public class ActingSet extends Set{
     public ActingSet(String name, int shotTokens) {
         super(name);
         this.shotTokens = shotTokens;
+        this.maxShotTokens = shotTokens;
     }
 
     public Scene getScene(){
@@ -40,6 +41,9 @@ public class ActingSet extends Set{
         this.scene = scene;
     }
 
+    public void setShotTokens(){
+        this.shotTokens = this.maxShotTokens;
+    }
 
     public void removeShotToken(Board board) {
         this.shotTokens--;

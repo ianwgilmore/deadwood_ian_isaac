@@ -2,6 +2,7 @@
 (casting office/trailer)
 Attributes
 -name
+-name
 -neighbors[]
 for checking rank up generally false
 -bool castingOffice
@@ -15,8 +16,8 @@ Implemented by - Ian Gilmore
 Last Change 02/05/26, Ian
 -adding getters setters
 
-COMPLETED
 */
+
 import java.util.ArrayList;
 
 public class Set{

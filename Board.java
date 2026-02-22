@@ -128,16 +128,17 @@ public class Board{
     }
 
     public void setBoard(Player[] players){
-        //reset shot tokens, etc.
-        //also set scenesLeft to 10
         //replaces current scenes with new scenes
         assignScenes();
         //move players to trailer
         for(int i = 0; i<players.length;i++){
             players[i].setLocation(this.trailer.getName());
         }
+        //resets the scenes counter
         this.scenesLeft = 10;
-
+        for (ActingSet set: actingsets.values()){
+            set.setShotTokens();
+        }
     }
 
     public Player[] buildPlayers(int n, Checker checker){
@@ -179,6 +180,9 @@ public class Board{
     //     }
     //     results.sort();
     //     //send results to view
+    //     controller.
     // }
+
+    
 
 }
