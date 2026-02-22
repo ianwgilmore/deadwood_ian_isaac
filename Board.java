@@ -18,11 +18,11 @@ public class Board{
     }
 
     public void buildCastingOffice(){
-
+        this.castingoffice = this.parser.buildCastingOffice();
     }
 
     public void buildTrailer(){
-
+        this.trailer = this.parser.buildTrailer();
     }
 
 
