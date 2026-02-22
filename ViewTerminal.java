@@ -97,4 +97,11 @@ public class ViewTerminal{
     public void showRoll(int roll){
         System.out.println("Rolled a " + roll);
     }
+
+    public void showTokens(int tokens){
+        System.out.println(tokens + " Shot Tokens Left");
+    }
+    public void displayWrap(){
+        System.out.println("Scene has wrapped");
+    }
 }

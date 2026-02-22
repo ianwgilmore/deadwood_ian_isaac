@@ -63,4 +63,12 @@ public class Controller{
     public void showRoll(int roll){
         this.view.showRoll(roll);
     }
+
+    public void showTokens(int tokens){
+        this.view.showTokens(tokens);
+    }
+
+    public void displayWrap(){
+        this.view.displayWrap();
+    }
 }

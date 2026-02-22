@@ -120,18 +120,15 @@ public class Player{
         int[] payout;
         //need to change to something like getSet(location)
         ActingSet actset = board.getActingSet(this.location);
-        System.out.print(this.role.getTitle()+ this.role.getRank());
         if (this.checker.checkRole(this.role)) {
             int roll = this.die.roll();
             controller.showRoll(roll);
             if (roll + this.practice_tok >= actset.scene.getBudget()) {
                 payout = this.role.getSuccess();
-
-                actset.removeShotToken(board);
-                System.out.println(payout);
+                actset.removeShotToken(board, controller);
+                controller.showTokens(actset.getShotToken());
             } else {
                 payout = this.role.getFailure();
-                System.out.println(payout);
             }
 
             int dollars = payout[0];

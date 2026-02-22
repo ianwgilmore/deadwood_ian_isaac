@@ -18,6 +18,7 @@ Last Change mm/dd/yy, first
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ActingSet extends Set{
     Scene scene;
@@ -46,10 +47,10 @@ public class ActingSet extends Set{
         this.shotTokens = this.maxShotTokens;
     }
 
-    public void removeShotToken(Board board) {
+    public void removeShotToken(Board board, Controller controller) {
         this.shotTokens--;
         if (this.shotTokens == 0){
-            wrap(board);
+            wrap(board, controller);
         }
     }
     public int getShotToken(){
@@ -71,7 +72,7 @@ public class ActingSet extends Set{
         return this.extras;
     }
 
-    public void wrap(Board board){
+    public void wrap(Board board, Controller controller){
         Die die = new Die();
         ArrayList<Integer> payments = new ArrayList<Integer>();
         for (int i=0; i<this.scene.getBudget(); i++){
@@ -83,12 +84,13 @@ public class ActingSet extends Set{
         board.removeScene();
         starWrap(payments);
 
-
+        controller.displayWrap();
         this.scene = null;
     }
 
     //helper for wrap
     private void extraWrap(){
+        if (!Objects.isNull(this.extras))
         for (int i=0; i<this.extras.size();i++){
             Player player = this.extras.get(i);
             player.addDollars(player.role.rank);
@@ -100,12 +102,15 @@ public class ActingSet extends Set{
     private void starWrap(ArrayList<Integer> payments){
         int index = 0;
         List<Player> stars = this.scene.getStars();
-        for (int i=0; i<payments.size(); i++){
-            if (index < stars.size()){
-                stars.get(index).addDollars(payments.get(i));
-            }
-            else{
-                index = 0;
+        if (!Objects.isNull(stars)){
+            for (int i=0; i<payments.size(); i++){
+                if (index < stars.size()){
+                    stars.get(index).addDollars(payments.get(i));
+                    index++;
+                }
+                else{
+                    index = 0;
+                }
             }
         }
     }

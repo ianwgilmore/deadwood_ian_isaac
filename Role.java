@@ -30,16 +30,20 @@ public class Role{
         this.rank = rank;
         this.star = star;
 
-        //int[] success;
-        //int[] failure;
+        int[] success = new int[2];
+        int[] failure = new int[2];
         // set success and failure payments
         // in format: int[dollars, credits]
         if (this.isStar()) {
-            int[] success = {0, 2};
-            int[] failure = {0, 0};
+            success[0] = 0;
+            success[1] = 2;
+            failure[0] = 0;
+            failure[1] = 0;
         } else {
-            int[] success = {1, 1};
-            int[] failure = {1, 0};
+            success[0] = 1;
+            success[1] = 1;
+            failure[0] = 1;
+            failure[1] = 0;
         }
 
         this.success = success;
