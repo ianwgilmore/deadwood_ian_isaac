@@ -93,13 +93,13 @@ public class Parser {
     private static HashMap<String, Role> buildStarRoles(Node card) {
         NodeList part_nodes = card.getChildNodes();
         HashMap<String, Role> star_roles = new HashMap<String, Role>();
-        String title;
 
         for (int i = 0; i < part_nodes.getLength(); i++) {
             Node part = part_nodes.item(i);
 
             // verify that part is actually a part
             if (part.getNodeName() == "part") {
+                String title = getAttribute(part, "name");
                 int rank = Integer.valueOf(getAttribute(part, "level"));
                 boolean is_star = true;
                 Role addRole = new Role(title, rank, is_star);
