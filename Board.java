@@ -46,7 +46,6 @@ public class Board{
         }
         //set all player stats to proper vals
         for (int i=0; i<players.length; i++){
-            players[i] = new Player(String.valueOf(player_num), "trailer", new Checker());
             players[i].addDollars(dol);
             players[i].setRank(rank);
             players[i].addCredits(cred);
@@ -135,18 +134,21 @@ public class Board{
         assignScenes();
         //move players to trailer
         for(int i = 0; i<players.length;i++){
-            players[i].setLocation("trailer");
+            players[i].setLocation(this.trailer.getName());
         }
         this.scenesLeft = 10;
 
     }
 
     public Player[] buildPlayers(int n, Checker checker){
-        Player[] players = new Player[n+1];
+        Player[] players = new Player[n];
         String name;
-        for (int i=1; i<n+1; i++){
-            name = "player"+i;
-            Player player = new Player(name, null, checker);
+        Player player;
+        int playerNum;
+        for (int i=0; i<n; i++){
+            playerNum = i+1;
+            name = "player"+playerNum;
+            player = new Player(name, null, checker);
             players[i] = player;
         }
         return players;

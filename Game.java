@@ -22,6 +22,9 @@ public class Game{
         players = board.setup(player_num, checker);
         max_day = board.playerDependentSetup(player_num, players);
 
+        for (int i=0; i<players.length; i++){
+            System.out.println(players[i].getName());
+        }
                 
 
         int index = 0;
