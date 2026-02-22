@@ -25,8 +25,8 @@ public class Controller{
         return rankInfo;
     }
 
-    public String takeTurn(String name){
-        String action = this.view.getPlayerAction(name);
+    public String takeTurn(String name, String location){
+        String action = this.view.getPlayerAction(name, location);
         return action;
     }
 

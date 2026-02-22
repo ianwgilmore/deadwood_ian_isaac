@@ -11,6 +11,10 @@ public class ViewTerminal{
         int playerNum = this.scanner.nextInt();
         //eat rest of line
         String badfix = this.scanner.nextLine();
+        if (playerNum<2||playerNum>8){
+            System.out.println("invalid number of players chosen");
+            playerNum = getPlayerNum();
+        }
         return playerNum;
     }
 
@@ -21,8 +25,8 @@ public class ViewTerminal{
 
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
-    public String getPlayerAction(String name){
-        System.out.println(name + "'s turn");
+    public String getPlayerAction(String name, String location){
+        System.out.println(name + "'s turn. You are at the " + location);
         System.out.println("Choose an action. (act, rehearse, move, take role, rank up)");
         String action = this.scanner.nextLine();
         return action;
@@ -34,6 +38,7 @@ public class ViewTerminal{
     public int[] getRankInfo(int[] balance){
         System.out.println("Enter your desired rank (2-6)");
         int rank = this.scanner.nextInt();
+        String badsolution = this.scanner.nextLine();
         System.out.println("Select your used currency");
         //print 
         System.out.println("Current Balance: Dollars " + balance[0] + " Credits " + balance[1]);

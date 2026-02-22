@@ -13,7 +13,7 @@ Last Change mm/dd/yy, first
 
 
 */
-
+import java.util.Objects;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Checker{
@@ -24,7 +24,7 @@ public class Checker{
         //true if player has a role(not null)
         //false if player does not have a role
         Boolean bool = false;
-        if (role != null){
+        if (!Objects.isNull(role)){
             bool = true;
         }
         return bool;
@@ -44,7 +44,8 @@ public class Checker{
         //if target location is one of the current player location's neighbors --> True
         //also must be false if the player is currently working on a role
         Boolean bool = false;
-        if (role == null){
+        System.out.println("check role: " + role);
+        if (Objects.isNull(role)){
             bool = neighbors.contains(target_loc);
         }
         return bool;
@@ -75,12 +76,14 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkTakeRole(Board board, String location, Role role, HashMap<String, Role> roleList, ArrayList<Player> players) {
+    public boolean checkTakeRole(Board board, String location, Role role, HashMap<String, Role> roleList, ArrayList<Player> players, Role target) {
         Boolean bool;
         ActingSet actingset = board.getActingSet(location);
         //if does not have role
-        if (checkRole(role) == false){
-            bool = actingset.getScene().getRoles().containsValue(role);
+        System.out.println("check role: " + checkRole(role));
+        System.out.println("if role is taken: "  + target.isTaken());
+        if (!checkRole(role) && !target.isTaken()){
+            bool = actingset.getScene().getRoles().containsValue(target);
         }
         else{
             bool = false;

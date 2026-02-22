@@ -105,7 +105,10 @@ public class Player{
 
     private void move(String new_location, Board board, Controller controller) {
         //need to change this.location to something like getSet(location).getneighbors();
-        if (this.checker.checkMove(board.getNeighbors(this.location), new_location, this.role)) {
+        System.out.println("how far do we get 2");
+        Boolean moveCheck = this.checker.checkMove(board.getNeighbors(this.location), new_location, this.role);
+        System.out.println(moveCheck);
+        if (moveCheck == true) {
             this.location = new_location;
         }
         else{
@@ -119,7 +122,8 @@ public class Player{
         int[] payout;
         //need to change to something like getSet(location)
         ActingSet actset = board.getActingSet(this.location);
-        
+        System.out.println(this.role.getTitle());
+        System.out.println(checker.checkRole(this.role));
         if (this.checker.checkRole(this.role)) {
             if (this.die.roll() + this.practice_tok >= actset.scene.getBudget()) {
                 payout = this.role.getSuccess();
@@ -151,6 +155,9 @@ public class Player{
             if (this.checker.checkRehearsal(this.role, this.practice_tok, budget)) {
                 this.practice_tok += 1;
             }
+            else{
+                System.out.println("invalid state for rehearsing");
+            }
         }
         else{
             //if rehearsing is not valid, restart turn with an error indicator given to user
@@ -164,7 +171,7 @@ public class Player{
         HashMap<String, Role> starRoles = actingset.getScene().getRoles();
         ArrayList<Player> stars = actingset.getScene().getStars();
         Role target = starRoles.get(role);
-        if (this.checker.checkTakeRole(board, this.location, target, starRoles, stars)) {
+        if (this.checker.checkTakeRole(board, this.location, this.role, starRoles, stars, target)) {
             this.role = target;
         }
         else{
@@ -179,7 +186,7 @@ public class Player{
         HashMap<String, Role> extraRoles = actingset.getExtraRoles();
         ArrayList<Player> extras = actingset.getExtras();
         Role target = extraRoles.get(role);
-        if (this.checker.checkTakeRole(board, this.location, target, extraRoles, extras)) {
+        if (this.checker.checkTakeRole(board, this.location, this.role, extraRoles, extras, target)) {
             this.role = target;
         }
         else{
@@ -222,9 +229,7 @@ public class Player{
             controller.error();
         }
 
-        String action = controller.takeTurn(this.name);
-        System.out.println(action.equals("move"));
-        System.out.println(action);
+        String action = controller.takeTurn(this.name, this.location);
         //do player action 
         if (action.equals("act")){
             act(board, controller);
@@ -237,6 +242,7 @@ public class Player{
         else if (action.equals("move")){
             ArrayList<String> neighbors = board.getNeighbors(this.location);
             String targetLoc = controller.move(neighbors);
+            System.out.println("how far do we get 1");
             move(targetLoc, board, controller);
         }
 
@@ -259,7 +265,7 @@ public class Player{
             }
             else{
                 controller.error();
-                controller.takeTurn(this.name);
+                controller.takeTurn(this.name, this.location);
             }
         }
 

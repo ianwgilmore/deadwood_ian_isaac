@@ -21,6 +21,8 @@ public class test{
         // System.out.println(testplayer.getLocation().getName());
         // //
 
+        Parser parser = new Parser();
+        
 
     }
 

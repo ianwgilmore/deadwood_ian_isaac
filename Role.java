@@ -23,8 +23,10 @@ public class Role{
     boolean star;
     int[] success; // Idea: int[dollars, credits]
     int[] failure;
+    Boolean taken = false; 
 
     public Role(String title, int rank, boolean star){
+        this.title = title;
         this.rank = rank;
         this.star = star;
 
@@ -44,6 +46,10 @@ public class Role{
 
     public String getTitle(){
         return this.title;
+    }
+
+    public Boolean isTaken(){
+        return this.taken;
     }
 
     public int getRank(){

@@ -69,6 +69,7 @@ public class Board{
         //import data from xml
         this.scenes = this.parser.buildScenes();
     }
+    
     //get random scene
     public Scene getScene(){
         Random random = new Random();
