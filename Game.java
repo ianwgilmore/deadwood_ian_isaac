@@ -22,7 +22,7 @@ public class Game{
         players = board.setup(player_num, checker);
         max_day = board.playerDependentSetup(player_num, players);
 
-        
+
 
         int index = 0;
         current_day = 0;
@@ -43,7 +43,7 @@ public class Game{
             current_day++;
         }
         //calc scores, display scores
-        //board.results(players);
+        board.results(players, controller);
     }
 
     
