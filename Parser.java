@@ -112,14 +112,14 @@ public class Parser {
     }
 
     private static List<Role> buildExtrasRoles(Node card) {
-        NodeList part_nodes = card.getChildNodes();
+        List<Node> part_nodes = getSubNodes(getSubNodes(card, "parts").get(0), "part");
         ArrayList<Role> star_roles = new ArrayList<Role>();
-
-        for (int i = 0; i < part_nodes.getLength(); i++) {
-            Node part = part_nodes.item(i);
+        
+        for (int i = 0; i < part_nodes.size(); i++) {
+            Node part = part_nodes.get(i);
 
             // verify that part is actually a part
-            if (part.getNodeName() == "part") {
+            if (part.getNodeName().equals("part")) {
                 String title = getAttribute(part, "name");
                 int rank = Integer.valueOf(getAttribute(part, "level"));
                 boolean is_star = false;

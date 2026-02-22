@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
+
 
 
 public class Board{
@@ -172,31 +172,17 @@ public class Board{
         return neighbors;
     }
 
-    public void results(Player[] players, Controller controller){
-        HashMap<Integer,String> temp = new HashMap<Integer,String>();
-        Integer[] scores = new Integer[players.length];
-        String[] results = new String [players.length];
-        Player player;
-        int score;
-        for (int i =0; i<players.length;i++){
-            player = players[i];
-            score = calcScore(players[i]);
-            scores[i]=score;
-            temp.put(score, player.getName());
-        }
-        Arrays.sort(scores);
-        //get names with sorted scores
-        for (int i=0; i<scores.length ; i++){
-            results[i]=(temp.get(scores[i]));
-        }
-        //send results to view
-        controller.displayResult(results);
-    }
+    // public void results(Player[] players){
 
-    public Integer calcScore(Player player){
-        Integer rankscore = 5*player.getRank();
-        Integer score = player.getDollars() + player.getCredits() + rankscore;
-        return score;
-    }
+    //     String[] results;
+    //     for (int i =0; i<player.size;i++){
+    //         calcScore(players[i]);
+    //     }
+    //     results.sort();
+    //     //send results to view
+    //     controller.
+    // }
+
+    
 
 }

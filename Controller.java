@@ -55,8 +55,4 @@ public class Controller{
     public void newDay(int day){
         this.view.sendNewDay(day);
     }
-
-    public void displayResult(String[] results){
-        this.view.displayResults(results);
-    }
 }

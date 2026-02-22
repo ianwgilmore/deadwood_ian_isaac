@@ -47,7 +47,7 @@ public class Game{
             current_day++;
         }
         //calc scores, display scores
-        board.results(players, controller);
+        //board.results(players);
     }
 
     
