@@ -86,4 +86,11 @@ public class ViewTerminal{
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
     }
+
+    public void displayResults(String[] results){
+        System.out.println("The results are: ");
+        for (int i=0; i<results.length; i++){
+            System.out.println(i + " " +  results[i]);
+        }
+    }
 }
