@@ -187,6 +187,7 @@ public class Player{
         Role target = extraRoles.get(role);
         if (this.checker.checkTakeRole(board, this.location, this.role, extraRoles, extras, target)) {
             this.role = target;
+            target.take();
         }
         else{
             //if taking a role is not valid, restart turn with an error indicator given to user

@@ -157,13 +157,10 @@ public class Board{
 
     public ArrayList<String> getNeighbors(String name){
         ArrayList<String> neighbors = null;
-        System.out.println(name);
         if (actingsets.containsKey(name)){
-            System.out.println("Getting acting set neighbors:");
             neighbors = actingsets.get(name).getNeighbors();
         }
         else if (name.equals(this.castingoffice.getName())){
-            System.out.println("Getting casting office neighbors:");
             neighbors = this.castingoffice.getNeighbors();
         }
         else if (name.equals(this.trailer.getName())){

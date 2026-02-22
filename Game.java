@@ -21,12 +21,7 @@ public class Game{
         //setup game in board class
         players = board.setup(player_num, checker);
         max_day = board.playerDependentSetup(player_num, players);
-
-        for (int i=0; i<players.length; i++){
-            System.out.println(players[i].getName());
-        }
                 
-
         int index = 0;
         current_day = 1;
         while(current_day <= max_day){
@@ -36,7 +31,7 @@ public class Game{
             while(board.getScenesLeft()>1){
                 if (index < players.length){
                     ///currently for some reason the players name is 2. this is not correct
-                    players[0].takeTurn(board, controller, false);
+                    players[index].takeTurn(board, controller, false);
                     index++;
                 }
                 else{
