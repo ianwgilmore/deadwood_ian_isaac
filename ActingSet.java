@@ -31,6 +31,7 @@ public class ActingSet extends Set{
         super(name);
         this.shotTokens = shotTokens;
         this.maxShotTokens = shotTokens;
+        this.extraroles = new HashMap<String, Role>();
     }
 
     public Scene getScene(){
