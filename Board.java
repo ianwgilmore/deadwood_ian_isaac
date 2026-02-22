@@ -121,8 +121,8 @@ public class Board{
         //index into hashmap
         //will placeholder will be null if name is not in actingset
         CastingOffice placeholder = null;
-        if (name.equals("casting office")){
-        placeholder = this.castingoffice;
+        if (name.equals("office")){
+            placeholder = this.castingoffice;
         }
         return placeholder;
     }

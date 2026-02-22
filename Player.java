@@ -105,9 +105,7 @@ public class Player{
 
     private void move(String new_location, Board board, Controller controller) {
         //need to change this.location to something like getSet(location).getneighbors();
-        System.out.println("how far do we get 2");
         Boolean moveCheck = this.checker.checkMove(board.getNeighbors(this.location), new_location, this.role);
-        System.out.println(moveCheck);
         if (moveCheck == true) {
             this.location = new_location;
         }
@@ -122,8 +120,6 @@ public class Player{
         int[] payout;
         //need to change to something like getSet(location)
         ActingSet actset = board.getActingSet(this.location);
-        System.out.println(this.role.getTitle());
-        System.out.println(checker.checkRole(this.role));
         if (this.checker.checkRole(this.role)) {
             if (this.die.roll() + this.practice_tok >= actset.scene.getBudget()) {
                 payout = this.role.getSuccess();
@@ -242,7 +238,6 @@ public class Player{
         else if (action.equals("move")){
             ArrayList<String> neighbors = board.getNeighbors(this.location);
             String targetLoc = controller.move(neighbors);
-            System.out.println("how far do we get 1");
             move(targetLoc, board, controller);
         }
 

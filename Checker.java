@@ -44,7 +44,6 @@ public class Checker{
         //if target location is one of the current player location's neighbors --> True
         //also must be false if the player is currently working on a role
         Boolean bool = false;
-        System.out.println("check role: " + role);
         if (Objects.isNull(role)){
             bool = neighbors.contains(target_loc);
         }
@@ -80,7 +79,6 @@ public class Checker{
         Boolean bool;
         ActingSet actingset = board.getActingSet(location);
         //if does not have role
-        System.out.println("check role: " + checkRole(role));
         System.out.println("if role is taken: "  + target.isTaken());
         if (!checkRole(role) && !target.isTaken()){
             bool = actingset.getScene().getRoles().containsValue(target);
