@@ -5,9 +5,12 @@ import java.util.HashMap;
 //need to implement the view
 public class ViewTerminal{
     Scanner scanner = new Scanner(System.in);
+
     public int getPlayerNum(){
         System.out.println("Enter the Number of Players (2-8)");
         int playerNum = this.scanner.nextInt();
+        //eat rest of line
+        String badfix = this.scanner.nextLine();
         return playerNum;
     }
 
@@ -18,7 +21,8 @@ public class ViewTerminal{
 
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
-    public String getPlayerAction(){
+    public String getPlayerAction(String name){
+        System.out.println(name + "'s turn");
         System.out.println("Choose an action. (act, rehearse, move, take role, rank up)");
         String action = this.scanner.nextLine();
         return action;
@@ -36,11 +40,11 @@ public class ViewTerminal{
         String type = this.scanner.nextLine();
         int intType;
         int[] rankInfo;
-        if (type == "dollars"){
+        if (type.equals("dollars")){
             intType = 0;
             rankInfo = new int[]{intType,rank};
         }
-        else if (type == "credits"){
+        else if (type.equals("credits")){
             intType = 1;
             rankInfo = new int[]{intType,rank};
         }

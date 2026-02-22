@@ -48,7 +48,9 @@ public class Player{
     }
 
     // getters
-
+    public String getName(){
+        return this.name;
+    }
     public int getRank() {
         return this.rank;
     }
@@ -108,6 +110,7 @@ public class Player{
         }
         else{
             //if moving is not valid, restart turn with an error indicator given to user
+            System.out.println("invalid state for moving");
             takeTurn(board, controller, true);
         }
     }
@@ -134,6 +137,7 @@ public class Player{
         }
         else{
             //if acting is not valid, restart turn with an error indicator given to user
+            System.out.println("invalid state for acting");
             takeTurn(board, controller, true);
         }
     }
@@ -150,6 +154,7 @@ public class Player{
         }
         else{
             //if rehearsing is not valid, restart turn with an error indicator given to user
+            System.out.println("invalid state for rehearsing");
             takeTurn(board, controller, true);
         }
     }
@@ -164,6 +169,7 @@ public class Player{
         }
         else{
             //if taking a role is not valid, restart turn with an error indicator given to user
+            System.out.println("invalid state for taking a star role");
             takeTurn(board, controller, true);
         }
     }
@@ -178,6 +184,7 @@ public class Player{
         }
         else{
             //if taking a role is not valid, restart turn with an error indicator given to user
+            System.out.println("invalid state for taking an extra role");
             takeTurn(board, controller, true);
         }
     }
@@ -185,15 +192,15 @@ public class Player{
     private void rankUp(String type, int target, Board board, Controller controller) {
         int amount = 0;
         //pick what 
-            if (type == "dollars"){
+            if (type.equals("dollars")){
                 amount = this.dollars;
             }
-            else if (type == "credits"){
+            else if (type.equals("credits")){
                 amount = this.credits;
             }
         //if ranking up is a valid move, take payment and increase rank
         if (this.checker.checkRankUp(type, amount, target, this.location, board)) {
-            if (type == "dollars"){
+            if (type.equals("dollars")){
                 this.dollars= this.dollars - amount;
             }
             else{
@@ -203,6 +210,7 @@ public class Player{
         }
         else{
             //if ranking up is not valid, restart turn with an error indicator given to user
+            System.out.println("Invalid state for rankUp");
             takeTurn(board, controller, true);
         }
 
@@ -214,30 +222,32 @@ public class Player{
             controller.error();
         }
 
-        String action = controller.takeTurn();
+        String action = controller.takeTurn(this.name);
+        System.out.println(action.equals("move"));
+        System.out.println(action);
         //do player action 
-        if (action == "act"){
+        if (action.equals("act")){
             act(board, controller);
         }
 
-        else if (action == "rehearse"){
+        else if (action.equals("rehearse")){
             rehearse(board, controller);
         }
 
-        else if (action == "move"){
+        else if (action.equals("move")){
             ArrayList<String> neighbors = board.getNeighbors(this.location);
             String targetLoc = controller.move(neighbors);
             move(targetLoc, board, controller);
         }
 
-        else if (action == "take role"){
+        else if (action.equals("take role")){
             ActingSet set = board.getActingSet(this.location);
             String type;
             String target;
             if (set != null){
                 //
                 type = controller.typeRole();
-                if (type == "star"){
+                if (type.equals("star")){
                     target = controller.starRole(set.getScene().getRoles());
                     takeStarRole(target, board, controller, set);
                 }
@@ -249,11 +259,11 @@ public class Player{
             }
             else{
                 controller.error();
-                controller.takeTurn();
+                controller.takeTurn(this.name);
             }
         }
 
-        else if (action == "rank up"){
+        else if (action.equals("rank up")){
             String type; 
             int target;
             int[] balance = {this.dollars, this.credits};
@@ -269,6 +279,7 @@ public class Player{
         }
         //no valid choice made restart turn 
         else{
+            System.out.println("invalid action selected");
             takeTurn(board, controller, true);
         }
     }

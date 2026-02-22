@@ -17,6 +17,15 @@ public class Board{
         this.parser = new Parser();
     }
 
+    public void buildCastingOffice(){
+
+    }
+
+    public void buildTrailer(){
+
+    }
+
+
     public int playerDependentSetup(int player_num, Player[] players){
         int cred = 0;
         int dol = 0;
@@ -50,6 +59,8 @@ public class Board{
         //need to set max day, initialize players with correct stats!!!!!!!!!
         buildScenes();
         buildActingSets();
+        buildCastingOffice();
+        buildTrailer();
         Player[] players = buildPlayers(player_num, checker);
         return players;
     }
@@ -110,14 +121,14 @@ public class Board{
         //index into hashmap
         //will placeholder will be null if name is not in actingset
         CastingOffice placeholder = null;
-        if (name == "casting office"){
+        if (name.equals("casting office")){
         placeholder = this.castingoffice;
         }
         return placeholder;
     }
 
     public void setBoard(Player[] players){
-        //needs to clear scenes, add new scenes, change player location to trailer, reset shot tokens, etc.
+        //reset shot tokens, etc.
         //also set scenesLeft to 10
         //replaces current scenes with new scenes
         assignScenes();
@@ -132,7 +143,7 @@ public class Board{
     public Player[] buildPlayers(int n, Checker checker){
         Player[] players = new Player[n+1];
         String name;
-        for (int i=0; i<n; i++){
+        for (int i=1; i<n+1; i++){
             name = "player"+i;
             Player player = new Player(name, null, checker);
             players[i] = player;
