@@ -43,6 +43,7 @@ public class Game{
         }
         //calc scores, display scores
         //board.results(players);
+        board.results(players, controller);
     }
 
     

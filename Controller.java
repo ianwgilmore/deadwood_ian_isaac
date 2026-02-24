@@ -71,4 +71,8 @@ public class Controller{
     public void displayWrap(){
         this.view.displayWrap();
     }
+
+    public void displayResults(String[] results){
+        this.view.displayResults(results);
+    }
 }
