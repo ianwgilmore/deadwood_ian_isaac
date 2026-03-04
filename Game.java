@@ -15,7 +15,7 @@ public class Game{
         Parser parser = new Parser();
         Board board = new Board();
         Checker checker = new Checker();
-        Controller controller = new Controller();
+        Controller controller = new ControllerSwing();
         int player_num = controller.setup();
         players = new Player[player_num];
         //setup game in board class
