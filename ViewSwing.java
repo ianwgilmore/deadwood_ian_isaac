@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -7,6 +8,33 @@ import javax.swing.*;
 // Change to use swing and not terminal
 public class ViewSwing{
     Scanner scanner = new Scanner(System.in);
+    ButtonClickListener[] buttonListeners;
+
+    private static class ButtonClickListener implements ActionListener {
+        boolean wasClicked = false;
+        String actionText;
+
+        public ButtonClickListener(String text) {
+            this.actionText = text;
+        }
+
+        public boolean getClicked() {
+            if (this.wasClicked) {
+                this.wasClicked = false;
+                return true;
+            }
+
+            return false;
+        }
+
+        // Every listener uses 'actionPerformed' method. 
+        // And yes, '@Override' is necessary and the code refuses
+        // to compile without it.
+        @Override
+        public void actionPerformed(ActionEvent event) { // Argument name 'event' can be safely changed, for example, to 'e'
+            this.wasClicked = true;
+        }
+    }
 
     public int getPlayerNum(){
         System.out.println("Enter the Number of Players (2-8)");
@@ -20,21 +48,32 @@ public class ViewSwing{
         return playerNum;
     }
     
-    public static void startWindow() {
+    public void startWindow() {
         // Make window
         JFrame frame = new JFrame("Deadwood");
-        frame.setSize(800, 600);
+        frame.setSize(1200, 800);
         frame.setLayout(null);
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
-        JLabel boardLabel = new JLabel();
         boardIcon = scaleByFactor(boardIcon, 0.75);
+        JLabel boardLabel = new JLabel();
         boardLabel.setIcon(boardIcon);
         boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
         frame.add(boardLabel);
 
-        // Add button (to be done)
+        // Add move button
+        String[] buttonTexts = {"move", "act", "rehearse", "rank up", "take role"};
+        this.buttonListeners = new ButtonClickListener[buttonTexts.length];
+        for (int i = 0; i < buttonTexts.length; i++) {
+            JButton button = new JButton(buttonTexts[i]);
+            button.setBounds(900, i * 50, 150, 50);
+            frame.add(button);
+
+            ButtonClickListener buttonListener = new ButtonClickListener(buttonTexts[i]);
+            button.addActionListener(buttonListener);
+            this.buttonListeners[i] = buttonListener;
+        }
 
         // Set window visible at end
         // (Doing this before adding images causes them to not show up, unsure why)
@@ -42,16 +81,15 @@ public class ViewSwing{
     }
 
     private static ImageIcon scaleByFactor(ImageIcon boardIcon, double factor) {
-        if (factor != 1) {
-            // Scale image to given size
-            double width = boardIcon.getIconWidth() * factor;
-            double height = boardIcon.getIconHeight() * factor;
-            Image b = boardIcon.getImage();
-            Image f = b.getScaledInstance((int) width, (int) height, Image.SCALE_SMOOTH);
-            boardIcon = new ImageIcon(f);
+        if (factor == 1) {
             return boardIcon;
         }
 
+        // Scale image by given factor
+        double width = boardIcon.getIconWidth() * factor;
+        double height = boardIcon.getIconHeight() * factor;
+        Image scaledImage = boardIcon.getImage().getScaledInstance((int) width, (int) height, Image.SCALE_SMOOTH);
+        boardIcon = new ImageIcon(scaledImage);
         return boardIcon;
     }
 
@@ -65,7 +103,25 @@ public class ViewSwing{
     public String getPlayerAction(String name, String location){
         System.out.println(name + "'s turn. You are at the " + location);
         System.out.println("Choose an action. (act, rehearse, move, take role, rank up)");
-        String action = this.scanner.nextLine();
+        //String action = this.scanner.nextLine();
+        
+        // Clear button clicks so there is no pre-input
+        for (int i = 0; i < this.buttonListeners.length; i++) {
+            this.buttonListeners[i].getClicked();
+        }
+
+        // Keep checking the action buttons until one is clicked
+        String action = null;
+        while (action == null) {
+            for (int i = 0; i < this.buttonListeners.length; i++) {
+                if (this.buttonListeners[i].getClicked()) {
+                    action = this.buttonListeners[i].actionText;
+                }
+            }
+        }
+
+        System.out.println(action);
+        
         return action;
     }
 
