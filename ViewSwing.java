@@ -1,6 +1,8 @@
-import java.util.Scanner;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
+import javax.swing.*;
 
 // Change to use swing and not terminal
 public class ViewSwing{
@@ -16,6 +18,41 @@ public class ViewSwing{
             playerNum = getPlayerNum();
         }
         return playerNum;
+    }
+    
+    public static void startWindow() {
+        // Make window
+        JFrame frame = new JFrame("Deadwood");
+        frame.setSize(800, 600);
+        frame.setLayout(null);
+
+        // Add board image
+        ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
+        JLabel boardLabel = new JLabel();
+        boardIcon = scaleByFactor(boardIcon, 0.75);
+        boardLabel.setIcon(boardIcon);
+        boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
+        frame.add(boardLabel);
+
+        // Add button (to be done)
+
+        // Set window visible at end
+        // (Doing this before adding images causes them to not show up, unsure why)
+        frame.setVisible(true);
+    }
+
+    private static ImageIcon scaleByFactor(ImageIcon boardIcon, double factor) {
+        if (factor != 1) {
+            // Scale image to given size
+            double width = boardIcon.getIconWidth() * factor;
+            double height = boardIcon.getIconHeight() * factor;
+            Image b = boardIcon.getImage();
+            Image f = b.getScaledInstance((int) width, (int) height, Image.SCALE_SMOOTH);
+            boardIcon = new ImageIcon(f);
+            return boardIcon;
+        }
+
+        return boardIcon;
     }
 
     //print error message to user to signify some failure
