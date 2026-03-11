@@ -64,6 +64,7 @@ public class Checker{
             bool = true;
         }
         return bool;
+        
     }
 
     public static boolean checkRankUp(String payment, int amount, int targetRank, String location, Board board) {
