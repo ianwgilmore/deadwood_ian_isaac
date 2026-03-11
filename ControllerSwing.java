@@ -25,8 +25,8 @@ public class ControllerSwing implements Controller{
         return rankInfo;
     }
 
-    public String takeTurn(String name, String location){
-        String action = this.view.getPlayerAction(name, location);
+    public String takeTurn(ArrayList<String> actions,String name){
+        String action = this.view.getPlayerAction(name);
         return action;
     }
 

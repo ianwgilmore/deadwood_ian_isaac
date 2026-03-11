@@ -146,28 +146,28 @@ public class Player{
     }
 
 
-    private ArrayList<String> getActions(){
+    private ArrayList<String> getActions(Board board){
         ArrayList<String>  actions = new ArrayList<>();  
-        if (this.actionTaken == false){
-            actions.append("move");
+        if (this.actionTaken == false && checker.checkRole(this.role) == false){
+            actions.add("move");
             //check if on actingset, check if has role
-            if (checker.checkActingSet(this.location) == true && checker.checkRole(this.role) == false){
-                actions.append("take role");
+            if (checker.checkActingSet(this.location, board) == true && checker.checkRole(this.role) == false){
+                actions.add("take role");
             }
             //check player is in castingOffice
             //if player has a role
             if(checker.checkRole(this.role) == true){
-                actions.append("act");
+                actions.add("act");
             }
             //if player has role and rehearse tokens is less than budget
-            if(checker.checkRehearse(this.role, this.practiceToken, board.getActingSet(this.location).getScene().getBudget()) == true){
-                actions.append("rehearse");
+            if(checker.checkRehearse(this.role, this.practice_tok, board.getActingSet(this.location).getScene().getBudget())){
+                actions.add("rehearse");
         }
         }
-        if(checker.checheckCastingOfficeck(this.location)== true){
-                actions.append("rank up");
+        if(checker.checkCastingOffice(this.location,  board)== true){
+                actions.add("rank up");
         }
-        actions.append("end turn");
+        actions.add("end turn");
         return actions;
     }
 
@@ -217,8 +217,8 @@ public class Player{
     public void takeTurn(Board board, Controller controller, Boolean endTurn){
         while(endTurn == false){
 
-            ArrayList<String> actions = getActions();
-            String action = controller.takeTurn(actions, this.name, this.location);
+            ArrayList<String> actions = getActions(board);
+            String action = controller.takeTurn(actions, this.name);
 
 
             //String action = controller.takeTurn(this.name, this.location);
@@ -246,13 +246,13 @@ public class Player{
                     type = controller.typeRole();
                     if (type.equals("star")){
                         //send user valid roles instead of all
-                        target = controller.starRole(checker.getValidRoles(set.getScene().getRoles()), this.rank);
+                        target = controller.starRole(checker.getValidRoles(set.getScene().getRoles(), this.rank));
                         takeStarRole(target, board, controller, set);
                         
                     }
                     else{
                         //send user valid roles instead of all
-                        target = controller.extraRole(checker.getValidRoles(set.getExtraRoles()), this.rank);
+                        target = controller.extraRole(checker.getValidRoles(set.getExtraRoles(), this.rank));
                         takeExtraRole(target, board, controller, set);
                     }
 

@@ -16,7 +16,7 @@ Last Change mm/dd/yy, first
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.HashMap;
-public static class Checker{
+public class Checker{
     //extra zeros allow desired rank to serve as an index
 
     //used for takeRole and Act
@@ -58,7 +58,7 @@ public static class Checker{
         return bool;
     }
 
-    public static boolean checkRehearsal(Role role, int practiceTokens, int budget) {
+    public static boolean checkRehearse(Role role, int practiceTokens, int budget) {
         Boolean bool = false;
         if (checkRole(role) == true && practiceTokens<budget){
             bool = true;
@@ -75,13 +75,13 @@ public static class Checker{
         return bool;
     }
 
-    public static ArrayList<Role> getValidRoles(HashMap<String,Role> roles, int rank){
+    public static HashMap<String, Role> getValidRoles(HashMap<String,Role> roles, int rank){
         //should iterate through all star roles and find the ones the player can currently take
-        ArrayList<Role> validRoles = new ArrayList<>(); 
-        for (HashMap.Entry<String,Integer> entry : roles.entrySet()) {
+        HashMap<String, Role> validRoles = new HashMap<>(); 
+        for (HashMap.Entry<String,Role> entry : roles.entrySet()) {
             Role role = entry.getValue();
             if (!role.isTaken() && rank >= role.getRank()){
-                validRoles.add(role);
+                validRoles.put(entry.getKey(),role);
             }
         }
         return validRoles;

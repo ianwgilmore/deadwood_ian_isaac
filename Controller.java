@@ -6,7 +6,7 @@ public interface Controller{
     public int setup();
     public String move(ArrayList<String> neighbors);
     public int[] rankUp(int[] balance);
-    public String takeTurn(String name, String location);
+    public String takeTurn(ArrayList<String> actions,String name);
 
     //prompt user for whether star or 
     public String typeRole();
