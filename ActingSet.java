@@ -94,6 +94,7 @@ public class ActingSet extends Set{
         for (int i=0; i<this.extras.size();i++){
             Player player = this.extras.get(i);
             player.addDollars(player.role.rank);
+            player.setRole(null);
         }
     }
 
@@ -106,6 +107,7 @@ public class ActingSet extends Set{
             for (int i=0; i<payments.size(); i++){
                 if (index < stars.size()){
                     stars.get(index).addDollars(payments.get(i));
+                    stars.get(index).setRole(null);
                     index++;
                 }
                 else{

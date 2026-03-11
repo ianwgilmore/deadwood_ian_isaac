@@ -34,6 +34,7 @@ public class Player{
     Role role;
     Checker checker;
     Die die;
+    boolean actionTaken;
     
     public Player(String name, String location, Checker checker) {
         this.name = name;
@@ -45,6 +46,7 @@ public class Player{
         this.role = null;
         this.checker = checker;
         this.die = new Die(); // Unsure if we're creating a die class or not
+        this.actionTaken = false;
     }
 
     // getters
@@ -105,97 +107,92 @@ public class Player{
 
     private void move(String new_location, Board board, Controller controller) {
         //need to change this.location to something like getSet(location).getneighbors();
-        Boolean moveCheck = this.checker.checkMove(board.getNeighbors(this.location), new_location, this.role);
-        if (moveCheck == true) {
-            this.location = new_location;
-        }
-        else{
-            //if moving is not valid, restart turn with an error indicator given to user
-            System.out.println("invalid state for moving");
-            takeTurn(board, controller, true);
-        }
+        //Boolean moveCheck = this.checker.checkMove(board.getNeighbors(this.location), new_location, this.role);
+        //checks should be reduntant now
+        this.location = new_location;
+        this.actionTaken = true;
     }
 
     private void act(Board board, Controller controller) {
         int[] payout;
         //need to change to something like getSet(location)
         ActingSet actset = board.getActingSet(this.location);
-        if (this.checker.checkRole(this.role)) {
-            int roll = this.die.roll();
-            controller.showRoll(roll);
-            if (roll + this.practice_tok >= actset.scene.getBudget()) {
-                payout = this.role.getSuccess();
-                actset.removeShotToken(board, controller);
-                controller.showTokens(actset.getShotToken());
-            } else {
-                payout = this.role.getFailure();
-            }
-
-            int dollars = payout[0];
-            int credits = payout[1];
-
-            this.dollars += dollars;
-            this.credits += credits;
+        int roll = this.die.roll();
+        controller.showRoll(roll);
+        if (roll + this.practice_tok >= actset.scene.getBudget()) {
+            payout = this.role.getSuccess();
+            actset.removeShotToken(board, controller);
+            controller.showTokens(actset.getShotToken());
+            } 
+        else {
+            payout = this.role.getFailure();
         }
-        else{
-            //if acting is not valid, restart turn with an error indicator given to user
-            System.out.println("invalid state for acting");
-            takeTurn(board, controller, true);
-        }
+
+        int dollars = payout[0];
+        int credits = payout[1];
+
+        this.dollars += dollars;
+        this.credits += credits;
+        this.actionTaken = true;
     }
 
     private void rehearse(Board board, Controller controller) {
         //same as above method
         
-        if(checker.checkActingSet(this.location, board) == true){
-            ActingSet actingset = board.getActingSet(this.location);
-            int budget = actingset.getScene().getBudget();
-            if (this.checker.checkRehearsal(this.role, this.practice_tok, budget)) {
-                this.practice_tok += 1;
+        ActingSet actingset = board.getActingSet(this.location);
+        int budget = actingset.getScene().getBudget();
+        this.practice_tok += 1;
+        this.actionTaken = true;
+    }
+
+
+    private ArrayList<String> getActions(){
+        ArrayList<String>  actions = new ArrayList<>();  
+        if (this.actionTaken == false){
+            actions.append("move");
+            //check if on actingset, check if has role
+            if (checker.checkActingSet(this.location) == true && checker.checkRole(this.role) == false){
+                actions.append("take role");
             }
-            else{
-                System.out.println("invalid state for rehearsing");
+            //check player is in castingOffice
+            //if player has a role
+            if(checker.checkRole(this.role) == true){
+                actions.append("act");
             }
+            //if player has role and rehearse tokens is less than budget
+            if(checker.checkRehearse(this.role, this.practiceToken, board.getActingSet(this.location).getScene().getBudget()) == true){
+                actions.append("rehearse");
         }
-        else{
-            //if rehearsing is not valid, restart turn with an error indicator given to user
-            System.out.println("invalid state for rehearsing");
-            takeTurn(board, controller, true);
         }
+        if(checker.checheckCastingOfficeck(this.location)== true){
+                actions.append("rank up");
+        }
+        actions.append("end turn");
+        return actions;
     }
 
     private void takeStarRole(String role, Board board, Controller controller, ActingSet actingset) {
-        //
+        //roles player can take should be handled earlier
         HashMap<String, Role> starRoles = actingset.getScene().getRoles();
         ArrayList<Player> stars = actingset.getScene().getStars();
         Role target = starRoles.get(role);
-        if (this.checker.checkTakeRole(board, this.location, this.role, starRoles, stars, target)) {
-            this.role = target;
-            target.take();
-        }
-        else{
-            //if taking a role is not valid, restart turn with an error indicator given to user
-            System.out.println("invalid state for taking a star role");
-            takeTurn(board, controller, true);
-        }
+        this.role = target;
+        target.take();
+        this.actionTaken = true;
     }
 
     private void takeExtraRole(String role, Board board, Controller controller, ActingSet actingset) {
-        //
+        //roles player can take should be handled earlier
         HashMap<String, Role> extraRoles = actingset.getExtraRoles();
         ArrayList<Player> extras = actingset.getExtras();
         Role target = extraRoles.get(role);
-        if (this.checker.checkTakeRole(board, this.location, this.role, extraRoles, extras, target)) {
-            this.role = target;
-            target.take();
-        }
-        else{
-            //if taking a role is not valid, restart turn with an error indicator given to user
-            System.out.println("invalid state for taking an extra role");
-            takeTurn(board, controller, true);
-        }
+        this.role = target;
+        target.take();
+        this.actionTaken = true;
     }
 
+
+    ////NEED TO ADD A WAY OF TRACKING RANK COSTS
     private void rankUp(String type, int target, Board board, Controller controller) {
         int amount = 0;
         //pick what 
@@ -215,77 +212,72 @@ public class Player{
             }
             this.rank = target;
         }
-        else{
-            //if ranking up is not valid, restart turn with an error indicator given to user
-            System.out.println("Invalid state for rankUp");
-            takeTurn(board, controller, true);
-        }
-
     }
 
-    public void takeTurn(Board board, Controller controller, Boolean error){
-        //if restarting turn let user know
-        if (error == true){
-            controller.error();
-        }
+    public void takeTurn(Board board, Controller controller, Boolean endTurn){
+        while(endTurn == false){
 
-        String action = controller.takeTurn(this.name, this.location);
-        //do player action 
-        if (action.equals("act")){
-            act(board, controller);
-        }
+            ArrayList<String> actions = getActions();
+            String action = controller.takeTurn(actions, this.name, this.location);
 
-        else if (action.equals("rehearse")){
-            rehearse(board, controller);
-        }
 
-        else if (action.equals("move")){
-            ArrayList<String> neighbors = board.getNeighbors(this.location);
-            String targetLoc = controller.move(neighbors);
-            move(targetLoc, board, controller);
-        }
+            //String action = controller.takeTurn(this.name, this.location);
+            //do player action 
+            if (action.equals("act")){
+                act(board, controller);
+            }
 
-        else if (action.equals("take role")){
-            ActingSet set = board.getActingSet(this.location);
-            String type;
-            String target;
-            if (set != null){
-                //
-                type = controller.typeRole();
-                if (type.equals("star")){
-                    target = controller.starRole(set.getScene().getRoles());
-                    takeStarRole(target, board, controller, set);
+            else if (action.equals("rehearse")){
+                rehearse(board, controller);
+            }
+
+            else if (action.equals("move")){
+                ArrayList<String> neighbors = board.getNeighbors(this.location);
+                String targetLoc = controller.move(neighbors);
+                move(targetLoc, board, controller);
+            }
+
+            else if (action.equals("take role")){
+                //precond, does not have role, is on actingset
+                ActingSet set = board.getActingSet(this.location);
+                String type;
+                String target;
+                if (set != null){
+                    type = controller.typeRole();
+                    if (type.equals("star")){
+                        //send user valid roles instead of all
+                        target = controller.starRole(checker.getValidRoles(set.getScene().getRoles()));
+                        takeStarRole(target, board, controller, set);
+                        
+                    }
+                    else{
+                        //send user valid roles instead of all
+                        target = controller.extraRole(checker.getValidRoles(set.getExtraRoles()));
+                        takeExtraRole(target, board, controller, set);
+                    }
+
+                }
+            }
+
+            else if (action.equals("rank up")){
+                String type; 
+                int target;
+                int[] balance = {this.dollars, this.credits};
+                int[] rankInfo = controller.rankUp(balance);
+                if (rankInfo[0] == 0){
+                    type = "dollars";
                 }
                 else{
-                    target = controller.extraRole(set.getExtraRoles());
-                    takeExtraRole(target, board, controller, set);
+                    type = "credits";
                 }
+                target = rankInfo[1];
+                rankUp(type, target, board, controller);
+            }
 
+            else if(action.equals("end turn")){
+                this.actionTaken = false;
+                endTurn = true;
             }
-            else{
-                controller.error();
-                controller.takeTurn(this.name, this.location);
-            }
-        }
-
-        else if (action.equals("rank up")){
-            String type; 
-            int target;
-            int[] balance = {this.dollars, this.credits};
-            int[] rankInfo = controller.rankUp(balance);
-            if (rankInfo[0] == 0){
-                type = "dollars";
-            }
-            else{
-                type = "credits";
-            }
-            target = rankInfo[1];
-            rankUp(type, target, board, controller);
-        }
-        //no valid choice made restart turn 
-        else{
-            System.out.println("invalid action selected");
-            takeTurn(board, controller, true);
         }
     }
 }

@@ -16,13 +16,12 @@ Last Change mm/dd/yy, first
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.HashMap;
-public class Checker{
+public static class Checker{
     //extra zeros allow desired rank to serve as an index
 
     //used for takeRole and Act
-    public boolean checkRole(Role role) {
+    public static boolean checkRole(Role role) {
         //true if player has a role(not null)
-        //false if player does not have a role
         Boolean bool = false;
         if (!Objects.isNull(role)){
             bool = true;
@@ -30,17 +29,26 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkActingSet(String name, Board board){
+    public static boolean checkTakeRole(Role role, String location) {
+        //true if player has a role(not null) and player is on an actingSet
+        Boolean bool = false;
+        if (!Objects.isNull(role) && !Objects.isNull(board.getActingSet(location))){
+            bool = true;
+        }
+        return bool;
+    }
+
+    public static boolean checkActingSet(String name, Board board){
         Boolean bool = board.getActingSet(name) != null;
         return bool;
     }
 
-    public boolean checkCastingOffice(String name, Board board){
+    public static boolean checkCastingOffice(String name){
         Boolean bool = board.getCastingOffice(name) != null;
         return bool;
     }
 
-    public boolean checkMove(ArrayList<String> neighbors, String target_loc, Role role) {
+    public static boolean checkMove(ArrayList<String> neighbors, String target_loc, Role role) {
         //if target location is one of the current player location's neighbors --> True
         //also must be false if the player is currently working on a role
         Boolean bool = false;
@@ -50,7 +58,7 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkRehearsal(Role role, int practiceTokens, int budget) {
+    public static boolean checkRehearsal(Role role, int practiceTokens, int budget) {
         Boolean bool = false;
         if (checkRole(role) == true && practiceTokens<budget){
             bool = true;
@@ -58,33 +66,37 @@ public class Checker{
         return bool;
     }
 
-    public boolean checkRankUp(String payment, int amount, int targetRank, String location, Board board) {
+    public static boolean checkRankUp(String payment, int amount, int targetRank, String location) {
         //since list of cost is in array 0 indexed and rank 1 not included
         //check if sufficient funds
         //check if player is in casting office
         Boolean bool = false;
-        if (checkCastingOffice(location, board) == true){
-            CastingOffice castingoffice = board.getCastingOffice(location);
-            if(payment == "dollars"){
-                bool = amount >= castingoffice.getDolCost()[targetRank];
-            }
-            else if (payment == "credits"){
-                bool = amount >= castingoffice.getCredCost()[targetRank];
-            }
-        }
+        CastingOffice castingoffice = board.getCastingOffice(location);
         return bool;
     }
 
-    public boolean checkTakeRole(Board board, String location, Role role, HashMap<String, Role> roleList, ArrayList<Player> players, Role target) {
-        Boolean bool;
-        ActingSet actingset = board.getActingSet(location);
-        //if does not have role
-        if (!checkRole(role) && !target.isTaken()){
-            bool = actingset.getScene().getRoles().containsValue(target) || actingset.getExtraRoles().containsValue(target);
+    public static ArrayList<Role> getValidRoles(Hashmap<String,Roles> roles, int rank){
+        //should iterate through all star roles and find the ones the player can currently take
+        ArrayList<Role> validRoles = new ArrayList<>(); 
+        for (Map.Entry<String,Integer> entry : roles.entrySet()) {
+            Role role = entry.getValue()
+            if (!role.isTaken() && rank >= role.getRank()){
+                validRoles.append(role);
+            }
         }
-        else{
-            bool = false;
-        }
-        return bool;
+        return validRoles;
     }
+
+    // public boolean checkTakeRole(Board board, String location, Role role, HashMap<String, Role> roleList, ArrayList<Player> players, Role target) {
+    //     Boolean bool;
+    //     ActingSet actingset = board.getActingSet(location);
+    //     //if does not have role
+    //     if (!checkRole(role) && !target.isTaken()){
+    //         bool = actingset.getScene().getRoles().containsValue(target) || actingset.getExtraRoles().containsValue(target);
+    //     }
+    //     else{
+    //         bool = false;
+    //     }
+    //     return bool;
+    // }
 }
