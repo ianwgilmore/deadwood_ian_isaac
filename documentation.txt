@@ -1,0 +1,6 @@
+ViewSwing.java Sources:
+ For base button functionality:
+  https://www.geeksforgeeks.org/java/introduction-to-java-swing/
+  https://www.tutorialspoint.com/swing/swing_event_handling.htm
+ For resizing imageicon (through converting to image and back):
+  https://stackoverflow.com/questions/5895829/resizing-image-in-java

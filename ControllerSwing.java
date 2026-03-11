@@ -6,7 +6,7 @@ public class ControllerSwing implements Controller{
     ViewSwing view = new ViewSwing();
 
     public int setup(){
-
+        view.startWindow();
         int playerNum = this.view.getPlayerNum();
         return playerNum;
     }
