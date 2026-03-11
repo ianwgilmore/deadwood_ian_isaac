@@ -50,6 +50,24 @@ public class ViewSwing{
         return playerNum;
     }
     
+    private void updateButtons(String[] buttonTexts, double boardScale, JFrame frame) {
+        // Add move button
+        this.buttonListeners = new ButtonClickListener[buttonTexts.length];
+        for (int i = 0; i < buttonTexts.length; i++) {
+            JButton button = new JButton(buttonTexts[i]);
+            button.setBounds((int) (1200 * boardScale), i * 50 + 50, 150, 50);
+            frame.add(button);
+
+            ButtonClickListener buttonListener = new ButtonClickListener(buttonTexts[i]);
+            button.addActionListener(buttonListener);
+            this.buttonListeners[i] = buttonListener;
+        }
+
+        // Set window visible at end
+        // (Doing this before adding images causes them to not show up, unsure why)
+        frame.setVisible(true);
+    }
+
     // this is a comment
     public void startWindow() {
         // Make window
@@ -74,16 +92,7 @@ public class ViewSwing{
 
         // Add move button
         String[] buttonTexts = {"move", "act", "rehearse", "rank up", "take role", "end turn"};
-        this.buttonListeners = new ButtonClickListener[buttonTexts.length];
-        for (int i = 0; i < buttonTexts.length; i++) {
-            JButton button = new JButton(buttonTexts[i]);
-            button.setBounds((int) (1200 * boardScale), i * 50 + 50, 150, 50);
-            frame.add(button);
-
-            ButtonClickListener buttonListener = new ButtonClickListener(buttonTexts[i]);
-            button.addActionListener(buttonListener);
-            this.buttonListeners[i] = buttonListener;
-        }
+        updateButtons(buttonTexts, boardScale, frame);
 
         // Set window visible at end
         // (Doing this before adding images causes them to not show up, unsure why)
