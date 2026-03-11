@@ -9,7 +9,10 @@ import javax.swing.*;
 public class ViewSwing{
     Scanner scanner = new Scanner(System.in);
     ButtonClickListener[] buttonListeners;
+    ArrayList<JButton> actionButtons = new ArrayList<JButton>();
     JLabel turnLabel;
+    JFrame frame;
+
 
     private static class ButtonClickListener implements ActionListener {
         boolean wasClicked = false;
@@ -50,15 +53,25 @@ public class ViewSwing{
         return playerNum;
     }
     
-    private void updateButtons(String[] buttonTexts, double boardScale, JFrame frame) {
+    private void updateButtons(ArrayList<String> buttonTexts) {
+        double boardScale = 1;
+
+        // Remove previous buttons
+        for (int i = 0; i < this.actionButtons.size(); i++) {
+            frame.remove(this.actionButtons.get(i));
+        }
+
+        this.actionButtons = new ArrayList<JButton>();
+
         // Add move button
-        this.buttonListeners = new ButtonClickListener[buttonTexts.length];
-        for (int i = 0; i < buttonTexts.length; i++) {
-            JButton button = new JButton(buttonTexts[i]);
+        this.buttonListeners = new ButtonClickListener[buttonTexts.size()];
+        for (int i = 0; i < buttonTexts.size(); i++) {
+            JButton button = new JButton(buttonTexts.get(i));
             button.setBounds((int) (1200 * boardScale), i * 50 + 50, 150, 50);
+            this.actionButtons.add(button);
             frame.add(button);
 
-            ButtonClickListener buttonListener = new ButtonClickListener(buttonTexts[i]);
+            ButtonClickListener buttonListener = new ButtonClickListener(buttonTexts.get(i));
             button.addActionListener(buttonListener);
             this.buttonListeners[i] = buttonListener;
         }
@@ -71,10 +84,10 @@ public class ViewSwing{
     // this is a comment
     public void startWindow() {
         // Make window
-        JFrame frame = new JFrame("Deadwood");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 800);
-        frame.setLayout(null);
+        this.frame = new JFrame("Deadwood");
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(1200, 800);
+        this.frame.setLayout(null);
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
@@ -83,16 +96,22 @@ public class ViewSwing{
         JLabel boardLabel = new JLabel();
         boardLabel.setIcon(boardIcon);
         boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
-        frame.add(boardLabel);
+        this.frame.add(boardLabel);
 
         // Add Turn Label
         this.turnLabel = new JLabel();
         this.turnLabel.setBounds((int) (1207 * boardScale), 0, 900, 50);
-        frame.add(this.turnLabel);
+        this.frame.add(this.turnLabel);
 
         // Add move button
-        String[] buttonTexts = {"move", "act", "rehearse", "rank up", "take role", "end turn"};
-        updateButtons(buttonTexts, boardScale, frame);
+        String[] tests = {"move", "act", "rehearse", "rank up", "take role", "end turn"};
+
+        ArrayList<String> buttonTexts = new ArrayList<String>();
+        for (int i = 0; i < tests.length; i++) {
+            buttonTexts.add(tests[i]);
+        }
+
+        updateButtons(buttonTexts);
 
         // Set window visible at end
         // (Doing this before adding images causes them to not show up, unsure why)
@@ -120,14 +139,17 @@ public class ViewSwing{
 
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
-    public String getPlayerAction(String name){
+    public String getPlayerAction(String name, ArrayList<String> actions){
         this.turnLabel.setText(name + "'s turn. \nChoose an action. (act, rehearse, move, take role, rank up)");
+        updateButtons(actions);
         //String action = this.scanner.nextLine();
         
         // Clear button clicks so there is no pre-input
         for (int i = 0; i < this.buttonListeners.length; i++) {
             this.buttonListeners[i].getClicked();
         }
+
+        System.out.println(this.buttonListeners);
 
         // Keep checking the action buttons until one is clicked
         String action = null;
