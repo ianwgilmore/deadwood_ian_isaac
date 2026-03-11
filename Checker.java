@@ -29,7 +29,7 @@ public static class Checker{
         return bool;
     }
 
-    public static boolean checkTakeRole(Role role, String location) {
+    public static boolean checkTakeRole(Role role, String location, Board board) {
         //true if player has a role(not null) and player is on an actingSet
         Boolean bool = false;
         if (!Objects.isNull(role) && !Objects.isNull(board.getActingSet(location))){
@@ -43,7 +43,7 @@ public static class Checker{
         return bool;
     }
 
-    public static boolean checkCastingOffice(String name){
+    public static boolean checkCastingOffice(String name, Board board){
         Boolean bool = board.getCastingOffice(name) != null;
         return bool;
     }
@@ -66,7 +66,7 @@ public static class Checker{
         return bool;
     }
 
-    public static boolean checkRankUp(String payment, int amount, int targetRank, String location) {
+    public static boolean checkRankUp(String payment, int amount, int targetRank, String location, Board board) {
         //since list of cost is in array 0 indexed and rank 1 not included
         //check if sufficient funds
         //check if player is in casting office
@@ -75,13 +75,13 @@ public static class Checker{
         return bool;
     }
 
-    public static ArrayList<Role> getValidRoles(Hashmap<String,Roles> roles, int rank){
+    public static ArrayList<Role> getValidRoles(HashMap<String,Role> roles, int rank){
         //should iterate through all star roles and find the ones the player can currently take
         ArrayList<Role> validRoles = new ArrayList<>(); 
-        for (Map.Entry<String,Integer> entry : roles.entrySet()) {
-            Role role = entry.getValue()
+        for (HashMap.Entry<String,Integer> entry : roles.entrySet()) {
+            Role role = entry.getValue();
             if (!role.isTaken() && rank >= role.getRank()){
-                validRoles.append(role);
+                validRoles.add(role);
             }
         }
         return validRoles;

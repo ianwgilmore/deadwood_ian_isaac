@@ -246,13 +246,13 @@ public class Player{
                     type = controller.typeRole();
                     if (type.equals("star")){
                         //send user valid roles instead of all
-                        target = controller.starRole(checker.getValidRoles(set.getScene().getRoles()));
+                        target = controller.starRole(checker.getValidRoles(set.getScene().getRoles()), this.rank);
                         takeStarRole(target, board, controller, set);
                         
                     }
                     else{
                         //send user valid roles instead of all
-                        target = controller.extraRole(checker.getValidRoles(set.getExtraRoles()));
+                        target = controller.extraRole(checker.getValidRoles(set.getExtraRoles()), this.rank);
                         takeExtraRole(target, board, controller, set);
                     }
 
