@@ -9,6 +9,7 @@ import javax.swing.*;
 public class ViewSwing{
     Scanner scanner = new Scanner(System.in);
     ButtonClickListener[] buttonListeners;
+    JLabel turnLabel;
 
     private static class ButtonClickListener implements ActionListener {
         boolean wasClicked = false;
@@ -49,26 +50,34 @@ public class ViewSwing{
         return playerNum;
     }
     
+    // this is a comment
     public void startWindow() {
         // Make window
         JFrame frame = new JFrame("Deadwood");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 800);
         frame.setLayout(null);
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
-        boardIcon = scaleByFactor(boardIcon, 0.75);
+        double boardScale = 1; // Used by board and other elements to scale accordingly
+        boardIcon = scaleByFactor(boardIcon, boardScale);
         JLabel boardLabel = new JLabel();
         boardLabel.setIcon(boardIcon);
         boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
         frame.add(boardLabel);
 
+        // Add Turn Label
+        this.turnLabel = new JLabel();
+        this.turnLabel.setBounds((int) (1207 * boardScale), 0, 900, 50);
+        frame.add(this.turnLabel);
+
         // Add move button
-        String[] buttonTexts = {"move", "act", "rehearse", "rank up", "take role"};
+        String[] buttonTexts = {"move", "act", "rehearse", "rank up", "take role", "end turn"};
         this.buttonListeners = new ButtonClickListener[buttonTexts.length];
         for (int i = 0; i < buttonTexts.length; i++) {
             JButton button = new JButton(buttonTexts[i]);
-            button.setBounds(900, i * 50, 150, 50);
+            button.setBounds((int) (1200 * boardScale), i * 50 + 50, 150, 50);
             frame.add(button);
 
             ButtonClickListener buttonListener = new ButtonClickListener(buttonTexts[i]);
@@ -95,15 +104,15 @@ public class ViewSwing{
     }
 
     //print error message to user to signify some failure
+    // src: https://mkyong.com/swing/java-swing-how-to-make-a-simple-dialog/
     public void sendErrorMessage(){
-        System.out.println("Current action failed.");
+        JOptionPane.showMessageDialog(null, "Current action failed.");
     }
 
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
     public String getPlayerAction(String name){
-        System.out.println(name + "'s turn.");
-        System.out.println("Choose an action. (act, rehearse, move, take role, rank up)");
+        this.turnLabel.setText(name + "'s turn. \nChoose an action. (act, rehearse, move, take role, rank up)");
         //String action = this.scanner.nextLine();
         
         // Clear button clicks so there is no pre-input
