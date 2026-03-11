@@ -26,7 +26,7 @@ public class ControllerTerminal implements Controller{
     }
 
     public String takeTurn(ArrayList<String> actions,String name){
-        String action = this.view.getPlayerAction(name);
+        String action = this.view.getPlayerAction(name, actions);
         return action;
     }
 
