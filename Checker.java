@@ -76,13 +76,13 @@ public class Checker{
         return bool;
     }
 
-    public static HashMap<String, Role> getValidRoles(HashMap<String,Role> roles, int rank){
+    public static ArrayList<String> getValidRoles(HashMap<String,Role> roles, int rank){
         //should iterate through all star roles and find the ones the player can currently take
-        HashMap<String, Role> validRoles = new HashMap<>(); 
+        ArrayList<String> validRoles = new ArrayList<String>(); 
         for (HashMap.Entry<String,Role> entry : roles.entrySet()) {
             Role role = entry.getValue();
             if (!role.isTaken() && rank >= role.getRank()){
-                validRoles.put(entry.getKey(),role);
+                validRoles.add(entry.getKey());
             }
         }
         return validRoles;

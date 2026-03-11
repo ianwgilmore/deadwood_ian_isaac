@@ -70,9 +70,8 @@ public class ViewTerminal{
     }
 
 
-    public String getRole(HashMap<String, Role> roles){
-        System.out.println("Choose a role to take");
-        System.out.println(roles.keySet());
+    public String getRole(ArrayList<String> roles){
+        System.out.println("Choose a role to take" + roles);
         String role = this.scanner.nextLine();
         return role;
     }

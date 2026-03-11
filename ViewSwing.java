@@ -204,10 +204,10 @@ public class ViewSwing{
     }
 
 
-    public String getRole(HashMap<String, Role> roles){
+    public String getRole(ArrayList<String> roles){
         // System.out.println("Choose a role to take\n" + roles.keySet());
         // String role = this.scanner.nextLine();
-        String role = JOptionPane.showInputDialog("Choose a role to take\n" + roles.keySet());
+        String role = JOptionPane.showInputDialog("Choose a role to take\n" + roles);
         return role;
     }
 

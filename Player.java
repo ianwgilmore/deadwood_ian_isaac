@@ -111,6 +111,7 @@ public class Player{
         //checks should be reduntant now
         this.location = new_location;
         this.actionTaken = true;
+        takeTurn(board, controller, false);
     }
 
     private void act(Board board, Controller controller) {
@@ -134,6 +135,7 @@ public class Player{
         this.dollars += dollars;
         this.credits += credits;
         this.actionTaken = true;
+        takeTurn(board, controller, false);
     }
 
     private void rehearse(Board board, Controller controller) {
@@ -143,6 +145,7 @@ public class Player{
         int budget = actingset.getScene().getBudget();
         this.practice_tok += 1;
         this.actionTaken = true;
+        takeTurn(board, controller, false);
     }
 
 
@@ -180,6 +183,7 @@ public class Player{
         this.role = target;
         target.take();
         this.actionTaken = true;
+        takeTurn(board, controller, false);
     }
 
     private void takeExtraRole(String role, Board board, Controller controller, ActingSet actingset) {
@@ -190,6 +194,7 @@ public class Player{
         this.role = target;
         target.take();
         this.actionTaken = true;
+        takeTurn(board, controller, false);
     }
 
 
@@ -213,6 +218,7 @@ public class Player{
             }
             this.rank = target;
         }
+        takeTurn(board, controller, false);
     }
 
     public void takeTurn(Board board, Controller controller, Boolean endTurn){

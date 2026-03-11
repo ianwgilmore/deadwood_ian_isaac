@@ -36,12 +36,12 @@ public class ControllerSwing implements Controller{
         return action;
     }
 
-    public String starRole(HashMap<String, Role> roles){
+    public String starRole(ArrayList<String> roles){
         String action = this.view.getRole(roles);
         return action;
     }
 
-    public String extraRole(HashMap<String, Role> roles){
+    public String extraRole(ArrayList<String>roles){
         String action = this.view.getRole(roles);
         return action;
     }

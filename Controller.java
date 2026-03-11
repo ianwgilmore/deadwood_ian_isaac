@@ -10,8 +10,8 @@ public interface Controller{
 
     //prompt user for whether star or 
     public String typeRole();
-    public String starRole(HashMap<String, Role> roles);
-    public String extraRole(HashMap<String, Role> roles);
+    public String starRole(ArrayList<String> roles);
+    public String extraRole(ArrayList<String> roles);
     
     public void error();
     public void newDay(int day);
