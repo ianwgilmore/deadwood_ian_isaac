@@ -158,11 +158,12 @@ public class Player{
             //if player has a role
             if(checker.checkRole(this.role) == true){
                 actions.add("act");
+
+                if(checker.checkRehearse(this.role, this.practice_tok, board.getActingSet(this.location).getScene().getBudget())){
+                    actions.add("rehearse");
+        }
             }
             //if player has role and rehearse tokens is less than budget
-            if(checker.checkRehearse(this.role, this.practice_tok, board.getActingSet(this.location).getScene().getBudget())){
-                actions.add("rehearse");
-        }
         }
         if(checker.checkCastingOffice(this.location,  board)== true){
                 actions.add("rank up");
