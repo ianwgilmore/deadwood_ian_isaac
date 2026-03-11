@@ -101,8 +101,8 @@ public class ViewSwing{
 
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
-    public String getPlayerAction(String name, String location){
-        System.out.println(name + "'s turn. You are at the " + location);
+    public String getPlayerAction(String name){
+        System.out.println(name + "'s turn.");
         System.out.println("Choose an action. (act, rehearse, move, take role, rank up)");
         //String action = this.scanner.nextLine();
         
