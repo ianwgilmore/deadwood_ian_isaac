@@ -37,10 +37,11 @@ public class ViewSwing{
     }
 
     public int getPlayerNum(){
-        System.out.println("Enter the Number of Players (2-8)");
-        int playerNum = this.scanner.nextInt();
+        int playerNum = Integer.valueOf(JOptionPane.showInputDialog("Enter the Number of Players (2-8)"));
+        //System.out.println("Enter the Number of Players (2-8)");
+        //int playerNum = this.scanner.nextInt();
         //eat rest of line
-        String badfix = this.scanner.nextLine();
+        //String badfix = this.scanner.nextLine();
         if (playerNum<2||playerNum>8){
             System.out.println("invalid number of players chosen");
             playerNum = getPlayerNum();
@@ -129,13 +130,13 @@ public class ViewSwing{
     //balance [dol, credit]
     //returns [typepayment, desired rank]
     public int[] getRankInfo(int[] balance){
-        System.out.println("Enter your desired rank (2-6)");
-        int rank = this.scanner.nextInt();
-        String badsolution = this.scanner.nextLine();
-        System.out.println("Select your used currency");
-        //print 
-        System.out.println("Current Balance: dollars " + balance[0] + " credits " + balance[1]);
-        String type = this.scanner.nextLine();
+        //System.out.println("Enter your desired rank (2-6)");
+        //int rank = this.scanner.nextInt();
+        int rank = Integer.valueOf(JOptionPane.showInputDialog("Enter your desired rank (2-6)"));
+        //String badsolution = this.scanner.nextLine();
+        //System.out.println("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
+        //String type = this.scanner.nextLine();
+        String type = JOptionPane.showInputDialog("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
         int intType;
         int[] rankInfo;
         if (type.equals("dollars")){
@@ -156,23 +157,24 @@ public class ViewSwing{
 
     //prompt player for valid move locations 
     public String getTargetLoc(ArrayList<String> neighbors){
-        System.out.println("Choose a location to move to");
-        System.out.println(neighbors);
-        String target = this.scanner.nextLine();
+        // System.out.println("Choose a location to move to\n" + neighbors);
+        // String target = this.scanner.nextLine();
+        String target = JOptionPane.showInputDialog("Choose a location to move to\n" + neighbors);
         return target;
     }
 
 
     public String getRole(HashMap<String, Role> roles){
-        System.out.println("Choose a role to take");
-        System.out.println(roles.keySet());
-        String role = this.scanner.nextLine();
+        // System.out.println("Choose a role to take\n" + roles.keySet());
+        // String role = this.scanner.nextLine();
+        String role = JOptionPane.showInputDialog("Choose a role to take\n" + roles.keySet());
         return role;
     }
 
     public String getTypeRole(){
-        System.out.println("Choose a type of role(star or extra)");
-        String type = this.scanner.nextLine();
+        // System.out.println("Choose a type of role(star or extra)");
+        // String type = this.scanner.nextLine();
+        String type = JOptionPane.showInputDialog("Choose a type of role(star or extra)");
         return type;
     }
 
