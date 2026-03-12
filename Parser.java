@@ -137,6 +137,41 @@ public class Parser {
     }
 
     // get part locations of all extras on board
+    public static HashMap<String, int[]> buildCardSpots() {
+        Document doc = getDocFromFile("board.xml");
+
+        // hashmap mapping set names with their card coords
+        HashMap<String, int[]> spotsHash = new HashMap<String, int[]>();
+
+        // get all set nodes
+        NodeList sets = doc.getDocumentElement().getElementsByTagName("set");
+
+        // iterate through all sets
+        for (int i = 0; i < sets.getLength(); i++) {
+            Node set = sets.item(i);
+
+            // verify that set is actually a set
+            if (set.getNodeName().equals("set")) {
+                // get set name
+                String setName = getAttribute(set, "name");
+
+                // get area node
+                Node area = getSubNodes(set, "area").get(0);
+
+                // get coords from area node
+                int x = Integer.valueOf(getAttribute(area, "x"));
+                int y = Integer.valueOf(getAttribute(area, "y"));
+                int[] pos = {x, y};
+                
+                // put coords in hashmap
+                spotsHash.put(setName, pos);
+            }
+        }
+
+        return spotsHash;
+    }
+
+    // get part locations of all extras on board
     public static HashMap<String, int[]> buildExtraSpots() {
         Document doc = getDocFromFile("board.xml");
 

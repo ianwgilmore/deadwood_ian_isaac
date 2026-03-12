@@ -110,7 +110,7 @@ public class Board{
             });
     }
 
-    public void flipCard(String location, Controller controller) {
+    public void flipCardAt(String location, Controller controller) {
         ActingSet actingSet = this.actingsets.get(location);
 
         if (actingSet != null) {

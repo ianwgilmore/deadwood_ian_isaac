@@ -12,9 +12,12 @@ public class ViewSwing{
     ArrayList<JButton> actionButtons = new ArrayList<JButton>();
     JLabel turnLabel;
     JFrame frame;
-    HashMap<String, int[]> extraSpots = new HashMap<String, int[]>();
-    HashMap<String, int[]> boardSpots = new HashMap<String, int[]>();
-    HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>();
+    HashMap<String, JLabel> setCard = new HashMap<String, JLabel>(); // setName, cardLabel -
+    HashMap<String, int[]> cardSpots; // setName, pos -
+    HashMap<String, int[]> extraSpots; // partName, pos
+    HashMap<String, int[]> boardSpots = new HashMap<String, int[]>(); // setName, pos
+    HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>(); // playerName, pos
+    String currentSetName;
     String currentPlayerName;
     JLayeredPane pane;
     String pickedRoleType;
@@ -43,6 +46,47 @@ public class ViewSwing{
         public void actionPerformed(ActionEvent event) { // Argument name 'event' can be safely changed, for example, to 'e'
             this.wasClicked = true;
         }
+    }
+
+    private void buildSetCard() {
+        String[] setNames = {
+            "Train Station",
+            "Jail",
+            "Main Street",
+            "General Store",
+            "Saloon",
+            "Ranch",
+            "Bank",
+            "Secret Hideout",
+            "Church",
+            "Hotel"
+        };
+
+        for (int i = 0; i < setNames.length; i++) {
+            String setName = setNames[i];
+
+            JLabel cardLabel = new JLabel();
+            
+            // Add img to card
+            ImageIcon backImg = new ImageIcon("./images/Cardback.png");
+            cardLabel.setIcon(backImg);
+
+            // Set cardLabel position
+            int[] position = this.cardSpots.get(setName);
+            int x = position[0];
+            int y = position[1];
+            cardLabel.setBounds(x, y, backImg.getIconWidth(), backImg.getIconHeight());
+
+            // Add label to pane
+            this.pane.add(cardLabel, Integer.valueOf(2));
+
+            // Put card under setName
+            this.setCard.put(setName, cardLabel);
+        }
+    }
+
+    private void buildCardSpots() {
+        this.cardSpots = this.parser.buildCardSpots();
     }
 
     private void buildExtraSpots() {
@@ -88,7 +132,7 @@ public class ViewSwing{
         //String badfix = this.scanner.nextLine();
         
         if (playerNum<2||playerNum>8){
-            System.out.println("invalid number of players chosen");
+            JOptionPane.showMessageDialog(null, "invalid number of players chosen");
             playerNum = getPlayerNum();
         }
 
@@ -123,12 +167,6 @@ public class ViewSwing{
 
     // this is a comment
     public void startWindow() {
-        // Create board spots
-        buildBoardSpots();
-
-        // Create extras role spots
-        buildExtraSpots();
-
         // Make window
         this.frame = new JFrame("Deadwood");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,6 +175,11 @@ public class ViewSwing{
 
         // Get pane from frame for layering
         this.pane = this.frame.getLayeredPane();
+
+        buildBoardSpots();
+        buildExtraSpots();
+        buildCardSpots();
+        buildSetCard();
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
@@ -297,6 +340,8 @@ public class ViewSwing{
 
         frame.repaint();
 
+        this.currentSetName = target;
+
         return target;
     }
 
@@ -383,6 +428,11 @@ public class ViewSwing{
 
     public void flipCard(String cardName) {
         System.out.println("Flipped card to reveal " + cardName + "!");
+
+        ImageIcon image = new ImageIcon("./images/cards/card_1.jpg");
+        image = scaleByFactor(image, 0.6);
+
+        this.setCard.get(this.currentSetName).setIcon(image);
     }
 
     public void showRoll(int roll){
