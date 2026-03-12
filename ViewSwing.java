@@ -45,8 +45,33 @@ public class ViewSwing{
 
     private void buildBoardSpots() {
         board_spots = new HashMap<String, int[]>();
-        int[][] positions = {{772, 329}};
+        int[][] positions = {
+            {772, 329},
+            {914, 91},
+            {1085, 349},
+            {790, 545},
+            {769, 788},
+            {1086, 671},
+            {400, 570},
+            {105, 567},
+            {285, 815},
+            {98, 246},
+            {425, 107},
+            {393, 354},
+        };
+
         board_spots.put("Saloon", positions[0]);
+        board_spots.put("Main Street", positions[1]);
+        board_spots.put("trailer", positions[2]);
+        board_spots.put("Bank", positions[3]);
+        board_spots.put("Church", positions[4]);
+        board_spots.put("Hotel", positions[5]);
+        board_spots.put("Ranch", positions[6]);
+        board_spots.put("office", positions[7]);
+        board_spots.put("Secret Hideout", positions[8]);
+        board_spots.put("Train Station", positions[9]);
+        board_spots.put("Jail", positions[10]);
+        board_spots.put("General Store", positions[11]);
     }
 
     public int getPlayerNum(){
