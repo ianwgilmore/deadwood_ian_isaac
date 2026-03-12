@@ -19,7 +19,7 @@ public class Game{
         int player_num = controller.setup();
         players = new Player[player_num];
         //setup game in board class
-        players = board.setup(player_num, checker);
+        players = board.setup(player_num, checker, controller);
         max_day = board.playerDependentSetup(player_num, players);
                 
         int index = 0;

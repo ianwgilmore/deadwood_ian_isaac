@@ -55,13 +55,13 @@ public class Board{
 
     }
 
-    public Player[] setup(int player_num, Checker checker){
+    public Player[] setup(int player_num, Checker checker, Controller controller){
         //need to set max day, initialize players with correct stats!!!!!!!!!
         buildScenes();
         buildActingSets();
         buildCastingOffice();
         buildTrailer();
-        Player[] players = buildPlayers(player_num, checker);
+        Player[] players = buildPlayers(player_num, checker, controller);
         return players;
     }
 
@@ -142,14 +142,14 @@ public class Board{
         }
     }
 
-    public Player[] buildPlayers(int n, Checker checker){
+    public Player[] buildPlayers(int n, Checker checker, Controller controller){
         Player[] players = new Player[n];
         String name;
         Player player;
         int playerNum;
         for (int i=0; i<n; i++){
             playerNum = i+1;
-            name = "player"+playerNum;
+            name = controller.getName();
             player = new Player(name, null, checker);
             players[i] = player;
         }
