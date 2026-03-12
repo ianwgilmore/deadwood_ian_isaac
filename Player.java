@@ -249,18 +249,23 @@ public class Player{
                 ActingSet set = board.getActingSet(this.location);
                 String type;
                 String target;
+                ArrayList<String> starRoles = checker.getValidRoles(set.getScene().getRoles(), this.rank);
+                ArrayList<String> extraRoles = checker.getValidRoles(set.getExtraRoles(), this.rank);
                 if (set != null){
                     type = controller.typeRole();
-                    if (type.equals("star")){
+                    if (type.equals("star")&&starRoles.size()>0){
                         //send user valid roles instead of all
-                        target = controller.starRole(checker.getValidRoles(set.getScene().getRoles(), this.rank));
+                        target = controller.starRole(starRoles);
                         takeStarRole(target, board, controller, set);
                         
                     }
-                    else{
+                    else if(type.equals("extra")&&extraRoles.size()>0){
                         //send user valid roles instead of all
-                        target = controller.extraRole(checker.getValidRoles(set.getExtraRoles(), this.rank));
+                        target = controller.extraRole(extraRoles);
                         takeExtraRole(target, board, controller, set);
+                    }
+                    else{
+                        takeTurn(board, controller, false);
                     }
 
                 }
