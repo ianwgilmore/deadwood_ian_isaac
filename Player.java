@@ -119,6 +119,7 @@ public class Player{
     private void act(Board board, Controller controller) {
         int[] payout;
         //need to change to something like getSet(location)
+        System.out.println("tokens: " + this.practice_tok);
         ActingSet actset = board.getActingSet(this.location);
         int roll = this.die.roll();
         controller.showRoll(roll);
@@ -294,6 +295,8 @@ public class Player{
                     type = "credits";
                 }
                 target = rankInfo[1];
+
+                System.out.println("type " +type+ "rank " + target);
                 rankUp(type, target, board, controller);
             }
 

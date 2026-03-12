@@ -73,6 +73,16 @@ public class Checker{
         //check if player is in casting office
         Boolean bool = false;
         CastingOffice castingoffice = board.getCastingOffice(location);
+        int cost;
+        if (payment == "dollars"){
+            cost = castingoffice.getDolCost(targetRank);
+        }
+        else{
+            cost = castingoffice.getCredCost(targetRank);
+        }
+        if (amount >= cost){
+            bool = true;
+        }
         return bool;
     }
 
