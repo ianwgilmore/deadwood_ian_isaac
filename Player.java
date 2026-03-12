@@ -137,6 +137,7 @@ public class Player{
         this.dollars += dollars;
         this.credits += credits;
         this.actionTaken = true;
+        controller.updateScore(this.name, this.dollars, this.credits, this.rank);
         takeTurn(board, controller, false);
     }
 
@@ -222,6 +223,7 @@ public class Player{
             }
             this.rank = target;
         }
+        controller.updateScore(this.name, this.dollars, this.credits, this.rank);
         takeTurn(board, controller, false);
     }
 

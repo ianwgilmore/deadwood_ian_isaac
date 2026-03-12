@@ -22,6 +22,8 @@ public class ViewSwing{
     JLayeredPane pane;
     String pickedRoleType;
     Parser parser = new Parser();
+    JPanel scoreboardPanel;
+    HashMap<String, JLabel> scoreLabels = new HashMap<>();
 
     private static class ButtonClickListener implements ActionListener {
         boolean wasClicked = false;
@@ -203,12 +205,40 @@ public class ViewSwing{
             buttonTexts.add(tests[i]);
         }
 
+        scoreboardPanel = new JPanel();
+        scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
+        scoreboardPanel.setBorder(BorderFactory.createTitledBorder("Scoreboard"));
+
+        int panelWidth = 250;
+        int panelHeight = 300;
+        //scoreboardPanel.setBounds(frame.getWidth() - panelWidth - 20, frame.getHeight() - panelHeight - 20, panelWidth,panelHeight); 
+        scoreboardPanel.setBounds(1200, 400, panelWidth,panelHeight); 
+        pane.add(scoreboardPanel, Integer.valueOf(2));
         updateButtons(buttonTexts);
 
         // Set window visible at end
         // (Doing this before adding images causes them to not show up, unsure why)
         frame.setVisible(true);
     }
+
+
+    public void addPlayerToScoreboard(Player player) {
+        System.out.println("adding " + player.getName()+" to scoreboard");
+        String s = player.getName() +"\n"+ "Dol: " + player.getDollars()+ " Cred: " + player.getCredits() + " Rank: " + player.getRank(); 
+        JLabel label = new JLabel(s);
+        scoreLabels.put(player.getName(), label);
+        scoreboardPanel.add(label);
+        scoreboardPanel.revalidate();
+        scoreboardPanel.repaint();
+}
+
+    public void updateScore(String name, int dol, int cred, int rank){
+        JLabel label = scoreLabels.get(name);
+        if (label != null) {
+            label.setText(name +"\n"+ "Dol: " + dol+ " Cred: " + cred + " Rank: " + rank);
+        }
+    }
+
 
     private static ImageIcon scaleByFactor(ImageIcon boardIcon, double factor) {
         if (factor == 1) {
@@ -231,7 +261,7 @@ public class ViewSwing{
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
     public String getPlayerAction(String name, ArrayList<String> actions){
-        this.turnLabel.setText(name + "'s turn. \nChoose an action. (act, rehearse, move, take role, rank up)");
+        this.turnLabel.setText(name + "'s turn. \nChoose an action.");
         updateButtons(actions);
 
         // Update who the current player is by name
@@ -436,7 +466,9 @@ public class ViewSwing{
     }
 
     public void showRoll(int roll){
+        this.turnLabel.setText("Rolled a " + roll);
         System.out.println("Rolled a " + roll);
+        pane.repaint();
     }
 
     public void showTokens(int tokens){

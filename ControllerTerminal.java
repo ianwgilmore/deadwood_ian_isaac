@@ -83,4 +83,9 @@ public class ControllerTerminal implements Controller{
     public String getName(){
         return "";
     }
+    public void addScoreBoard(Player player){
+    }
+    public void updateScore(String name, int dol, int cred, int rank){
+        
+    }
 }

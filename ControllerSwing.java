@@ -83,4 +83,11 @@ public class ControllerSwing implements Controller{
     public String getName(){
         return this.view.getName();
     }
+
+    public void addScoreBoard(Player player){
+        this.view.addPlayerToScoreboard(player);
+    }
+    public void updateScore(String name, int dol, int cred, int rank){
+        this.view.updateScore(name, dol, cred, rank);
+    }
 }

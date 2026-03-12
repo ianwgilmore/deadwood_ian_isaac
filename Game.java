@@ -21,6 +21,10 @@ public class Game{
         //setup game in board class
         players = board.setup(player_num, checker, controller);
         max_day = board.playerDependentSetup(player_num, players);
+
+        for (int i=0; i<player_num;i++){
+            controller.addScoreBoard(players[i]);
+        }
                 
         int index = 0;
         current_day = 1;
