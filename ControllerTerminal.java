@@ -75,4 +75,8 @@ public class ControllerTerminal implements Controller{
     public void displayResults(String[] results){
         this.view.displayResults(results);
     }
+
+    public String getName(){
+        return "";
+    }
 }

@@ -436,5 +436,9 @@ public class ViewSwing{
     public void displayWrap(){
         System.out.println("Scene has wrapped");
     }
+
+    public String getName(){
+        return JOptionPane.showInputDialog("Enter Player Name");
+    }
 }
 
