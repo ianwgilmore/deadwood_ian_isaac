@@ -87,6 +87,20 @@ public class ViewSwing{
             playerNum = getPlayerNum();
         }
 
+        // Create all player's dice on the board 
+        // using 'player#' convention
+        for (int i = 1; i <= playerNum; i++) {
+            ImageIcon playerIcon = new ImageIcon("./images/r2.png");
+            JLabel playerLabel = new JLabel();
+            playerLabel.setIcon(playerIcon);
+            int[] pos = boardSpots.get("trailer");
+            int x = pos[0];
+            int y = pos[1];
+            playerLabel.setBounds(x, y, 100, 100);
+            pane.add(playerLabel, new Integer(3));
+            playerLabels.put("player" + String.valueOf(i), playerLabel);
+        }
+
         return playerNum;
     }
     
@@ -183,19 +197,6 @@ public class ViewSwing{
         // Update who the current player is by name
         this.currentPlayer = name;
         //String action = this.scanner.nextLine();
-
-        // If player name unrecognized, create an icon for it
-        if (!playerLabels.containsKey(name)) {
-            ImageIcon playerIcon = new ImageIcon("./images/r2.png");
-            JLabel playerLabel = new JLabel();
-            playerLabel.setIcon(playerIcon);
-            int[] pos = boardSpots.get("trailer");
-            int x = pos[0];
-            int y = pos[1];
-            playerLabel.setBounds(x, y, 100, 100);
-            pane.add(playerLabel, new Integer(3));
-            playerLabels.put(name, playerLabel);
-        }
 
         pane.repaint();
         
