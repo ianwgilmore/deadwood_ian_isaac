@@ -88,6 +88,10 @@ public class Checker{
         return validRoles;
     }
 
+    public boolean checkScene(ActingSet actingset){
+        return !Objects.isNull(actingset.getScene());
+    }
+
     // public boolean checkTakeRole(Board board, String location, Role role, HashMap<String, Role> roleList, ArrayList<Player> players, Role target) {
     //     Boolean bool;
     //     ActingSet actingset = board.getActingSet(location);

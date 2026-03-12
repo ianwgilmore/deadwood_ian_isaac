@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ActingSet extends Set{
     Scene scene;
     HashMap<String, Role> extraroles;
-    ArrayList<Player> extras;
+    ArrayList<Player> extras = new ArrayList<>();;
     int shotTokens;
     //might need to track max shot tokens
     int maxShotTokens;
@@ -52,7 +52,7 @@ public class ActingSet extends Set{
 
     public void removeShotToken(Board board, Controller controller) {
         this.shotTokens--;
-        if (this.shotTokens == 0){
+        if (this.shotTokens <= 0){
             wrap(board, controller);
         }
     }
@@ -93,17 +93,20 @@ public class ActingSet extends Set{
 
     //helper for wrap
     private void extraWrap(){
-        if (!Objects.isNull(this.extras))
-        for (int i=0; i<this.extras.size();i++){
-            Player player = this.extras.get(i);
-            player.addDollars(player.role.rank);
-            player.setRole(null);
+        System.out.println(this.extras.size());
+        if (!Objects.isNull(this.extras)){
+            for (int i=0; i<this.extras.size();i++){
+                Player player = this.extras.get(i);
+                player.addDollars(player.role.rank);
+                player.setRole(null);
+            }
         }
     }
 
     //loops through the payments
     //if overshoots the stars, then will loop back over them
     private void starWrap(ArrayList<Integer> payments){
+        System.out.println(this.scene.getStars().size());
         int index = 0;
         List<Player> stars = this.scene.getStars();
         if (!Objects.isNull(stars)){

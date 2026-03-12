@@ -21,7 +21,7 @@ public class Scene{
     String name;
     int budget;
     HashMap<String, Role> starRoles;
-    ArrayList<Player> stars;
+    ArrayList<Player> stars = new ArrayList<>();;
 
     public Scene(String name, int budget, HashMap<String, Role> starRoles) {
         this.name = name;

@@ -158,18 +158,21 @@ public class Player{
             if (checker.checkRole(this.role) == false){
                 actions.add("move");
             }
-            //check if on actingset, check if has role
-            if (checker.checkActingSet(this.location, board) == true && checker.checkRole(this.role) == false){
-                actions.add("take role");
-            }
-            //check player is in castingOffice
-            //if player has a role
-            if(checker.checkRole(this.role) == true){
-                actions.add("act");
 
-                if(checker.checkRehearse(this.role, this.practice_tok, board.getActingSet(this.location).getScene().getBudget())){
-                    actions.add("rehearse");
-        }
+            if (checker.checkActingSet(this.location, board) == true && checker.checkScene(board.getActingSet(this.location))){
+            //check if on actingset, check if has role
+                if (checker.checkRole(this.role) == false){
+                    actions.add("take role");
+                }
+            //check player is in castingOffice
+            //if player has a role and the current actingset has a scene
+                if(checker.checkRole(this.role) == true){
+                    actions.add("act");
+
+                    if(checker.checkRehearse(this.role, this.practice_tok, board.getActingSet(this.location).getScene().getBudget())){
+                        actions.add("rehearse");
+            }
+            }
             }
             //if player has role and rehearse tokens is less than budget
         }
@@ -187,6 +190,7 @@ public class Player{
         Role target = starRoles.get(role);
         this.role = target;
         target.take();
+        actingset.getScene().addStar(this);
         this.actionTaken = true;
         takeTurn(board, controller, false);
     }
@@ -198,6 +202,7 @@ public class Player{
         Role target = extraRoles.get(role);
         this.role = target;
         target.take();
+        actingset.addExtras(this);
         this.actionTaken = true;
         takeTurn(board, controller, false);
     }
