@@ -255,9 +255,32 @@ public class ViewSwing{
     public String getTargetLoc(ArrayList<String> neighbors){
         // System.out.println("Choose a location to move to\n" + neighbors);
         // String target = this.scanner.nextLine();
-        String target = JOptionPane.showInputDialog("Choose a location to move to\n" + neighbors);
+        //String target = JOptionPane.showInputDialog("Choose a location to move to\n" + neighbors);
 
         JLabel playerLabel = playerLabels.get(this.currentPlayer);
+
+        this.turnLabel.setText("Choose a location to move to");
+        updateButtons(neighbors);
+
+
+
+        pane.repaint();
+        
+        // Clear button clicks so there is no pre-input
+        for (int i = 0; i < this.buttonListeners.length; i++) {
+            this.buttonListeners[i].getClicked();
+        }
+
+        // Keep checking the action buttons until one is clicked
+        String target = null;
+        while (target == null) {
+            for (int i = 0; i < this.buttonListeners.length; i++) {
+                if (this.buttonListeners[i].getClicked()) {
+                    target = this.buttonListeners[i].actionText;
+                }
+            }
+        }
+
 
         int[] position = boardSpots.get(target);
         int x = position[0];
@@ -282,7 +305,7 @@ public class ViewSwing{
         // }
         // String role = JOptionPane.showInputDialog("Choose a role to take\n" + sroles);
 
-        this.turnLabel.setText("Choose a location to move to");
+        this.turnLabel.setText("Choose a role");
         updateButtons(roles);
 
 
@@ -310,7 +333,31 @@ public class ViewSwing{
     public String getTypeRole(){
         // System.out.println("Choose a type of role(star or extra)");
         // String type = this.scanner.nextLine();
-        String type = JOptionPane.showInputDialog("Choose a type of role(star or extra)");
+        //String type = JOptionPane.showInputDialog("Choose a type of role(star or extra)");
+        this.turnLabel.setText("Choose a type of Role (star or extra)");
+        ArrayList<String> options = new ArrayList<>();
+        options.add("star");
+        options.add("extra");
+        updateButtons(options);
+
+
+
+        pane.repaint();
+        
+        // Clear button clicks so there is no pre-input
+        for (int i = 0; i < this.buttonListeners.length; i++) {
+            this.buttonListeners[i].getClicked();
+        }
+
+        // Keep checking the action buttons until one is clicked
+        String type = null;
+        while (type == null) {
+            for (int i = 0; i < this.buttonListeners.length; i++) {
+                if (this.buttonListeners[i].getClicked()) {
+                    type = this.buttonListeners[i].actionText;
+                }
+            }
+        }
         return type;
     }
 
