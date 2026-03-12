@@ -78,7 +78,7 @@ public class ViewSwing{
 
         // Set window visible at end
         // (Doing this before adding images causes them to not show up, unsure why)
-        frame.setVisible(true);
+        frame.repaint();
     }
 
     // this is a comment
