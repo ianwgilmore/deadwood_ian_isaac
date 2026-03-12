@@ -447,6 +447,7 @@ public class ViewSwing{
 
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
+        //need to reset the board and the players but not the scoreboard
     }
 
     public void displayResults(String[] results){
@@ -473,7 +474,9 @@ public class ViewSwing{
 
     public void showTokens(int tokens){
         System.out.println(tokens + " Shot Tokens Left");
+        //remove tokens from display, also need to initially add them
     }
+
     public void displayWrap(){
         System.out.println("Scene has wrapped");
     }
