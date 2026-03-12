@@ -12,7 +12,10 @@ public class ViewSwing{
     ArrayList<JButton> actionButtons = new ArrayList<JButton>();
     JLabel turnLabel;
     JFrame frame;
-
+    HashMap<String, int[]> board_spots = new HashMap<String, int[]>();
+    HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>();
+    String current_player;
+    JLayeredPane pane;
 
     private static class ButtonClickListener implements ActionListener {
         boolean wasClicked = false;
@@ -40,16 +43,25 @@ public class ViewSwing{
         }
     }
 
+    private void buildBoardSpots() {
+        board_spots = new HashMap<String, int[]>();
+        int[][] positions = {{772, 329}};
+        board_spots.put("Saloon", positions[0]);
+    }
+
     public int getPlayerNum(){
+        buildBoardSpots();
         int playerNum = Integer.valueOf(JOptionPane.showInputDialog("Enter the Number of Players (2-8)"));
         //System.out.println("Enter the Number of Players (2-8)");
         //int playerNum = this.scanner.nextInt();
         //eat rest of line
         //String badfix = this.scanner.nextLine();
+        
         if (playerNum<2||playerNum>8){
             System.out.println("invalid number of players chosen");
             playerNum = getPlayerNum();
         }
+
         return playerNum;
     }
     
@@ -76,8 +88,6 @@ public class ViewSwing{
             this.buttonListeners[i] = buttonListener;
         }
 
-        // Set window visible at end
-        // (Doing this before adding images causes them to not show up, unsure why)
         frame.repaint();
     }
 
@@ -89,6 +99,9 @@ public class ViewSwing{
         this.frame.setSize(1200, 800);
         this.frame.setLayout(null);
 
+        // Get pane from frame for layering
+        this.pane = this.frame.getLayeredPane();
+
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
         double boardScale = 1; // Used by board and other elements to scale accordingly
@@ -96,7 +109,7 @@ public class ViewSwing{
         JLabel boardLabel = new JLabel();
         boardLabel.setIcon(boardIcon);
         boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
-        this.frame.add(boardLabel);
+        this.pane.add(boardLabel, new Integer(0));
 
         // Add Turn Label
         this.turnLabel = new JLabel();
@@ -132,7 +145,6 @@ public class ViewSwing{
     }
 
     //print error message to user to signify some failure
-    // src: https://mkyong.com/swing/java-swing-how-to-make-a-simple-dialog/
     public void sendErrorMessage(){
         JOptionPane.showMessageDialog(null, "Current action failed.");
     }
@@ -142,7 +154,22 @@ public class ViewSwing{
     public String getPlayerAction(String name, ArrayList<String> actions){
         this.turnLabel.setText(name + "'s turn. \nChoose an action. (act, rehearse, move, take role, rank up)");
         updateButtons(actions);
+
+        // Update who the current player is by name
+        this.current_player = name;
         //String action = this.scanner.nextLine();
+
+        // If player name unrecognized, create an icon for it
+        if (!playerLabels.containsKey(name)) {
+            ImageIcon playerIcon = new ImageIcon("./images/r2.png");
+            JLabel playerLabel = new JLabel();
+            playerLabel.setIcon(playerIcon);
+            playerLabel.setBounds(1180, 100, 100, 100);
+            pane.add(playerLabel, new Integer(3));
+            playerLabels.put(name, playerLabel);
+        }
+
+        pane.repaint();
         
         // Clear button clicks so there is no pre-input
         for (int i = 0; i < this.buttonListeners.length; i++) {
@@ -179,6 +206,7 @@ public class ViewSwing{
         String type = JOptionPane.showInputDialog("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
         int intType;
         int[] rankInfo;
+        
         if (type.equals("dollars")){
             intType = 0;
             rankInfo = new int[]{intType,rank};
@@ -200,6 +228,17 @@ public class ViewSwing{
         // System.out.println("Choose a location to move to\n" + neighbors);
         // String target = this.scanner.nextLine();
         String target = JOptionPane.showInputDialog("Choose a location to move to\n" + neighbors);
+
+        JLabel playerLabel = playerLabels.get(this.current_player);
+
+        int[] position = board_spots.get(target);
+        int x = position[0];
+        int y = position[1];
+
+        playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
+
+        frame.repaint();
+
         return target;
     }
 
