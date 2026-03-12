@@ -63,7 +63,7 @@ public class ViewSwing{
 
         this.actionButtons = new ArrayList<JButton>();
 
-        // Add move button
+        // Add action buttons
         this.buttonListeners = new ButtonClickListener[buttonTexts.size()];
         for (int i = 0; i < buttonTexts.size(); i++) {
             JButton button = new JButton(buttonTexts.get(i));
