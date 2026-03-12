@@ -151,8 +151,10 @@ public class Player{
 
     private ArrayList<String> getActions(Board board){
         ArrayList<String>  actions = new ArrayList<>();  
-        if (this.actionTaken == false && checker.checkRole(this.role) == false){
-            actions.add("move");
+        if (this.actionTaken == false){
+            if (checker.checkRole(this.role) == false){
+                actions.add("move");
+            }
             //check if on actingset, check if has role
             if (checker.checkActingSet(this.location, board) == true && checker.checkRole(this.role) == false){
                 actions.add("take role");
@@ -222,7 +224,7 @@ public class Player{
     }
 
     public void takeTurn(Board board, Controller controller, Boolean endTurn){
-        while(endTurn == false){
+        if(endTurn == false){
 
             ArrayList<String> actions = getActions(board);
             String action = controller.takeTurn(actions, this.name);
@@ -288,7 +290,7 @@ public class Player{
 
             else if(action.equals("end turn")){
                 this.actionTaken = false;
-                endTurn = true;
+                takeTurn(board, controller, true);
             }
         }
     }
