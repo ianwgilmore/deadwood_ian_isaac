@@ -209,23 +209,9 @@ public class ViewSwing{
         }
 
         pane.repaint();
-        
-        // Clear button clicks so there is no pre-input
-        for (int i = 0; i < this.buttonListeners.length; i++) {
-            this.buttonListeners[i].getClicked();
-        }
 
-        System.out.println(this.buttonListeners);
-
-        // Keep checking the action buttons until one is clicked
-        String action = null;
-        while (action == null) {
-            for (int i = 0; i < this.buttonListeners.length; i++) {
-                if (this.buttonListeners[i].getClicked()) {
-                    action = this.buttonListeners[i].actionText;
-                }
-            }
-        }
+        // Get an action selected via button
+        String action = getClickedButton();
 
         System.out.println(action);
         
@@ -248,27 +234,10 @@ public class ViewSwing{
         options.add("6");
         updateButtons(options);
 
-
-
         pane.repaint();
-        
-        // Clear button clicks so there is no pre-input
-        for (int i = 0; i < this.buttonListeners.length; i++) {
-            this.buttonListeners[i].getClicked();
-        }
 
         // Keep checking the action buttons until one is clicked
-        Integer rank = null;
-        while (rank == null) {
-            for (int i = 0; i < this.buttonListeners.length; i++) {
-                if (this.buttonListeners[i].getClicked()) {
-                    rank = Integer.valueOf(this.buttonListeners[i].actionText);
-                }
-            }
-        }
-        
-
-
+        Integer rank = Integer.valueOf(getClickedButton());
 
         //String badsolution = this.scanner.nextLine();
         //System.out.println("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
@@ -280,24 +249,10 @@ public class ViewSwing{
         opts.add("credits");
         updateButtons(opts);
 
-
-
         pane.repaint();
-        
-        // Clear button clicks so there is no pre-input
-        for (int i = 0; i < this.buttonListeners.length; i++) {
-            this.buttonListeners[i].getClicked();
-        }
 
         // Keep checking the action buttons until one is clicked
-        String type = null;
-        while (type == null) {
-            for (int i = 0; i < this.buttonListeners.length; i++) {
-                if (this.buttonListeners[i].getClicked()) {
-                    type = this.buttonListeners[i].actionText;
-                }
-            }
-        }
+        String type = getClickedButton();
 
         int intType;
         int[] rankInfo;
@@ -329,24 +284,10 @@ public class ViewSwing{
         this.turnLabel.setText("Choose a location to move to");
         updateButtons(neighbors);
 
-
         pane.repaint();
-        
-        // Clear button clicks so there is no pre-input
-        for (int i = 0; i < this.buttonListeners.length; i++) {
-            this.buttonListeners[i].getClicked();
-        }
 
-        // Keep checking the action buttons until one is clicked
-        String target = null;
-        while (target == null) {
-            for (int i = 0; i < this.buttonListeners.length; i++) {
-                if (this.buttonListeners[i].getClicked()) {
-                    target = this.buttonListeners[i].actionText;
-                }
-            }
-        }
-
+        // Get which target is selected via buttons
+        String target = getClickedButton();
 
         int[] position = boardSpots.get(target);
         int x = position[0];
@@ -438,6 +379,10 @@ public class ViewSwing{
         for (int i=0; i<results.length; i++){
             System.out.println(i + " " +  results[i]);
         }
+    }
+
+    public void flipCard(String cardName) {
+        System.out.println("Flipped card to reveal " + cardName + "!");
     }
 
     public void showRoll(int roll){

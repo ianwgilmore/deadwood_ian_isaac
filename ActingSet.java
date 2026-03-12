@@ -27,12 +27,14 @@ public class ActingSet extends Set{
     int shotTokens;
     //might need to track max shot tokens
     int maxShotTokens;
+    boolean cardFlipped;
 
     public ActingSet(String name, int shotTokens) {
         super(name);
         this.shotTokens = shotTokens;
         this.maxShotTokens = shotTokens;
         this.extraroles = new HashMap<String, Role>();
+        this.cardFlipped = false;
     }
 
     public Scene getScene(){
@@ -41,6 +43,7 @@ public class ActingSet extends Set{
 
     public void setScene(Scene scene){
         this.scene = scene;
+        this.cardFlipped = false;
     }
 
     public void setShotTokens(){
@@ -114,6 +117,14 @@ public class ActingSet extends Set{
                     index = 0;
                 }
             }
+        }
+    }
+
+    public void flipCard(Controller controller) {
+        if (!this.cardFlipped) {
+            String sceneName = this.scene.getName();
+            controller.flipCard(sceneName);
+            this.cardFlipped = true;
         }
     }
 }

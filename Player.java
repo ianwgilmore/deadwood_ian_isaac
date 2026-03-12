@@ -111,6 +111,8 @@ public class Player{
         //checks should be reduntant now
         this.location = new_location;
         this.actionTaken = true;
+        board.flipCard(this.location, controller);
+
         takeTurn(board, controller, false);
     }
 

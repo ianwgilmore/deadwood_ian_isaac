@@ -17,6 +17,7 @@ public interface Controller{
     public void error();
     public void newDay(int day);
     public void displayResult(String[] results);
+    public void flipCard(String cardName);
     public void showRoll(int roll);
     public void showTokens(int tokens);
     public void displayWrap();

@@ -60,6 +60,10 @@ public class ControllerTerminal implements Controller{
         this.view.displayResults(results);
     }
 
+    public void flipCard(String cardName) {
+        System.out.println("Flipped card to reveal " + cardName + "!");
+    }
+
     public void showRoll(int roll){
         this.view.showRoll(roll);
     }

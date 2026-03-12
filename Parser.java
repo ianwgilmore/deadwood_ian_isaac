@@ -78,10 +78,15 @@ public class Parser {
 
         for (int i = 0; i < card_nodes.getLength(); i++) {
             Node card = card_nodes.item(i);
-            scenes_list.add(new Scene(getBudget(card), buildStarRoles(card)));
+            scenes_list.add(new Scene(getName(card), getBudget(card), buildStarRoles(card)));
         }
 
         return scenes_list;
+    }
+
+    // get name of a card node
+    private static String getName(Node card) {
+        return card.getAttributes().getNamedItem("name").getNodeValue();
     }
 
     // get budget of a card node
@@ -152,7 +157,7 @@ public class Parser {
 
                 for (int j = 0; j < parts.size(); j++) {
                     Node part = parts.get(j);
-                    
+
                     // get information from part node
                     String partName = getAttribute(part, "name");
                     int x = Integer.valueOf(getAttribute(getSubNodes(part, "area").get(0), "x"));

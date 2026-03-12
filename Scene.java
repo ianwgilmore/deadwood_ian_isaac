@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Scene{
+    String name;
     int budget;
     HashMap<String, Role> starRoles;
     ArrayList<Player> stars;
 
-    public Scene(int budget, HashMap<String, Role> starRoles) {
+    public Scene(String name, int budget, HashMap<String, Role> starRoles) {
+        this.name = name;
         this.budget = budget;
         this.starRoles = starRoles;
     }
@@ -41,6 +43,14 @@ public class Scene{
 
     public HashMap<String, Role> getRoles(){
         return this.starRoles;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void setBudget(int budget){

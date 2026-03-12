@@ -60,6 +60,10 @@ public class ControllerSwing implements Controller{
         this.view.displayResults(results);
     }
 
+    public void flipCard(String cardName) {
+        this.view.flipCard(cardName);
+    }
+
     public void showRoll(int roll){
         this.view.showRoll(roll);
     }

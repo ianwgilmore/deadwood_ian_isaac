@@ -110,6 +110,14 @@ public class Board{
             });
     }
 
+    public void flipCard(String location, Controller controller) {
+        ActingSet actingSet = this.actingsets.get(location);
+
+        if (actingSet != null) {
+            actingSet.flipCard(controller);
+        }
+    }
+
 
     public ActingSet getActingSet(String name){
         //index into hashmap
