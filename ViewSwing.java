@@ -20,7 +20,6 @@ public class ViewSwing{
     private static class ButtonClickListener implements ActionListener {
         boolean wasClicked = false;
         String actionText;
-
         public ButtonClickListener(String text) {
             this.actionText = text;
         }
@@ -227,11 +226,67 @@ public class ViewSwing{
     public int[] getRankInfo(int[] balance){
         //System.out.println("Enter your desired rank (2-6)");
         //int rank = this.scanner.nextInt();
-        int rank = Integer.valueOf(JOptionPane.showInputDialog("Enter your desired rank (2-6)"));
+        //int rank = Integer.valueOf(JOptionPane.showInputDialog("Enter your desired rank (2-6)"));
+        this.turnLabel.setText("Choose a rank to update to");
+        ArrayList<String> options = new ArrayList<>();
+        options.add("2");
+        options.add("3");
+        options.add("4");
+        options.add("5");
+        options.add("6");
+        updateButtons(options);
+
+
+
+        pane.repaint();
+        
+        // Clear button clicks so there is no pre-input
+        for (int i = 0; i < this.buttonListeners.length; i++) {
+            this.buttonListeners[i].getClicked();
+        }
+
+        // Keep checking the action buttons until one is clicked
+        Integer rank = null;
+        while (rank == null) {
+            for (int i = 0; i < this.buttonListeners.length; i++) {
+                if (this.buttonListeners[i].getClicked()) {
+                    rank = Integer.valueOf(this.buttonListeners[i].actionText);
+                }
+            }
+        }
+        
+
+
+
         //String badsolution = this.scanner.nextLine();
         //System.out.println("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
         //String type = this.scanner.nextLine();
-        String type = JOptionPane.showInputDialog("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
+        //String type = JOptionPane.showInputDialog("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
+        this.turnLabel.setText("Choose a payment type");
+        ArrayList<String> opts = new ArrayList<>();
+        opts.add("dollars");
+        opts.add("credits");
+        updateButtons(opts);
+
+
+
+        pane.repaint();
+        
+        // Clear button clicks so there is no pre-input
+        for (int i = 0; i < this.buttonListeners.length; i++) {
+            this.buttonListeners[i].getClicked();
+        }
+
+        // Keep checking the action buttons until one is clicked
+        String type = null;
+        while (type == null) {
+            for (int i = 0; i < this.buttonListeners.length; i++) {
+                if (this.buttonListeners[i].getClicked()) {
+                    type = this.buttonListeners[i].actionText;
+                }
+            }
+        }
+
         int intType;
         int[] rankInfo;
         
@@ -261,7 +316,6 @@ public class ViewSwing{
 
         this.turnLabel.setText("Choose a location to move to");
         updateButtons(neighbors);
-
 
 
         pane.repaint();
