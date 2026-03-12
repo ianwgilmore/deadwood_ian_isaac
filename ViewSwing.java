@@ -262,7 +262,7 @@ public class ViewSwing{
         //System.out.println("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
         //String type = this.scanner.nextLine();
         //String type = JOptionPane.showInputDialog("Select your used currency\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
-        this.turnLabel.setText("Choose a payment type");
+        this.turnLabel.setText("Choose a payment type\nCurrent Balance: dollars " + balance[0] + " credits " + balance[1]);
         ArrayList<String> opts = new ArrayList<>();
         opts.add("dollars");
         opts.add("credits");
