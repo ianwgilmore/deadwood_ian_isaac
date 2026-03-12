@@ -246,7 +246,16 @@ public class ViewSwing{
     public String getRole(ArrayList<String> roles){
         // System.out.println("Choose a role to take\n" + roles.keySet());
         // String role = this.scanner.nextLine();
-        String role = JOptionPane.showInputDialog("Choose a role to take\n" + roles);
+        String sroles = " ";
+        String s;
+        for (int i =0; i<roles.size();i++){
+            s =roles.get(i);
+            sroles+=s+=" ";
+        }
+        System.out.println(sroles);
+        System.out.println(roles.size());
+        String role = JOptionPane.showInputDialog("Choose a role to take\n" + sroles);
+
         return role;
     }
 
