@@ -12,6 +12,7 @@ public class ViewSwing{
     ArrayList<JButton> actionButtons = new ArrayList<JButton>();
     JLabel turnLabel;
     JFrame frame;
+    HashMap<String, int[]> extraSpots = new HashMap<String, int[]>();
     HashMap<String, int[]> boardSpots = new HashMap<String, int[]>();
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>();
     String currentPlayer;
@@ -40,6 +41,15 @@ public class ViewSwing{
         public void actionPerformed(ActionEvent event) { // Argument name 'event' can be safely changed, for example, to 'e'
             this.wasClicked = true;
         }
+    }
+
+    private void buildExtraSpots() {
+        extraSpots = new HashMap<String, int[]>();
+        int[][] positions = {
+            {636, 23},
+        };
+
+        extraSpots.put("Railroad Worker", positions[0]);
     }
 
     private void buildBoardSpots() {
@@ -74,7 +84,6 @@ public class ViewSwing{
     }
 
     public int getPlayerNum(){
-        buildBoardSpots();
         int playerNum = Integer.valueOf(JOptionPane.showInputDialog("Enter the Number of Players (2-8)"));
         //System.out.println("Enter the Number of Players (2-8)");
         //int playerNum = this.scanner.nextInt();
@@ -117,6 +126,12 @@ public class ViewSwing{
 
     // this is a comment
     public void startWindow() {
+        // Create board spots
+        buildBoardSpots();
+
+        // Create extras role spots
+        buildExtraSpots();
+
         // Make window
         this.frame = new JFrame("Deadwood");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
