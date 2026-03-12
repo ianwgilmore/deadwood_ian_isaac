@@ -131,6 +131,43 @@ public class Parser {
         return star_roles;
     }
 
+    // get part locations of all extras on board
+    public static HashMap<String, int[]> buildExtraSpots() {
+        Document doc = getDocFromFile("board.xml");
+
+        // hashmap mapping part names to their coords
+        HashMap<String, int[]> partsHash = new HashMap<String, int[]>();
+
+        // get all set nodes
+        NodeList sets = doc.getDocumentElement().getElementsByTagName("set");
+
+        // iterate through all sets
+        for (int i = 0; i < sets.getLength(); i++) {
+            Node set = sets.item(i);
+
+            // verify that set is actually a set
+            if (set.getNodeName().equals("set")) {
+                // get all roles
+                List<Node> parts = getSubNodes(getSubNodes(set, "parts").get(0), "part");
+
+                for (int j = 0; j < parts.size(); j++) {
+                    Node part = parts.get(j);
+                    
+                    // get information from part node
+                    String partName = getAttribute(part, "name");
+                    int x = Integer.valueOf(getAttribute(getSubNodes(part, "area").get(0), "x"));
+                    int y = Integer.valueOf(getAttribute(getSubNodes(part, "area").get(0), "y"));
+                    int[] pos = {x, y};
+                    
+                    // put part information in hashmap
+                    partsHash.put(partName, pos);
+                }
+            }
+        }
+
+        return partsHash;
+    }
+
     // get attribute value of given node as string 
     // (nums can be converted via Integer.valueOf(getAttributes(...)))
     private static String getAttribute(Node node, String attribute) {

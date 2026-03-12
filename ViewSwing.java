@@ -15,8 +15,10 @@ public class ViewSwing{
     HashMap<String, int[]> extraSpots = new HashMap<String, int[]>();
     HashMap<String, int[]> boardSpots = new HashMap<String, int[]>();
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>();
-    String currentPlayer;
+    String currentPlayerName;
     JLayeredPane pane;
+    String pickedRoleType;
+    Parser parser = new Parser();
 
     private static class ButtonClickListener implements ActionListener {
         boolean wasClicked = false;
@@ -44,12 +46,7 @@ public class ViewSwing{
     }
 
     private void buildExtraSpots() {
-        extraSpots = new HashMap<String, int[]>();
-        int[][] positions = {
-            {636, 23},
-        };
-
-        extraSpots.put("Railroad Worker", positions[0]);
+        extraSpots = this.parser.buildExtraSpots();
     }
 
     private void buildBoardSpots() {
@@ -195,7 +192,7 @@ public class ViewSwing{
         updateButtons(actions);
 
         // Update who the current player is by name
-        this.currentPlayer = name;
+        this.currentPlayerName = name;
         //String action = this.scanner.nextLine();
 
         // If player name unrecognized, create an icon for it
@@ -327,7 +324,7 @@ public class ViewSwing{
         // String target = this.scanner.nextLine();
         //String target = JOptionPane.showInputDialog("Choose a location to move to\n" + neighbors);
 
-        JLabel playerLabel = playerLabels.get(this.currentPlayer);
+        JLabel playerLabel = playerLabels.get(this.currentPlayerName);
 
         this.turnLabel.setText("Choose a location to move to");
         updateButtons(neighbors);
@@ -362,25 +359,7 @@ public class ViewSwing{
         return target;
     }
 
-
-    public String getRole(ArrayList<String> roles){
-        // System.out.println("Choose a role to take\n" + roles.keySet());
-        // String role = this.scanner.nextLine();
-        // String sroles = " ";
-        // String s;
-        // for (int i =0; i<roles.size();i++){
-        //     s =roles.get(i);
-        //     sroles+=s+=" ";
-        // }
-        // String role = JOptionPane.showInputDialog("Choose a role to take\n" + sroles);
-
-        this.turnLabel.setText("Choose a role");
-        updateButtons(roles);
-
-
-
-        pane.repaint();
-        
+    private String getClickedButton() {
         // Clear button clicks so there is no pre-input
         for (int i = 0; i < this.buttonListeners.length; i++) {
             this.buttonListeners[i].getClicked();
@@ -399,6 +378,37 @@ public class ViewSwing{
         return role;
     }
 
+    public String getRole(ArrayList<String> roles){
+        // System.out.println("Choose a role to take\n" + roles.keySet());
+        // String role = this.scanner.nextLine();
+        // String sroles = " ";
+        // String s;
+        // for (int i =0; i<roles.size();i++){
+        //     s =roles.get(i);
+        //     sroles+=s+=" ";
+        // }
+        // String role = JOptionPane.showInputDialog("Choose a role to take\n" + sroles);
+
+        this.turnLabel.setText("Choose a role");
+        updateButtons(roles);
+
+        pane.repaint();
+        
+        // Get which button is clicked
+        String role = getClickedButton();
+
+        if (this.pickedRoleType.equals("extra")) {
+            // Set player position via 'extraSpots' hashmap
+            int[] pos = this.extraSpots.get(role);
+            int x = pos[0];
+            int y = pos[1];
+            JLabel playerLabel = playerLabels.get(this.currentPlayerName);
+            playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
+        }
+
+        return role;
+    }
+
     public String getTypeRole(){
         // System.out.println("Choose a type of role(star or extra)");
         // String type = this.scanner.nextLine();
@@ -409,24 +419,13 @@ public class ViewSwing{
         options.add("extra");
         updateButtons(options);
 
-
-
         pane.repaint();
-        
-        // Clear button clicks so there is no pre-input
-        for (int i = 0; i < this.buttonListeners.length; i++) {
-            this.buttonListeners[i].getClicked();
-        }
 
-        // Keep checking the action buttons until one is clicked
-        String type = null;
-        while (type == null) {
-            for (int i = 0; i < this.buttonListeners.length; i++) {
-                if (this.buttonListeners[i].getClicked()) {
-                    type = this.buttonListeners[i].actionText;
-                }
-            }
-        }
+        // Get which button is clicked
+        String type = getClickedButton();
+
+        this.pickedRoleType = type;
+
         return type;
     }
 
