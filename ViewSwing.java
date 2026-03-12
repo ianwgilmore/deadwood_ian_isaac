@@ -134,7 +134,7 @@ public class ViewSwing{
         JLabel boardLabel = new JLabel();
         boardLabel.setIcon(boardIcon);
         boardLabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
-        this.pane.add(boardLabel, new Integer(0));
+        this.pane.add(boardLabel, Integer.valueOf(0));
 
         // Add Turn Label
         this.turnLabel = new JLabel();
@@ -193,7 +193,7 @@ public class ViewSwing{
             int x = pos[0];
             int y = pos[1];
             playerLabel.setBounds(x, y, 100, 100);
-            pane.add(playerLabel, new Integer(3));
+            pane.add(playerLabel, Integer.valueOf(3));
             playerLabels.put(name, playerLabel);
         }
 
@@ -274,15 +274,35 @@ public class ViewSwing{
     public String getRole(ArrayList<String> roles){
         // System.out.println("Choose a role to take\n" + roles.keySet());
         // String role = this.scanner.nextLine();
-        String sroles = " ";
-        String s;
-        for (int i =0; i<roles.size();i++){
-            s =roles.get(i);
-            sroles+=s+=" ";
+        // String sroles = " ";
+        // String s;
+        // for (int i =0; i<roles.size();i++){
+        //     s =roles.get(i);
+        //     sroles+=s+=" ";
+        // }
+        // String role = JOptionPane.showInputDialog("Choose a role to take\n" + sroles);
+
+        this.turnLabel.setText("Choose a location to move to");
+        updateButtons(roles);
+
+
+
+        pane.repaint();
+        
+        // Clear button clicks so there is no pre-input
+        for (int i = 0; i < this.buttonListeners.length; i++) {
+            this.buttonListeners[i].getClicked();
         }
-        System.out.println(sroles);
-        System.out.println(roles.size());
-        String role = JOptionPane.showInputDialog("Choose a role to take\n" + sroles);
+
+        // Keep checking the action buttons until one is clicked
+        String role = null;
+        while (role == null) {
+            for (int i = 0; i < this.buttonListeners.length; i++) {
+                if (this.buttonListeners[i].getClicked()) {
+                    role = this.buttonListeners[i].actionText;
+                }
+            }
+        }
 
         return role;
     }
@@ -316,3 +336,4 @@ public class ViewSwing{
         System.out.println("Scene has wrapped");
     }
 }
+
