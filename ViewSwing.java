@@ -12,9 +12,9 @@ public class ViewSwing{
     ArrayList<JButton> actionButtons = new ArrayList<JButton>();
     JLabel turnLabel;
     JFrame frame;
-    HashMap<String, int[]> board_spots = new HashMap<String, int[]>();
+    HashMap<String, int[]> boardSpots = new HashMap<String, int[]>();
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>();
-    String current_player;
+    String currentPlayer;
     JLayeredPane pane;
 
     private static class ButtonClickListener implements ActionListener {
@@ -44,7 +44,7 @@ public class ViewSwing{
     }
 
     private void buildBoardSpots() {
-        board_spots = new HashMap<String, int[]>();
+        boardSpots = new HashMap<String, int[]>();
         int[][] positions = {
             {772, 329},
             {914, 91},
@@ -60,18 +60,18 @@ public class ViewSwing{
             {393, 354},
         };
 
-        board_spots.put("Saloon", positions[0]);
-        board_spots.put("Main Street", positions[1]);
-        board_spots.put("trailer", positions[2]);
-        board_spots.put("Bank", positions[3]);
-        board_spots.put("Church", positions[4]);
-        board_spots.put("Hotel", positions[5]);
-        board_spots.put("Ranch", positions[6]);
-        board_spots.put("office", positions[7]);
-        board_spots.put("Secret Hideout", positions[8]);
-        board_spots.put("Train Station", positions[9]);
-        board_spots.put("Jail", positions[10]);
-        board_spots.put("General Store", positions[11]);
+        boardSpots.put("Saloon", positions[0]);
+        boardSpots.put("Main Street", positions[1]);
+        boardSpots.put("trailer", positions[2]);
+        boardSpots.put("Bank", positions[3]);
+        boardSpots.put("Church", positions[4]);
+        boardSpots.put("Hotel", positions[5]);
+        boardSpots.put("Ranch", positions[6]);
+        boardSpots.put("office", positions[7]);
+        boardSpots.put("Secret Hideout", positions[8]);
+        boardSpots.put("Train Station", positions[9]);
+        boardSpots.put("Jail", positions[10]);
+        boardSpots.put("General Store", positions[11]);
     }
 
     public int getPlayerNum(){
@@ -181,7 +181,7 @@ public class ViewSwing{
         updateButtons(actions);
 
         // Update who the current player is by name
-        this.current_player = name;
+        this.currentPlayer = name;
         //String action = this.scanner.nextLine();
 
         // If player name unrecognized, create an icon for it
@@ -189,7 +189,10 @@ public class ViewSwing{
             ImageIcon playerIcon = new ImageIcon("./images/r2.png");
             JLabel playerLabel = new JLabel();
             playerLabel.setIcon(playerIcon);
-            playerLabel.setBounds(1180, 100, 100, 100);
+            int[] pos = boardSpots.get("trailer");
+            int x = pos[0];
+            int y = pos[1];
+            playerLabel.setBounds(x, y, 100, 100);
             pane.add(playerLabel, new Integer(3));
             playerLabels.put(name, playerLabel);
         }
@@ -254,9 +257,9 @@ public class ViewSwing{
         // String target = this.scanner.nextLine();
         String target = JOptionPane.showInputDialog("Choose a location to move to\n" + neighbors);
 
-        JLabel playerLabel = playerLabels.get(this.current_player);
+        JLabel playerLabel = playerLabels.get(this.currentPlayer);
 
-        int[] position = board_spots.get(target);
+        int[] position = boardSpots.get(target);
         int x = position[0];
         int y = position[1];
 
