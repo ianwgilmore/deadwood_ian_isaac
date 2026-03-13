@@ -84,7 +84,7 @@ public class ControllerTerminal implements Controller{
         this.view.displayResults(results);
     }
 
-    public String getName(){
+    public String getName(int i){
         return "";
     }
     public void addScoreBoard(Player player){

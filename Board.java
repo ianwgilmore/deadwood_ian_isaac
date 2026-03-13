@@ -157,7 +157,7 @@ public class Board{
         int playerNum;
         for (int i=0; i<n; i++){
             playerNum = i+1;
-            name = controller.getName();
+            name = controller.getName(i);
             player = new Player(name, null, checker);
             players[i] = player;
         }
