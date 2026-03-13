@@ -22,6 +22,7 @@ public class ViewSwing{
     HashMap<String, int[]> boardSpots = new HashMap<String, int[]>(); // setName, pos
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>(); // playerName, pos
     HashMap<JLabel, String> playerPos = new HashMap<JLabel, String>();
+    HashMap<String, String> playerSet = new HashMap<String, String>();
     String currentSetName;
     String currentPlayerName;
     JLayeredPane pane;
@@ -431,9 +432,9 @@ public class ViewSwing{
         String target = getClickedButton();
 
         // this.currentSetName = target;
-        this.playerSet.put(playerLabel, target);
+        this.playerSet.put(currentPlayerName, target);
 
-        this.playerPos.put(currentPlayerName);
+        //this.playerPos.put(currentPlayerName);
 
         int[] position = boardSpots.get(target);
 
@@ -504,7 +505,8 @@ public class ViewSwing{
         } else if (this.pickedRoleType.equals("star")) {
             // Set player position via 'starSpots' hashmap, offset by cardSpots hashmap
             int[] pos = this.starSpots.get(role);
-            int[] cardPos = this.cardSpots.get(currentSetName);
+            String setName = this.playerSet.get(currentPlayerName);
+            int[] cardPos = this.cardSpots.get(setName);
             int x = pos[0] + cardPos[0];
             int y = pos[1] + cardPos[1];
             JLabel playerLabel = playerLabels.get(this.currentPlayerName);
@@ -617,7 +619,9 @@ public class ViewSwing{
         image = scaleByFactor(image, 0.6);
 
         System.out.println("flipping card");
-        this.setCard.get(this.currentSetName).setIcon(image);
+        String setName = this.playerSet.get(currentPlayerName);
+        System.out.println(setName);
+        this.setCard.get(setName).setIcon(image);
     }
 
     public void showRoll(int roll){
