@@ -273,7 +273,6 @@ public class ViewSwing{
         // Scale image by given factor
         double width = boardIcon.getIconWidth() * factor;
         double height = boardIcon.getIconHeight() * factor;
-        System.out.println(boardIcon.getIconWidth());
         Image scaledImage = boardIcon.getImage().getScaledInstance((int) width, (int) height, Image.SCALE_SMOOTH);
         boardIcon = new ImageIcon(scaledImage);
         return boardIcon;
@@ -550,10 +549,8 @@ public class ViewSwing{
 
         String cardPath = this.cardPaths.get(cardName);
 
-        System.out.println(this.cardPaths.get(cardName));
-
         ImageIcon image = new ImageIcon(cardPath);
-        //image = scaleByFactor(image, 0.6);
+        image = scaleByFactor(image, 0.6);
 
         System.out.println("flipping card");
         this.setCard.get(this.currentSetName).setIcon(image);
