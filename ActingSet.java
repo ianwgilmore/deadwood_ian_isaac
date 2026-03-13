@@ -88,6 +88,7 @@ public class ActingSet extends Set{
         starWrap(payments);
 
         controller.displayWrap();
+        controller.removeCard(this.name);
         this.scene = null;
     }
 

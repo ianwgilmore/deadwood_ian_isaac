@@ -501,6 +501,23 @@ public class ViewSwing{
         pane.repaint();
     }
 
+    public void removeCard(String cardName){
+    //index into hashmap and get the location 
+        System.out.println("removed " + cardName + "!");
+
+        ImageIcon image = new ImageIcon("./images/Cardback.png");
+
+        JLabel cardLabel = this.setCard.get(cardName);
+
+        cardLabel.setBounds(cardLabel.getX(),cardLabel.getY(),image.getIconWidth(),image.getIconHeight()
+        );
+
+        System.out.println("removing card");
+        cardLabel.setIcon(image);
+
+        pane.repaint();
+    }
+
     public void setShots(){
         //ensure tokens are empty for next day
         for (JLabel shot : shotTokenLabels.values()) {

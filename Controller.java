@@ -24,4 +24,5 @@ public interface Controller{
     public void displayResults(String[] results);
     public void addScoreBoard(Player player);
     public void updateScore(String name, int dol, int cred, int rank);
+    public void removeCard(String cardName);
 }

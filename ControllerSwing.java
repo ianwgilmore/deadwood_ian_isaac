@@ -64,6 +64,10 @@ public class ControllerSwing implements Controller{
         this.view.flipCard(cardName);
     }
 
+    public void removeCard(String cardName){
+        this.view.removeCard(cardName);
+    }
+
     public void showRoll(int roll){
         this.view.showRoll(roll);
     }

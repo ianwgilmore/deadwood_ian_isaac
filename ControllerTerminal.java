@@ -76,6 +76,10 @@ public class ControllerTerminal implements Controller{
         this.view.displayWrap();
     }
 
+    public void removeCard(String cardName){
+        this.view.removeCard(cardName);
+    }
+    
     public void displayResults(String[] results){
         this.view.displayResults(results);
     }

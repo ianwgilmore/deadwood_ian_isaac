@@ -103,4 +103,6 @@ public class ViewTerminal{
     public void displayWrap(){
         System.out.println("Scene has wrapped");
     }
+    public void removeCard(String cardName){
+    }
 }
