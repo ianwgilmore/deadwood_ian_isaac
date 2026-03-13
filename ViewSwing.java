@@ -112,7 +112,7 @@ public class ViewSwing{
     }
 
     private void buildStarSpots() {
-        extraSpots = this.parser.buildStarSpots();
+        starSpots = this.parser.buildStarSpots();
     }
 
     private void buildShotTokens(){
