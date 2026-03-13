@@ -50,6 +50,12 @@ public class ViewSwing{
         }
     }
 
+    private void clearCards(String[] setNames) {
+        for (int i = 0; i < setNames.length; i++) {
+            pane.remove(setCard.get(setNames[i]));
+        }
+    }
+
     private void buildSetCard() {
         String[] setNames = {
             "Train Station",
@@ -63,6 +69,8 @@ public class ViewSwing{
             "Church",
             "Hotel"
         };
+
+        clearCards(setNames);
 
         for (int i = 0; i < setNames.length; i++) {
             String setName = setNames[i];
