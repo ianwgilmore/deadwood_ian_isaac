@@ -455,9 +455,7 @@ public class ViewSwing{
 
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
-        if (day!=1){
-            buildSetCard();
-        }
+        
 
         //need to reset the board and the players but not the scoreboard
     }
