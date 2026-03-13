@@ -84,8 +84,8 @@ public class ControllerSwing implements Controller{
         this.view.displayResults(results);
     }
 
-    public String getName(){
-        return this.view.getName();
+    public String getName(int i){
+        return this.view.getName(i);
     }
 
     public void addScoreBoard(Player player){

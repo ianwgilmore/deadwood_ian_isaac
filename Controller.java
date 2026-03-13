@@ -12,7 +12,7 @@ public interface Controller{
     public String typeRole();
     public String starRole(ArrayList<String> roles);
     public String extraRole(ArrayList<String> roles);
-    public String getName();
+    public String getName(int i);
     
     public void error();
     public void newDay(int day);

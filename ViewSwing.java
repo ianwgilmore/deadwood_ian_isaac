@@ -300,17 +300,6 @@ public class ViewSwing{
         //String action = this.scanner.nextLine();
 
         // If player name unrecognized, create an icon for it
-        if (!playerLabels.containsKey(name)) {
-            ImageIcon playerIcon = new ImageIcon("./images/r2.png");
-            JLabel playerLabel = new JLabel();
-            playerLabel.setIcon(playerIcon);
-            int[] pos = boardSpots.get("trailer");
-            int x = pos[0];
-            int y = pos[1];
-            playerLabel.setBounds(x, y, 100, 100);
-            pane.add(playerLabel, Integer.valueOf(3));
-            playerLabels.put(name, playerLabel);
-        }
 
         pane.repaint();
 
@@ -320,6 +309,52 @@ public class ViewSwing{
         System.out.println(action);
         
         return action;
+    }
+
+    public String getDicePath(int playernum){
+        String path;
+        if (playernum == 1){
+            path = "b1.png";
+        }
+        else if (playernum == 2){
+            path = "c2.png";
+        }
+        else if (playernum == 3){
+            path = "g3.png";
+        }
+        else if (playernum == 4){
+            path = "04.png";
+        }
+        else if (playernum == 5){
+            path = "p5.png";
+        }
+        else if (playernum == 6){
+            path = "r6.png";
+        }
+        else if (playernum == 7){
+            path = "y1.png";
+        }
+        else{
+            path = "b6.png";
+        }
+        return path;
+    }
+
+    public void buildPlayer(String name, int playernum){
+        String path = "./images/dice/";
+        path = path +getDicePath(playernum);
+        System.out.println(path);
+        if (!playerLabels.containsKey(name)){
+            ImageIcon playerIcon = new ImageIcon(path);
+            JLabel playerLabel = new JLabel();
+            playerLabel.setIcon(playerIcon);
+            int[] pos = boardSpots.get("trailer");
+            int x = pos[0];
+            int y = pos[1];
+            playerLabel.setBounds(x, y, playerIcon.getIconWidth(), playerIcon.getIconHeight());
+            pane.add(playerLabel, Integer.valueOf(3));
+            playerLabels.put(name, playerLabel);
+        }
     }
 
     //prompt player for desired rank and payment type
@@ -586,7 +621,9 @@ public class ViewSwing{
         System.out.println("Scene has wrapped");
     }
 
-    public String getName(){
-        return JOptionPane.showInputDialog("Enter Player Name");
+    public String getName(int playernum){
+        String name = JOptionPane.showInputDialog("Enter Player Name");
+        buildPlayer(name, playernum);
+        return name;
     }
 }
