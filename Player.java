@@ -36,6 +36,7 @@ public class Player{
     Die die;
     boolean actionTaken;
     
+    
     public Player(String name, String location, Checker checker) {
         this.name = name;
         this.rank = 0;
@@ -46,7 +47,6 @@ public class Player{
         this.role = null;
         this.checker = checker;
         this.die = new Die(); // Unsure if we're creating a die class or not
-        this.actionTaken = false;
     }
 
     // getters
@@ -181,7 +181,6 @@ public class Player{
                 actions.add("rank up");
         }
         actions.add("end turn");
-        actions.add("end day");
         return actions;
     }
 
@@ -304,10 +303,6 @@ public class Player{
             else if(action.equals("end turn")){
                 this.actionTaken = false;
                 takeTurn(board, controller, true);
-            }
-            else if(action.equals("end day")){
-                this.actionTaken = false;
-                controller.newDay(2);
             }
         }
     }

@@ -471,10 +471,23 @@ public class ViewSwing{
         return type;
     }
 
+    public void updatePlayerLoc(){
+        JLabel label;
+        for(HashMap.Entry<String,JLabel> entry : this.playerLabels.entrySet()){
+            label = entry.getValue();
+            int[] position = boardSpots.get("trailer");
+            int x = position[0];
+            int y = position[1];
+            label.setBounds(x, y, label.getIcon().getIconWidth(), label.getIcon().getIconHeight());
+            frame.repaint();
+        }  
+    }
+
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
         setShots();
         buildSetCard();
+        updatePlayerLoc();
 
         //need to reset the board and the players but not the scoreboard
     }
@@ -492,6 +505,23 @@ public class ViewSwing{
         JLabel shot = shotTokenLabels.get(index);
         pane.remove(shot);
         shotTokenLabels.remove(index);
+        pane.repaint();
+    }
+
+    public void removeCard(String cardName){
+    //index into hashmap and get the location 
+        System.out.println("removed " + cardName + "!");
+
+        ImageIcon image = new ImageIcon("./images/Cardback.png");
+
+        JLabel cardLabel = this.setCard.get(cardName);
+
+        cardLabel.setBounds(cardLabel.getX(),cardLabel.getY(),image.getIconWidth(),image.getIconHeight()
+        );
+
+        System.out.println("removing card");
+        cardLabel.setIcon(image);
+
         pane.repaint();
     }
 
