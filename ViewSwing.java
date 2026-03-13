@@ -68,7 +68,7 @@ public class ViewSwing{
             String setName = setNames[i];
 
             JLabel cardLabel = new JLabel();
-            
+ 
             // Add img to card
             ImageIcon backImg = new ImageIcon("./images/Cardback.png");
             cardLabel.setIcon(backImg);
@@ -447,6 +447,10 @@ public class ViewSwing{
 
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
+        if (day!=1){
+            buildSetCard();
+        }
+
         //need to reset the board and the players but not the scoreboard
     }
 
@@ -463,6 +467,7 @@ public class ViewSwing{
         ImageIcon image = new ImageIcon("./images/cards/card_1.jpg");
         image = scaleByFactor(image, 0.6);
 
+        System.out.println("flipping card");
         this.setCard.get(this.currentSetName).setIcon(image);
     }
 
