@@ -335,7 +335,7 @@ public class ViewSwing{
             path = "y1.png";
         }
         else{
-            path = "b6.png";
+            path = "br3.png";
         }
         return path;
     }
