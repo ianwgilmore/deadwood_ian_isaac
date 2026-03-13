@@ -241,7 +241,7 @@ public class ViewSwing{
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
         scoreboardPanel.setBorder(BorderFactory.createTitledBorder("Scoreboard"));
 
-        int panelWidth = 250;
+        int panelWidth = 170;
         int panelHeight = 300;
         scoreboardPanel.setBounds(1200, 400, panelWidth,panelHeight); 
         pane.add(scoreboardPanel, Integer.valueOf(2));
@@ -313,25 +313,25 @@ public class ViewSwing{
 
     public String getDicePath(int playernum){
         String path;
-        if (playernum == 1){
+        if (playernum == 0){
             path = "b1.png";
         }
-        else if (playernum == 2){
+        else if (playernum == 1){
             path = "c1.png";
         }
-        else if (playernum == 3){
+        else if (playernum == 2){
             path = "g1.png";
         }
-        else if (playernum == 4){
-            path = "01.png";
+        else if (playernum == 3){
+            path = "o1.png";
         }
-        else if (playernum == 5){
+        else if (playernum == 4){
             path = "p1.png";
         }
-        else if (playernum == 6){
+        else if (playernum == 5){
             path = "r1.png";
         }
-        else if (playernum == 7){
+        else if (playernum == 6){
             path = "y1.png";
         }
         else{
