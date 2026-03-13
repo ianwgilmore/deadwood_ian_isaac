@@ -13,9 +13,14 @@ public class Board{
     CastingOffice castingoffice;
     Parser parser;
     int scenesLeft;
+    static Board instance = new Board();
 
-    public Board() {
+    private Board() {
         this.parser = new Parser();
+    }
+
+    public static Board getBoardInstance() {
+        return instance;
     }
 
     public void buildCastingOffice(){

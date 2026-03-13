@@ -13,7 +13,7 @@ public class Game{
         //int n = Controller.getPlayers()
 
         Parser parser = new Parser();
-        Board board = new Board();
+        Board board = Board.getBoardInstance();
         Checker checker = new Checker();
         Controller controller = new ControllerSwing();
         int player_num = controller.setup();
