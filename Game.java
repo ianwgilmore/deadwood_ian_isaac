@@ -32,6 +32,9 @@ public class Game{
             //set up board for new day
             board.setBoard(players);
             controller.newDay(current_day);
+            for (int i = 0; i<players.length;i++){
+                System.out.println(players[i].getLocation());
+            }
             while(board.getScenesLeft()>1){
                 if (index < players.length){
                     ///currently for some reason the players name is 2. this is not correct
