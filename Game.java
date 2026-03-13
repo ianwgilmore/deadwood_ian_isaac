@@ -29,9 +29,9 @@ public class Game{
         int index = 0;
         current_day = 1;
         while(current_day <= max_day){
-            controller.newDay(current_day);
             //set up board for new day
             board.setBoard(players);
+            controller.newDay(current_day);
             while(board.getScenesLeft()>1){
                 if (index < players.length){
                     ///currently for some reason the players name is 2. this is not correct
