@@ -317,25 +317,25 @@ public class ViewSwing{
             path = "b1.png";
         }
         else if (playernum == 2){
-            path = "c2.png";
+            path = "c1.png";
         }
         else if (playernum == 3){
-            path = "g3.png";
+            path = "g1.png";
         }
         else if (playernum == 4){
-            path = "04.png";
+            path = "01.png";
         }
         else if (playernum == 5){
-            path = "p5.png";
+            path = "p1.png";
         }
         else if (playernum == 6){
-            path = "r6.png";
+            path = "r1.png";
         }
         else if (playernum == 7){
             path = "y1.png";
         }
         else{
-            path = "br3.png";
+            path = "br1.png";
         }
         return path;
     }
