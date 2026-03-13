@@ -52,7 +52,11 @@ public class ViewSwing{
 
     private void clearCards(String[] setNames) {
         for (int i = 0; i < setNames.length; i++) {
-            pane.remove(setCard.get(setNames[i]));
+            JLabel cardLabel = setCard.get(setNames[i]);
+
+            if (cardLabel != null) {
+                pane.remove(cardLabel);
+            }
         }
     }
 
@@ -189,7 +193,6 @@ public class ViewSwing{
         buildBoardSpots();
         buildExtraSpots();
         buildCardSpots();
-        buildSetCard();
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
@@ -456,6 +459,7 @@ public class ViewSwing{
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
         
+        buildSetCard();
 
         //need to reset the board and the players but not the scoreboard
     }
