@@ -124,18 +124,18 @@ public class ViewSwing{
     private void buildBoardSpots() {
         boardSpots = new HashMap<String, int[]>();
         int[][] positions = {
-            {772, 329},
-            {914, 91},
-            {1085, 349},
-            {790, 545},
-            {769, 788},
-            {1086, 671},
-            {400, 570},
-            {105, 567},
-            {285, 815},
-            {98, 246},
-            {425, 107},
-            {393, 354},
+            {728, 218}, //
+            {789, 158}, //
+            {985, 258}, //
+            {603, 589}, //
+            {605, 855}, //
+            {940, 855}, //
+            {236, 633}, //
+            {5, 456}, //
+            {5, 849}, //
+            {7, 186}, //
+            {264, 153}, //
+            {207, 402}, //
         };
 
         boardSpots.put("Saloon", positions[0]);
@@ -351,10 +351,29 @@ public class ViewSwing{
             ImageIcon playerIcon = new ImageIcon(path);
             JLabel playerLabel = new JLabel();
             playerLabel.setIcon(playerIcon);
-            int[] pos = boardSpots.get("trailer");
-            int x = pos[0];
-            int y = pos[1];
-            playerLabel.setBounds(x, y, playerIcon.getIconWidth(), playerIcon.getIconHeight());
+            // int[] pos = boardSpots.get("trailer");
+            // int x = pos[0];
+            // int y = pos[1];
+
+            this.playerSet.put(name, "trailer");
+
+            // int[] position = boardSpots.get("trailer");
+
+            // // count players on current set
+            // int playersOnSet = 0;
+            // for (String set : playerSet.values()) {
+            //     if (set == "trailer") {
+            //         playersOnSet++;
+            //     }
+            // }
+
+            // int offset = playersOnSet * 50 - 50;
+            // int x = position[0] + offset;
+            // int y = position[1];
+
+            //playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
+
+            // playerLabel.setBounds(0, 0, playerIcon.getIconWidth(), playerIcon.getIconHeight());
             pane.add(playerLabel, Integer.valueOf(3));
             playerLabels.put(name, playerLabel);
         }
@@ -538,12 +557,30 @@ public class ViewSwing{
 
     public void updatePlayerLoc(){
         JLabel label;
-        for(HashMap.Entry<String,JLabel> entry : this.playerLabels.entrySet()){
-            label = entry.getValue();
+        for(String playerName : this.playerSet.keySet()){
             int[] position = boardSpots.get("trailer");
             int x = position[0];
             int y = position[1];
-            label.setBounds(x, y, label.getIcon().getIconWidth(), label.getIcon().getIconHeight());
+
+            JLabel playerLabel = this.playerLabels.get(playerName);
+
+            this.playerSet.put(playerName, "trailer");
+
+            // int[] position = boardSpots.get("trailer");
+
+            // // count players on current set
+            // int playersOnSet = 0;
+            // for (String set : playerSet.values()) {
+            //     if (set == "trailer") {
+            //         playersOnSet++;
+            //     }
+            // }
+
+            // int offset = playersOnSet * 50 - 50;
+            // int x = position[0] + offset;
+            // int y = position[1];
+
+            playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
             frame.repaint();
         }  
     }
