@@ -15,6 +15,7 @@ public class ViewSwing{
     HashMap<String, JLabel> setCard = new HashMap<String, JLabel>(); // setName, cardLabel -
     HashMap<String, String> cardPaths;
     HashMap<String, int[]> cardSpots; // setName, pos -
+    HashMap<String, int[]> starSpots; // partName, pos relative to card
     HashMap<String, int[]> extraSpots; // partName, pos
     HashMap<String, int[]> shotTokens; //setName+num, pos || when removing need to be passed shottokens for indexing
     HashMap<String, JLabel> shotTokenLabels = new HashMap<>();
@@ -110,6 +111,10 @@ public class ViewSwing{
         extraSpots = this.parser.buildExtraSpots();
     }
 
+    private void buildStarSpots() {
+        extraSpots = this.parser.buildStarSpots();
+    }
+
     private void buildShotTokens(){
         shotTokens = this.parser.buildShotTokens();
     }
@@ -203,6 +208,7 @@ public class ViewSwing{
 
         buildBoardSpots();
         buildExtraSpots();
+        buildStarSpots();
         buildCardSpots();
         buildShotTokens();
         buildCardPaths();
@@ -478,6 +484,14 @@ public class ViewSwing{
             int[] pos = this.extraSpots.get(role);
             int x = pos[0];
             int y = pos[1];
+            JLabel playerLabel = playerLabels.get(this.currentPlayerName);
+            playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
+        } else if (this.pickedRoleType.equals("star")) {
+            // Set player position via 'starSpots' hashmap, offset by cardSpots hashmap
+            int[] pos = this.starSpots.get(role);
+            int[] cardPos = this.cardSpots.get(currentSetName);
+            int x = pos[0] + cardPos[0];
+            int y = pos[1] + cardPos[1];
             JLabel playerLabel = playerLabels.get(this.currentPlayerName);
             playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
         }
