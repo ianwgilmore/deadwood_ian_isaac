@@ -208,6 +208,43 @@ public class Parser {
         return partsHash;
     }
 
+    // get part locations of all extras on board
+    public static HashMap<String, int[]> buildStarSpots() {
+        Document doc = getDocFromFile("cards.xml");
+
+        // hashmap mapping part names to their coords
+        HashMap<String, int[]> partsHash = new HashMap<String, int[]>();
+
+        // get all set nodes
+        NodeList cards = doc.getDocumentElement().getElementsByTagName("card");
+
+        // iterate through all sets
+        for (int i = 0; i < cards.getLength(); i++) {
+            Node card = cards.item(i);
+
+            // verify that set is actually a set
+            if (card.getNodeName().equals("card")) {
+                // get all roles
+                List<Node> parts = getSubNodes(card, "part");
+
+                for (int j = 0; j < parts.size(); j++) {
+                    Node part = parts.get(j);
+
+                    // get information from part node
+                    String partName = getAttribute(part, "name");
+                    int x = Integer.valueOf(getAttribute(getSubNodes(part, "area").get(0), "x"));
+                    int y = Integer.valueOf(getAttribute(getSubNodes(part, "area").get(0), "y"));
+                    int[] pos = {x, y};
+                    
+                    // put part information in hashmap
+                    partsHash.put(partName, pos);
+                }
+            }
+        }
+
+        return partsHash;
+    }
+
 
     public static HashMap<String, int[]> buildShotTokens() {
         Document doc = getDocFromFile("board.xml");
