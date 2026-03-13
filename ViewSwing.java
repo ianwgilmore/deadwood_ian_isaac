@@ -21,6 +21,7 @@ public class ViewSwing{
     HashMap<String, JLabel> shotTokenLabels = new HashMap<>();
     HashMap<String, int[]> boardSpots = new HashMap<String, int[]>(); // setName, pos
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>(); // playerName, pos
+    HashMap<JLabel, String> playerPos = new HashMap<JLabel, String>();
     String currentSetName;
     String currentPlayerName;
     JLayeredPane pane;
@@ -292,11 +293,12 @@ public class ViewSwing{
     //prompt user for action choice
     //choices are act, rehearse, move, rank up, etc.
     public String getPlayerAction(String name, ArrayList<String> actions){
+        // Update who the current player is by name
+        this.currentPlayerName = name;
+
         this.turnLabel.setText(name + "'s turn. \nChoose an action.");
         updateButtons(actions);
 
-        // Update who the current player is by name
-        this.currentPlayerName = name;
         //String action = this.scanner.nextLine();
 
         // If player name unrecognized, create an icon for it
@@ -428,15 +430,28 @@ public class ViewSwing{
         // Get which target is selected via buttons
         String target = getClickedButton();
 
+        // this.currentSetName = target;
+        this.playerSet.put(playerLabel, target);
+
+        this.playerPos.put(currentPlayerName);
+
         int[] position = boardSpots.get(target);
-        int x = position[0];
+
+        // count players on current set
+        int playersOnSet = 0;
+        for (String set : playerSet.values()) {
+            if (set == target) {
+                playersOnSet++;
+            }
+        }
+
+        int offset = playersOnSet * 50 - 50;
+        int x = position[0] + offset;
         int y = position[1];
 
         playerLabel.setBounds(x, y, playerLabel.getIcon().getIconWidth(), playerLabel.getIcon().getIconHeight());
 
         frame.repaint();
-
-        this.currentSetName = target;
 
         return target;
     }
