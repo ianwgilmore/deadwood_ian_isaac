@@ -68,8 +68,8 @@ public class ControllerSwing implements Controller{
         this.view.showRoll(roll);
     }
 
-    public void showTokens(int tokens){
-        this.view.showTokens(tokens);
+    public void showTokens(int tokens, String actset){
+        this.view.showTokens(tokens,actset);
     }
 
     public void displayWrap(){

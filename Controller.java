@@ -19,7 +19,7 @@ public interface Controller{
     public void displayResult(String[] results);
     public void flipCard(String cardName);
     public void showRoll(int roll);
-    public void showTokens(int tokens);
+    public void showTokens(int tokens, String actset);
     public void displayWrap();
     public void displayResults(String[] results);
     public void addScoreBoard(Player player);

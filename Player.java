@@ -126,7 +126,7 @@ public class Player{
         if (roll + this.practice_tok >= actset.scene.getBudget()) {
             payout = this.role.getSuccess();
             actset.removeShotToken(board, controller);
-            controller.showTokens(actset.getShotToken());
+            controller.showTokens(actset.getShotToken(), actset.getName());
             } 
         else {
             payout = this.role.getFailure();

@@ -97,7 +97,7 @@ public class ViewTerminal{
         System.out.println("Rolled a " + roll);
     }
 
-    public void showTokens(int tokens){
+    public void showTokens(int tokens, String actset){
         System.out.println(tokens + " Shot Tokens Left");
     }
     public void displayWrap(){

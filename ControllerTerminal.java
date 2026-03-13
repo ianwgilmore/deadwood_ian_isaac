@@ -68,8 +68,8 @@ public class ControllerTerminal implements Controller{
         this.view.showRoll(roll);
     }
 
-    public void showTokens(int tokens){
-        this.view.showTokens(tokens);
+    public void showTokens(int tokens, String actset){
+        this.view.showTokens(tokens, actset);
     }
 
     public void displayWrap(){
@@ -86,6 +86,6 @@ public class ControllerTerminal implements Controller{
     public void addScoreBoard(Player player){
     }
     public void updateScore(String name, int dol, int cred, int rank){
-        
+
     }
 }

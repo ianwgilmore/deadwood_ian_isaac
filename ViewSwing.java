@@ -15,6 +15,8 @@ public class ViewSwing{
     HashMap<String, JLabel> setCard = new HashMap<String, JLabel>(); // setName, cardLabel -
     HashMap<String, int[]> cardSpots; // setName, pos -
     HashMap<String, int[]> extraSpots; // partName, pos
+    HashMap<String, int[]> shotTokens; //setName+num, pos || when removing need to be passed shottokens for indexing
+    HashMap<String, JLabel> shotTokenLabels = new HashMap<>();
     HashMap<String, int[]> boardSpots = new HashMap<String, int[]>(); // setName, pos
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>(); // playerName, pos
     String currentSetName;
@@ -107,6 +109,10 @@ public class ViewSwing{
         extraSpots = this.parser.buildExtraSpots();
     }
 
+    private void buildShotTokens(){
+        shotTokens = this.parser.buildShotTokens();
+    }
+
     private void buildBoardSpots() {
         boardSpots = new HashMap<String, int[]>();
         int[][] positions = {
@@ -193,6 +199,7 @@ public class ViewSwing{
         buildBoardSpots();
         buildExtraSpots();
         buildCardSpots();
+        buildShotTokens();
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
@@ -216,13 +223,14 @@ public class ViewSwing{
             buttonTexts.add(tests[i]);
         }
 
+        setShots();
+
         scoreboardPanel = new JPanel();
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
         scoreboardPanel.setBorder(BorderFactory.createTitledBorder("Scoreboard"));
 
         int panelWidth = 250;
         int panelHeight = 300;
-        //scoreboardPanel.setBounds(frame.getWidth() - panelWidth - 20, frame.getHeight() - panelHeight - 20, panelWidth,panelHeight); 
         scoreboardPanel.setBounds(1200, 400, panelWidth,panelHeight); 
         pane.add(scoreboardPanel, Integer.valueOf(2));
         updateButtons(buttonTexts);
@@ -458,7 +466,7 @@ public class ViewSwing{
 
     public void sendNewDay(int day){
         System.out.println("Start of day " + day);
-        
+        setShots();
         buildSetCard();
 
         //need to reset the board and the players but not the scoreboard
@@ -469,6 +477,35 @@ public class ViewSwing{
         for (int i=0; i<results.length; i++){
             System.out.println(i + " " +  results[i]);
         }
+    }
+
+    public void removeShot(int shots, String actset){
+        //index into hashmap and get the location 
+        String index = actset + (shots+1);
+        JLabel shot = shotTokenLabels.get(index);
+        pane.remove(shot);
+        shotTokenLabels.remove(index);
+        pane.repaint();
+    }
+
+    public void setShots(){
+        //ensure tokens are empty for next day
+        for (JLabel shot : shotTokenLabels.values()) {
+            pane.remove(shot);
+        }
+        shotTokenLabels.clear();
+
+        ImageIcon image = new ImageIcon("./images/shot.png");
+        int[] loc;
+        for (HashMap.Entry<String, int[]> token : this.shotTokens.entrySet()) {
+            loc = token.getValue();
+            JLabel shotLabel = new JLabel();
+            shotLabel.setIcon(image);
+            shotLabel.setBounds(loc[0], loc[1], image.getIconWidth(), image.getIconHeight());
+            pane.add(shotLabel, Integer.valueOf(2));
+            shotTokenLabels.put(token.getKey(), shotLabel);
+        }
+        pane.repaint();
     }
 
     public void flipCard(String cardName) {
@@ -487,8 +524,9 @@ public class ViewSwing{
         pane.repaint();
     }
 
-    public void showTokens(int tokens){
+    public void showTokens(int tokens, String actset){
         System.out.println(tokens + " Shot Tokens Left");
+        removeShot(tokens, actset);
         //remove tokens from display, also need to initially add them
     }
 

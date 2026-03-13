@@ -208,6 +208,46 @@ public class Parser {
         return partsHash;
     }
 
+
+    public static HashMap<String, int[]> buildShotTokens() {
+        Document doc = getDocFromFile("board.xml");
+
+        // hashmap mapping part names to their coords
+        HashMap<String, int[]> tokenLoc = new HashMap<String, int[]>();
+
+        // get all set nodes
+        NodeList sets = doc.getDocumentElement().getElementsByTagName("set");
+
+        // iterate through all sets
+        for (int i = 0; i < sets.getLength(); i++) {
+            Node set = sets.item(i);
+
+            // verify that set is actually a set
+            if (set.getNodeName().equals("set")) {
+                // get all roles
+                List<Node> takes = getSubNodes(getSubNodes(set, "takes").get(0), "take");
+
+                for (int j = 0; j < takes.size(); j++) {
+                    Node take = takes.get(j);
+
+                    String setName = getAttribute(set, "name");
+                    String tokNum = getAttribute(take, "number");
+                    setName = setName + tokNum;
+                    int x = Integer.valueOf(getAttribute(getSubNodes(take, "area").get(0), "x"));
+                    int y = Integer.valueOf(getAttribute(getSubNodes(take, "area").get(0), "y"));
+                    int h = Integer.valueOf(getAttribute(getSubNodes(take, "area").get(0), "h"));
+                    int w = Integer.valueOf(getAttribute(getSubNodes(take, "area").get(0), "w"));
+                    int[] pos = {x, y, h, w};
+                    
+                    // put part information in hashmap
+                    tokenLoc.put(setName, pos);
+                }
+            }
+        }
+
+        return tokenLoc;
+    }
+
     // get attribute value of given node as string 
     // (nums can be converted via Integer.valueOf(getAttributes(...)))
     private static String getAttribute(Node node, String attribute) {
