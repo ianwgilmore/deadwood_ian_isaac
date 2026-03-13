@@ -248,6 +248,35 @@ public class Parser {
         return tokenLoc;
     }
 
+    public static HashMap<String, String> buildCardPaths() {
+        Document doc = getDocFromFile("cards.xml");
+
+        // hashmap mapping card names with their img paths
+        HashMap<String, String> pathsHash = new HashMap<String, String>();
+
+        // get all card nodes
+        NodeList cards = doc.getDocumentElement().getElementsByTagName("card");
+
+        // iterate through all cards
+        for (int i = 0; i < cards.getLength(); i++) {
+            Node card = cards.item(i);
+
+            // verify that card is actually a card
+            if (card.getNodeName().equals("card")) {
+                // get card name
+                String cardName = getAttribute(card, "name");
+
+                // get path
+                String cardPath = getAttribute(card, "img");
+                
+                // put path in hashmap
+                pathsHash.put(cardName, "./images/cards/" + cardPath);
+            }
+        }
+
+        return pathsHash;
+    }
+
     // get attribute value of given node as string 
     // (nums can be converted via Integer.valueOf(getAttributes(...)))
     private static String getAttribute(Node node, String attribute) {

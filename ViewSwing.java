@@ -13,6 +13,7 @@ public class ViewSwing{
     JLabel turnLabel;
     JFrame frame;
     HashMap<String, JLabel> setCard = new HashMap<String, JLabel>(); // setName, cardLabel -
+    HashMap<String, String> cardPaths;
     HashMap<String, int[]> cardSpots; // setName, pos -
     HashMap<String, int[]> extraSpots; // partName, pos
     HashMap<String, int[]> shotTokens; //setName+num, pos || when removing need to be passed shottokens for indexing
@@ -144,6 +145,10 @@ public class ViewSwing{
         boardSpots.put("General Store", positions[11]);
     }
 
+    private void buildCardPaths() {
+        this.cardPaths = this.parser.buildCardPaths();
+    }
+
     public int getPlayerNum(){
         int playerNum = Integer.valueOf(JOptionPane.showInputDialog("Enter the Number of Players (2-8)"));
         //System.out.println("Enter the Number of Players (2-8)");
@@ -200,6 +205,7 @@ public class ViewSwing{
         buildExtraSpots();
         buildCardSpots();
         buildShotTokens();
+        buildCardPaths();
 
         // Add board image
         ImageIcon boardIcon = new ImageIcon("./images/board.jpg");
@@ -267,6 +273,7 @@ public class ViewSwing{
         // Scale image by given factor
         double width = boardIcon.getIconWidth() * factor;
         double height = boardIcon.getIconHeight() * factor;
+        System.out.println(boardIcon.getIconWidth());
         Image scaledImage = boardIcon.getImage().getScaledInstance((int) width, (int) height, Image.SCALE_SMOOTH);
         boardIcon = new ImageIcon(scaledImage);
         return boardIcon;
@@ -511,8 +518,12 @@ public class ViewSwing{
     public void flipCard(String cardName) {
         System.out.println("Flipped card to reveal " + cardName + "!");
 
-        ImageIcon image = new ImageIcon("./images/cards/card_1.jpg");
-        image = scaleByFactor(image, 0.6);
+        String cardPath = this.cardPaths.get(cardName);
+
+        System.out.println(this.cardPaths.get(cardName));
+
+        ImageIcon image = new ImageIcon(cardPath);
+        //image = scaleByFactor(image, 0.6);
 
         System.out.println("flipping card");
         this.setCard.get(this.currentSetName).setIcon(image);
