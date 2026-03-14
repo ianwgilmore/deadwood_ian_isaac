@@ -37,6 +37,10 @@ public class Scene{
         this.stars.add(star);
     }
 
+    public void clearStars() {
+        ArrayList<Player> stars = new ArrayList<>();
+    }
+
     public void addRole(Role role){
         this.starRoles.put(role.getTitle(),role);
     }

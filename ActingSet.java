@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ActingSet extends Set{
     Scene scene;
     HashMap<String, Role> extraroles;
-    ArrayList<Player> extras = new ArrayList<>();;
+    ArrayList<Player> extras = new ArrayList<>();
     int shotTokens;
     //might need to track max shot tokens
     int maxShotTokens;
@@ -73,6 +73,10 @@ public class ActingSet extends Set{
     }
     public ArrayList<Player> getExtras(){
         return this.extras;
+    }
+
+    public void clearExtras() {
+        this.extras = new ArrayList<>();
     }
 
     public void wrap(Board board, Controller controller){

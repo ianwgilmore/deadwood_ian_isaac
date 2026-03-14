@@ -153,6 +153,11 @@ public class Board{
         for (ActingSet set: actingsets.values()){
             set.setShotTokens();
         }
+        //remove players from extra roles
+        for (ActingSet set: actingsets.values()){
+            set.clearExtras();
+            set.getScene().clearStars();
+        }
     }
 
     public Player[] buildPlayers(int n, Checker checker, Controller controller){

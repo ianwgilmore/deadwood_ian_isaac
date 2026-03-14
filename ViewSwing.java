@@ -243,7 +243,7 @@ public class ViewSwing{
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
         scoreboardPanel.setBorder(BorderFactory.createTitledBorder("Scoreboard"));
 
-        int panelWidth = 200;
+        int panelWidth = 240;
         int panelHeight = 300;
         scoreboardPanel.setBounds(1200, 400, panelWidth,panelHeight); 
         pane.add(scoreboardPanel, Integer.valueOf(2));
