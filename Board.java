@@ -145,7 +145,7 @@ public class Board{
     public void resetExtrasTaken(){
         HashMap<String,Role> extras = new HashMap<String,Role>();
         for (ActingSet set : actingsets.values()){
-            extra = set.getExtraRoles();
+            extras = set.getExtraRoles();
             for (Role role : extras.values()){
                 role.untake();
             }

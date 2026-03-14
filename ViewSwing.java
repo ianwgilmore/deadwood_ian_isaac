@@ -604,10 +604,8 @@ public class ViewSwing{
 
     public void displayResults(Player[] players){
         System.out.println("The results are: ");
-        for (int i=0; i<results.length; i++){
-            System.out.println(i + " " +  results[i]);
-        }
-        Map<String,Integer> scores = new Map <String,Integer>();
+
+        Map<String,Integer> scores = new HashMap<>();
 
         Player player;
         Integer score;
@@ -615,17 +613,20 @@ public class ViewSwing{
         for (int i=0; i<players.length; i++){
             player = players[i];
             score = calcScore(player);
-            scores.put(player.getName(), score)
+            scores.put(player.getName(), score);
         }
 
-        String maxkey;
-        //someoutput
+        String results = "Final Scores\n";
 
-        while(scores.size()>0){
-            maxkey =  java.util.Collections.max(scores);
-            //output += (maxkey, scores.remove(maxkey))
+        while(scores.size() > 0){
+            Map.Entry<String,Integer> maxEntry =Collections.max(scores.entrySet(), Map.Entry.comparingByValue());
+
+            String maxkey = maxEntry.getKey();
+
+            results = results + maxkey + ": " + scores.remove(maxkey) + "\n";
         }
 
+        JOptionPane.showMessageDialog(null, results);
     }
 
 

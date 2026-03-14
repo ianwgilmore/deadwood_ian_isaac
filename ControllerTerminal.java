@@ -56,7 +56,7 @@ public class ControllerTerminal implements Controller{
         this.view.sendNewDay(day);
     }
 
-    public void displayResult(Player[] players){
+    public void displayResults(Player[] players){
         //this.view.displayResults(results);
     }
 
@@ -80,8 +80,8 @@ public class ControllerTerminal implements Controller{
         this.view.removeCard(cardName);
     }
     
-    public void displayResults(String[] results){
-        this.view.displayResults(results);
+    public void displayResult(Player[] player){
+        //this.view.displayResults(results);
     }
 
     public String getName(int i){
