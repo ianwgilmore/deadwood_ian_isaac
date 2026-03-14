@@ -212,12 +212,13 @@ public class Player{
     ////NEED TO ADD A WAY OF TRACKING RANK COSTS
     private void rankUp(String type, int target, Board board, Controller controller) {
         int amount = 0;
+        CastingOffice castingoffice = board.getCastingOffice(this.location);
         //pick what 
             if (type.equals("dollars")){
-                amount = this.dollars;
+                amount = castingoffice.getDolCost(target);
             }
             else if (type.equals("credits")){
-                amount = this.credits;
+                amount = castingoffice.getCredCost(target);
             }
         //if ranking up is a valid move, take payment and increase rank
         if (this.checker.checkRankUp(type, amount, target, this.location, board)) {
