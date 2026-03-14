@@ -23,7 +23,7 @@ public class ViewSwing{
     HashMap<String, JLabel> playerLabels = new HashMap<String, JLabel>(); // playerName, pos
     HashMap<JLabel, String> playerPos = new HashMap<JLabel, String>();
     HashMap<String, String> playerSet = new HashMap<String, String>();
-    String currentSetName;
+    HashMap<String, Integer> playerNums = new HashMap<String, Integer>();
     String currentPlayerName;
     JLayeredPane pane;
     String pickedRoleType;
@@ -243,7 +243,7 @@ public class ViewSwing{
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
         scoreboardPanel.setBorder(BorderFactory.createTitledBorder("Scoreboard"));
 
-        int panelWidth = 170;
+        int panelWidth = 200;
         int panelHeight = 300;
         scoreboardPanel.setBounds(1200, 400, panelWidth,panelHeight); 
         pane.add(scoreboardPanel, Integer.valueOf(2));
@@ -270,6 +270,9 @@ public class ViewSwing{
         if (label != null) {
             label.setText(name +"\n"+ "Dol: " + dol+ " Cred: " + cred + " Rank: " + rank);
         }
+        System.out.println("NEW RANK:" + rank);
+        ImageIcon diceImage = new ImageIcon(getDicePath(playerNums.get(name), rank));
+        playerLabels.get(name).setIcon(diceImage);
     }
 
 
@@ -314,40 +317,43 @@ public class ViewSwing{
         return action;
     }
 
-    public String getDicePath(int playernum){
-        String path;
-        if (playernum == 0){
-            path = "b1.png";
+    public String getDicePath(int playernum, int rank){
+        String path = "./images/dice/";
+        switch (playernum) {
+            case 0:
+                path = path + "b";
+                break;
+            case 1:
+                path = path + "c";
+                break;
+            case 2:
+                path = path + "g";
+                break;
+            case 3:
+                path = path + "o";
+                break;
+            case 4:
+                path = path + "p";
+                break;
+            case 5:
+                path = path + "r";
+                break;
+            case 6:
+                path = path + "y";
+                break;
+            default:
+                path = path + "br";
+                break;
         }
-        else if (playernum == 1){
-            path = "c1.png";
-        }
-        else if (playernum == 2){
-            path = "g1.png";
-        }
-        else if (playernum == 3){
-            path = "o1.png";
-        }
-        else if (playernum == 4){
-            path = "p1.png";
-        }
-        else if (playernum == 5){
-            path = "r1.png";
-        }
-        else if (playernum == 6){
-            path = "y1.png";
-        }
-        else{
-            path = "br1.png";
-        }
+        path = path + String.valueOf(rank) + ".png";
         return path;
     }
 
     public void buildPlayer(String name, int playernum){
-        String path = "./images/dice/";
-        path = path +getDicePath(playernum);
+        String path = getDicePath(playernum, 1);
         System.out.println(path);
         if (!playerLabels.containsKey(name)){
+            playerNums.put(name, playernum);
             ImageIcon playerIcon = new ImageIcon(path);
             JLabel playerLabel = new JLabel();
             playerLabel.setIcon(playerIcon);
@@ -451,7 +457,7 @@ public class ViewSwing{
         String target = getClickedButton();
 
         // this.currentSetName = target;
-        this.playerSet.put(currentPlayerName, target);
+        playerSet.put(currentPlayerName, target);
 
         //this.playerPos.put(currentPlayerName);
 
@@ -460,7 +466,7 @@ public class ViewSwing{
         // count players on current set
         int playersOnSet = 0;
         for (String set : playerSet.values()) {
-            if (set == target) {
+            if (set.equals(target)) {
                 playersOnSet++;
             }
         }
