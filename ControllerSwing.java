@@ -80,8 +80,8 @@ public class ControllerSwing implements Controller{
         this.view.displayWrap();
     }
 
-    public void displayResults(String[] results){
-        this.view.displayResults(results);
+    public void displayResults(Player[] players){
+        this.view.displayResults(players);
     }
 
     public String getName(int i){

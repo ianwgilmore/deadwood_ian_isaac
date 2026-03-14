@@ -141,9 +141,20 @@ public class Board{
         return placeholder;
     }
 
+
+    public void resetExtrasTaken(){
+        HashMap<String,Role> extras = new HashMap<String,Role>();
+        for (ActingSet set : actingsets.values()){
+            extra = set.getExtraRoles();
+            for (Role role : extras.values()){
+                role.untake();
+            }
+        }
+    }
     public void setBoard(Player[] players){
         //replaces current scenes with new scenes
         assignScenes();
+        resetExtrasTaken();
         //move players to trailer
         for(int i = 0; i<players.length;i++){
             players[i].setLocation(this.trailer.getName());
@@ -188,35 +199,13 @@ public class Board{
         return neighbors;
     }
 
+        
+
     public void results(Player[] players, Controller controller){
-        HashMap<Integer, String> tempMap = new HashMap<Integer, String>();
-        String[] results= new String[players.length];
-        Integer[] sortingArray= new Integer[players.length];
-        Player player;
-        Integer score;
-        for (int i=0; i<players.length; i++){
-            player = players[i];
-            score = calcScore(player);
-            tempMap.put(score, player.getName());
-            sortingArray[i] = score;
-        }
-        //sort by score
-        Arrays.sort(sortingArray);
-        String tempPlayer;
-        //index into hashmap to build an array of names rather than scores
-        for (int i=0; i<sortingArray.length; i++){
-            tempPlayer = tempMap.get(sortingArray[i]);
-            results[i] = tempPlayer;
-        }
+        
         //send results to view
-        controller.displayResults(results);
+        controller.displayResults(players);
 
-    }
-
-    public int calcScore(Player player){
-        int rankScore = 5*player.getRank();
-        int score = player.getDollars() + player.getCredits() + rankScore;
-        return score;
     }
 
 }

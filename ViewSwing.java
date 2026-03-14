@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import javax.swing.*;
+import java.util.Map;
+import java.util.Collections;
 
 // Change to use swing and not terminal
 public class ViewSwing{
@@ -600,11 +602,38 @@ public class ViewSwing{
         //need to reset the board and the players but not the scoreboard
     }
 
-    public void displayResults(String[] results){
+    public void displayResults(Player[] players){
         System.out.println("The results are: ");
         for (int i=0; i<results.length; i++){
             System.out.println(i + " " +  results[i]);
         }
+        Map<String,Integer> scores = new Map <String,Integer>();
+
+        Player player;
+        Integer score;
+
+        for (int i=0; i<players.length; i++){
+            player = players[i];
+            score = calcScore(player);
+            scores.put(player.getName(), score)
+        }
+
+        String maxkey;
+        //someoutput
+
+        while(scores.size()>0){
+            maxkey =  java.util.Collections.max(scores);
+            //output += (maxkey, scores.remove(maxkey))
+        }
+
+    }
+
+
+    
+    public int calcScore(Player player){
+            int rankScore = 5*player.getRank();
+            int score = player.getDollars() + player.getCredits() + rankScore;
+            return score;
     }
 
     public void removeShot(int shots, String actset){

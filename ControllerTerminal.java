@@ -56,8 +56,8 @@ public class ControllerTerminal implements Controller{
         this.view.sendNewDay(day);
     }
 
-    public void displayResult(String[] results){
-        this.view.displayResults(results);
+    public void displayResult(Player[] players){
+        //this.view.displayResults(results);
     }
 
     public void flipCard(String cardName) {

@@ -62,6 +62,10 @@ public class Role{
         this.taken = true;
     }
 
+    public void untake(){
+        this.taken = false;
+    }
+
     public int getRank(){
         return this.rank;
     }
